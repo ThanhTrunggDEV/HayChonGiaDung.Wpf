@@ -149,7 +149,9 @@ namespace HayChonGiaDung.Wpf
                 PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
                 SoundManager.Correct();
                 Feedback.Text = "✅ Chuẩn bài! +1.500.000 ₫";
-                await Task.Delay(1000);
+                await Task.Delay(600);
+                await RoundCelebrationHelper.ShowWinAsync(this,
+                    "Bạn đã tìm đúng sản phẩm sai giá! +1.500.000 ₫");
                 this.DialogResult = true;
                 Close();
             }
@@ -157,7 +159,9 @@ namespace HayChonGiaDung.Wpf
             {
                 SoundManager.Wrong();
                 Feedback.Text = "❌ Sai mất rồi! Vòng này 0 ₫.";
-                await Task.Delay(1000);
+                await Task.Delay(600);
+                RoundCelebrationHelper.ShowLose(this,
+                    "Bạn đã chọn sai sản phẩm sai giá. Vòng này không có tiền thưởng.");
                 this.DialogResult = false;
                 Close();
             }
