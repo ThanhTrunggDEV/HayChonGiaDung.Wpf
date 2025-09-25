@@ -27,22 +27,44 @@ namespace HayChonGiaDung.Wpf
             r1.Owner = this;
             r1.ShowDialog();
             PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
-            if (GameState.TotalPrize == 0) { new EndGameWindow().ShowDialog(); return; }
+            if (HandleGameOver()) { return; }
 
             var r2 = new Round2Window(); r2.Owner = this; r2.ShowDialog();
             PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
-            if (GameState.TotalPrize == 0) { new EndGameWindow().ShowDialog(); return; }
+            if (HandleGameOver()) { return; }
 
             var r3 = new Round3Window(); r3.Owner = this; r3.ShowDialog();
             PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
-            if (GameState.TotalPrize == 0) { new EndGameWindow().ShowDialog(); return; }
+            if (HandleGameOver()) { return; }
 
             var r4 = new Round4Window(); r4.Owner = this; r4.ShowDialog();
             PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
-            if (GameState.TotalPrize == 0) { new EndGameWindow().ShowDialog(); return; }
+            if (HandleGameOver()) { return; }
 
             SoundManager.Win();
             MessageBox.Show($"Chúc mừng {GameState.PlayerName}! Bạn đã hoàn thành tất cả vòng chơi.\nTổng thưởng: {GameState.TotalPrize:N0} ₫","Hoàn thành");
+            ReturnToStart();
+        }
+
+        private bool HandleGameOver()
+        {
+            if (GameState.TotalPrize > 0)
+            {
+                return false;
+            }
+
+            var endGameWindow = new EndGameWindow { Owner = this };
+            endGameWindow.ShowDialog();
+            ReturnToStart();
+            return true;
+        }
+
+        private void ReturnToStart()
+        {
+            var startWindow = new StartWindow();
+            startWindow.Show();
+            Application.Current.MainWindow = startWindow;
+            Close();
         }
     }
 }
