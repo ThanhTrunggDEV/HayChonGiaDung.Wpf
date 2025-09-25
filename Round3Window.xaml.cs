@@ -5,221 +5,238 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace HayChonGiaDung.Wpf
 {
     public partial class Round3Window : Window
     {
-        private readonly List<Border> _cards = new();
-        private int fakeIndex;
-        private Product[] group = new Product[6];
-        private int[] displayPrices = new int[6];
-        private bool picked;
-        private bool hintUsed;
+        private readonly List<TextBox> _boxes;
+        private readonly HashSet<int> _lockedPositions = new();
+        private DispatcherTimer? _timer;
+        private int _timeLeft = 60;
+        private Product _current = null!;
+        private string _targetDigits = string.Empty;
+        private bool _roundActive;
 
         public Round3Window()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
             SoundManager.StartRound();
 
-            PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
-            RefreshHud();
-            GenerateRound();
+            _boxes = new List<TextBox> { D1, D2, D3, D4 };
+            foreach (var box in _boxes)
+            {
+                box.PreviewTextInput += OnlyDigits;
+                box.TextChanged += AutoAdvance;
+                box.PreviewKeyDown += HandleBackspace;
+            }
+
+            BeginRound();
         }
 
-        private void GenerateRound()
+        private void BeginRound()
         {
-            picked = false;
-            hintUsed = false;
+            _roundActive = true;
             Feedback.Text = string.Empty;
-
-            var pool = GameState.Catalog.OrderBy(_ => GameState.Rnd.Next()).Take(6).ToArray();
-            if (pool.Length < 6)
+            Hint.Text = string.Empty;
+            _lockedPositions.Clear();
+            foreach (var box in _boxes)
             {
-                pool = new[]
-                {
-                    new Product{ Name="SP A", Price=8_500_000 },
-                    new Product{ Name="SP B", Price=9_200_000 },
-                    new Product{ Name="SP C", Price=7_800_000 },
-                    new Product{ Name="SP D", Price=8_100_000 },
-                    new Product{ Name="SP E", Price=7_900_000 },
-                    new Product{ Name="SP F", Price=8_000_000 }
-                };
+                box.IsEnabled = true;
+                box.Text = string.Empty;
             }
 
-            for (int i = 0; i < 6; i++) group[i] = pool[i];
-
-            fakeIndex = GameState.Rnd.Next(6);
-            for (int i = 0; i < 6; i++)
-            {
-                if (i == fakeIndex)
-                {
-                    var basePrice = group[i].Price;
-                    var sign = GameState.Rnd.Next(2) == 0 ? -1 : 1;
-                    var pct = GameState.Rnd.Next(30, 61) / 100.0;
-                    int altered = (int)Math.Max(1000, basePrice + sign * basePrice * pct);
-                    if (altered == basePrice) altered += 10000;
-                    displayPrices[i] = altered;
-                }
-                else
-                {
-                    displayPrices[i] = group[i].Price;
-                }
-            }
-
-            RenderCards();
+            PickProduct();
+            RestartTimer();
+            RefreshHud();
+            D1.Focus();
         }
 
-        private void RenderCards()
+        private void PickProduct()
         {
-            GridProducts.Children.Clear();
-            _cards.Clear();
+            _current = GameState.Catalog.Count > 0
+                ? GameState.Catalog[GameState.Rnd.Next(GameState.Catalog.Count)]
+                : new Product { Name = "Sản phẩm demo", Price = 2_890_000, Image = null };
 
-            for (int i = 0; i < 6; i++)
+            var price = Math.Max(1_000, _current.Price);
+            _targetDigits = (price / 1_000).ToString("0000");
+
+            ProductName.Text = $"Đoán 4 chữ số giá (x.000 ₫): {_current.Name}";
+            ProductDesc.Text = string.IsNullOrWhiteSpace(_current.Description)
+                ? "Chưa có mô tả cho sản phẩm này."
+                : _current.Description;
+
+            ProductImage.Source = null;
+            try
             {
-                var sp = group[i];
-                int shownPrice = displayPrices[i];
-
-                var card = new Border
+                if (!string.IsNullOrWhiteSpace(_current.ImageUrl) && Uri.IsWellFormedUriString(_current.ImageUrl, UriKind.Absolute))
                 {
-                    CornerRadius = new CornerRadius(16),
-                    Background = Brushes.Transparent,
-                    BorderThickness = new Thickness(1),
-                    BorderBrush = Brushes.DimGray,
-                    Margin = new Thickness(10),
-                    Padding = new Thickness(12),
-                    Opacity = 0
-                };
-
-                var stack = new StackPanel();
-
-                var img = new Image { Height = 180, Stretch = Stretch.UniformToFill };
-                if (!string.IsNullOrWhiteSpace(sp.ImageUrl) && Uri.IsWellFormedUriString(sp.ImageUrl, UriKind.Absolute))
-                {
-                    img.Source = new BitmapImage(new Uri(sp.ImageUrl));
+                    ProductImage.Source = new BitmapImage(new Uri(_current.ImageUrl));
                 }
-                else if (!string.IsNullOrWhiteSpace(sp.Image))
+                else if (!string.IsNullOrWhiteSpace(_current.Image))
                 {
-                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Images", sp.Image);
+                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Images", _current.Image);
                     if (File.Exists(path))
-                        img.Source = new BitmapImage(new Uri(path));
+                    {
+                        ProductImage.Source = new BitmapImage(new Uri(path));
+                    }
                 }
-
-                var name = new TextBlock
-                {
-                    Text = sp.Name,
-                    TextWrapping = TextWrapping.Wrap,
-                    FontWeight = FontWeights.Bold,
-                    FontSize = 18,
-                    Margin = new Thickness(0, 8, 0, 4)
-                };
-
-                var price = new TextBlock
-                {
-                    Text = $"{shownPrice:N0} ₫",
-                    Opacity = 0.9,
-                    FontSize = 16
-                };
-
-                var btn = new Button
-                {
-                    Content = "Chọn sản phẩm này",
-                    Tag = i,
-                    Margin = new Thickness(0, 10, 0, 0)
-                };
-                btn.Click += Pick;
-
-                stack.Children.Add(img);
-                stack.Children.Add(name);
-                stack.Children.Add(price);
-                stack.Children.Add(btn);
-
-                card.Child = stack;
-                GridProducts.Children.Add(card);
-                _cards.Add(card);
-
-                AnimateCard(card);
             }
-
-            SoundManager.Reveal();
+            catch
+            {
+                ProductImage.Source = null;
+            }
         }
 
-        private async void Pick(object sender, RoutedEventArgs e)
+        private void RestartTimer()
         {
-            if (picked) return;
-            picked = true;
+            _timer?.Stop();
+            _timeLeft = 60;
+            TimerText.Text = _timeLeft.ToString();
+            _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            _timer.Tick += Timer_Tick;
+            _timer.Start();
+        }
 
-            int idx = (int)((Button)sender).Tag;
-            bool correct = idx == fakeIndex;
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            if (!_roundActive) return;
 
-            HighlightSelection(idx, correct);
+            _timeLeft--;
+            TimerText.Text = _timeLeft.ToString();
 
-            foreach (var button in GridProducts.Children.OfType<Border>().SelectMany(b => b.Child is StackPanel sp ? sp.Children.OfType<Button>() : Array.Empty<Button>()))
+            if (_timeLeft <= 0)
             {
-                button.IsEnabled = false;
-            }
-
-            if (correct)
-            {
-                GameState.AddPrize(1_500_000);
-                PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
-                SoundManager.Correct();
-                Feedback.Text = "✅ Chuẩn bài! +1.500.000 ₫";
-                RefreshHud();
-                await Task.Delay(1000);
-                DialogResult = true;
-                Close();
-            }
-            else
-            {
+                _timer?.Stop();
+                _roundActive = false;
                 SoundManager.Wrong();
-                Feedback.Text = $"❌ Sai mất rồi! Giá đúng của {group[fakeIndex].Name} là {group[fakeIndex].Price:N0} ₫.";
-                RefreshHud();
-                await Task.Delay(1000);
+                MessageBox.Show("⏰ Hết giờ! Bạn đã thua vòng Đếm Ngược 4 Số", "Hết giờ", MessageBoxButton.OK, MessageBoxImage.Information);
                 DialogResult = false;
                 Close();
             }
         }
 
-        private void HintButton_Click(object sender, RoutedEventArgs e)
+        private void OnlyDigits(object sender, TextCompositionEventArgs e)
         {
-            if (hintUsed)
+            e.Handled = !e.Text.All(char.IsDigit);
+        }
+
+        private void AutoAdvance(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox box && box.Text.Length == 1)
             {
-                Feedback.Text = "Bạn đã dùng gợi ý.";
+                int index = _boxes.IndexOf(box);
+                if (index < _boxes.Count - 1)
+                {
+                    _boxes[index + 1].Focus();
+                    _boxes[index + 1].SelectAll();
+                }
+            }
+        }
+
+        private void HandleBackspace(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Back) return;
+            if (sender is not TextBox box) return;
+            int index = _boxes.IndexOf(box);
+            if (index <= 0 || box.SelectionStart != 0 || box.SelectionLength != 0) return;
+
+            _boxes[index - 1].Focus();
+            _boxes[index - 1].SelectAll();
+        }
+
+        private async void Check_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_roundActive) return;
+
+            string guess = string.Concat(_boxes.Select(b => string.IsNullOrEmpty(b.Text) ? "_" : b.Text));
+            if (guess.Contains('_'))
+            {
+                Feedback.Text = "⚠️ Nhập đủ 4 chữ số (0-9).";
                 return;
             }
+
+            if (!int.TryParse(guess, out var guessValue))
+            {
+                Feedback.Text = "⚠️ Chỉ được nhập chữ số.";
+                return;
+            }
+
+            int target = int.Parse(_targetDigits);
+            if (guessValue == target)
+            {
+                _roundActive = false;
+                _timer?.Stop();
+                GameState.AddPrize(1_000_000);
+                Feedback.Text = $"✅ Chính xác! Giá: {target:N0}.000 ₫";
+                SoundManager.Correct();
+                RefreshHud();
+                await Task.Delay(1000);
+                DialogResult = true;
+                Close();
+                return;
+            }
+
+            SoundManager.Wrong();
+            var hint = BuildHintString(guess);
+            Hint.Text = $"Gợi ý: {hint}";
+            Feedback.Text = "Sai rồi, thử lại nhé!";
+            RefreshHud();
+            D1.Focus();
+            D1.SelectAll();
+        }
+
+        private string BuildHintString(string guess)
+        {
+            char[] hints = new char[4];
+            for (int i = 0; i < 4; i++)
+            {
+                int guessDigit = guess[i] - '0';
+                int targetDigit = _targetDigits[i] - '0';
+                hints[i] = guessDigit == targetDigit ? '=' : guessDigit < targetDigit ? '<' : '>';
+            }
+            return $"[{string.Join(' ', hints)}]";
+        }
+
+        private void HintButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_roundActive) return;
 
             if (!EnsureCardAvailable(PowerCardType.Hint, 5, "Gợi ý"))
                 return;
 
-            hintUsed = true;
-            var highlightCount = 3;
-            var highlight = new HashSet<int> { fakeIndex };
-            while (highlight.Count < highlightCount)
+            var available = Enumerable.Range(0, 4).Where(i => !_lockedPositions.Contains(i)).ToList();
+            if (available.Count == 0)
             {
-                highlight.Add(GameState.Rnd.Next(group.Length));
+                Feedback.Text = "Đã tiết lộ toàn bộ chữ số.";
+                return;
             }
 
-            foreach (var index in highlight)
-            {
-                _cards[index].Background = new SolidColorBrush(Color.FromArgb(40, 30, 144, 255));
-            }
+            int revealIndex = available[GameState.Rnd.Next(available.Count)];
+            _lockedPositions.Add(revealIndex);
 
-            Feedback.Text = "Một trong các thẻ được tô xanh là đáp án sai giá.";
+            var targetDigit = _targetDigits[revealIndex].ToString();
+            var box = _boxes[revealIndex];
+            box.Text = targetDigit;
+            box.IsEnabled = false;
+            Feedback.Text = $"Đã mở khóa chữ số thứ {revealIndex + 1}: {targetDigit}.";
             RefreshHud();
         }
 
         private void SwapButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!EnsureCardAvailable(PowerCardType.SwapProduct, 8, "Đổi bộ"))
+            if (!_roundActive) return;
+
+            if (!EnsureCardAvailable(PowerCardType.SwapProduct, 8, "Đổi sản phẩm"))
                 return;
 
-            Feedback.Text = "Đã đổi sang bộ sản phẩm mới.";
+            BeginRound();
+            Feedback.Text = "Đã đổi sang sản phẩm mới.";
             RefreshHud();
-            GenerateRound();
         }
 
         private void DoubleButton_Click(object sender, RoutedEventArgs e)
@@ -228,41 +245,20 @@ namespace HayChonGiaDung.Wpf
                 return;
 
             GameState.QueueDoubleReward();
-            Feedback.Text = "⭐ Thẻ nhân đôi đã sẵn sàng.";
+            Feedback.Text = "⭐ Phần thưởng vòng này sẽ được nhân đôi nếu thắng!";
             RefreshHud();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            _roundActive = false;
+            _timer?.Stop();
             DialogResult = false;
             Close();
         }
 
-        private void HighlightSelection(int pickedIndex, bool correct)
-        {
-            for (int i = 0; i < _cards.Count; i++)
-            {
-                if (i == fakeIndex)
-                {
-                    _cards[i].BorderBrush = Brushes.LimeGreen;
-                    _cards[i].BorderThickness = new Thickness(3);
-                }
-                else if (i == pickedIndex && !correct)
-                {
-                    _cards[i].BorderBrush = Brushes.IndianRed;
-                    _cards[i].BorderThickness = new Thickness(3);
-                }
-                else
-                {
-                    _cards[i].BorderBrush = Brushes.DimGray;
-                    _cards[i].BorderThickness = new Thickness(1);
-                }
-            }
-        }
-
         private void RefreshHud()
         {
-            PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
             CoinText.Text = GameState.Coins.ToString();
             CardText.Text = $"Gợi ý {GameState.GetCardCount(PowerCardType.Hint)} • Đổi {GameState.GetCardCount(PowerCardType.SwapProduct)} • x2 {GameState.GetCardCount(PowerCardType.DoubleReward)}";
         }
@@ -298,16 +294,13 @@ namespace HayChonGiaDung.Wpf
             return true;
         }
 
-        private void AnimateCard(Border card)
+        protected override void OnClosed(EventArgs e)
         {
-            try
+            base.OnClosed(e);
+            _timer?.Stop();
+            if (_timer != null)
             {
-                var animation = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(350));
-                card.BeginAnimation(UIElement.OpacityProperty, animation);
-            }
-            catch
-            {
-                // ignore
+                _timer.Tick -= Timer_Tick;
             }
         }
     }
