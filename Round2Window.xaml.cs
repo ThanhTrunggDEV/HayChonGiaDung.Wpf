@@ -127,7 +127,7 @@ namespace HayChonGiaDung.Wpf
                 .ToList();
 
             SelectionPanel.Visibility = Visibility.Visible;
-            SelectionHintButton.IsEnabled = GameState.GetHelpCount(HelpCardType.Hint) > 0;
+            SelectionHintButton.IsEnabled = true;
             SelectionFeedback.Text = "";
             DigitsPanel.Visibility = Visibility.Collapsed;
         }
@@ -161,7 +161,7 @@ namespace HayChonGiaDung.Wpf
         {
             if (!GameState.UseHelpCard(HelpCardType.Hint))
             {
-                SelectionFeedback.Text = "Bạn không còn thẻ gợi ý.";
+                MessageBox.Show("Bạn không đủ thẻ gợi ý.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -169,7 +169,6 @@ namespace HayChonGiaDung.Wpf
                 ? selectionPool.OrderByDescending(p => p.Price).Take(2).Select(p => p.Name)
                 : selectionPool.OrderBy(p => p.Price).Take(2).Select(p => p.Name);
             SelectionFeedback.Text = "🔍 Gợi ý: Đáp án nằm trong " + string.Join(" hoặc ", ordered);
-            SelectionHintButton.IsEnabled = GameState.GetHelpCount(HelpCardType.Hint) > 0;
         }
 
         private void InitializeDigitsPhase()
@@ -189,9 +188,9 @@ namespace HayChonGiaDung.Wpf
             D1.Text = D2.Text = D3.Text = D4.Text = string.Empty;
             Hint.Text = string.Empty;
             doubleRewardActive = false;
-            DigitDoubleButton.IsEnabled = GameState.GetHelpCount(HelpCardType.DoubleReward) > 0;
-            DigitHintButton.IsEnabled = GameState.GetHelpCount(HelpCardType.Hint) > 0;
-            DigitSwapButton.IsEnabled = GameState.GetHelpCount(HelpCardType.SwapProduct) > 0;
+            DigitDoubleButton.IsEnabled = true;
+            DigitHintButton.IsEnabled = true;
+            DigitSwapButton.IsEnabled = true;
             D1.Focus();
         }
 
@@ -219,7 +218,7 @@ namespace HayChonGiaDung.Wpf
         {
             if (!GameState.UseHelpCard(HelpCardType.Hint))
             {
-                Hint.Text = "Bạn không còn thẻ gợi ý.";
+                MessageBox.Show("Bạn không đủ thẻ gợi ý.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -234,15 +233,13 @@ namespace HayChonGiaDung.Wpf
                 case 2: D3.Text = digit.ToString(); break;
                 case 3: D4.Text = digit.ToString(); break;
             }
-
-            DigitHintButton.IsEnabled = GameState.GetHelpCount(HelpCardType.Hint) > 0;
         }
 
         private void DigitSwap_Click(object sender, RoutedEventArgs e)
         {
             if (!GameState.UseHelpCard(HelpCardType.SwapProduct))
             {
-                Hint.Text = "Bạn không còn thẻ đổi sản phẩm.";
+                MessageBox.Show("Bạn không đủ thẻ đổi sản phẩm.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -252,15 +249,20 @@ namespace HayChonGiaDung.Wpf
 
         private void DigitDouble_Click(object sender, RoutedEventArgs e)
         {
+            if (doubleRewardActive)
+            {
+                MessageBox.Show("Bạn đã kích hoạt nhân đôi thưởng rồi!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             if (!GameState.UseHelpCard(HelpCardType.DoubleReward))
             {
-                Hint.Text = "Bạn không còn thẻ nhân đôi.";
+                MessageBox.Show("Bạn không đủ thẻ nhân đôi.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             doubleRewardActive = true;
             Hint.Text = "✨ Nếu trả lời đúng bạn sẽ được nhân đôi thưởng.";
-            DigitDoubleButton.IsEnabled = GameState.GetHelpCount(HelpCardType.DoubleReward) > 0;
         }
 
         private record SelectionDisplay(int Index, string Name, BitmapImage? Image);

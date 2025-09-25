@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -11,8 +15,11 @@ namespace HayChonGiaDung.Wpf
 {
     public partial class Round5Window : Window
     {
-        private readonly List<FinalCard> _cards = new();
+        private ObservableCollection<FinalCard> _cards = new();
         private bool _doubleActive = false;
+        private Point? _dragStartPoint;
+        private ListBoxItem? _draggedContainer;
+
         private const int BaseReward = 700_000;
         private const int ProtectedConsolation = 300_000;
 
@@ -35,9 +42,6 @@ namespace HayChonGiaDung.Wpf
             {
                 CardText.Text = "Chưa có";
             }
-            HintButton.IsEnabled = GameState.GetHelpCount(HelpCardType.Hint) > 0;
-            SwapButton.IsEnabled = GameState.GetHelpCount(HelpCardType.SwapProduct) > 0;
-            DoubleButton.IsEnabled = !_doubleActive && GameState.GetHelpCount(HelpCardType.DoubleReward) > 0;
         }
 
         private static string GetCardName(HelpCardType type) => type switch
@@ -50,9 +54,6 @@ namespace HayChonGiaDung.Wpf
 
         private void BuildCards()
         {
-            _cards.Clear();
-            ProductsPanel.Children.Clear();
-
             var picks = GameState.Catalog.OrderBy(_ => GameState.Rnd.Next()).Take(5).ToList();
             if (picks.Count < 3)
             {
@@ -68,49 +69,27 @@ namespace HayChonGiaDung.Wpf
             int count = Math.Min(5, Math.Max(3, picks.Count));
             picks = picks.Take(count).ToList();
 
-            for (int i = 0; i < picks.Count; i++)
+            _cards = new ObservableCollection<FinalCard>(
+                picks.Select(p => new FinalCard(p, TryLoadImage(p))));
+            ProductsList.ItemsSource = _cards;
+            RefreshDisplayOrders();
+            foreach (var card in _cards)
             {
-                var product = picks[i];
-                var card = CreateCard(product, i, count);
-                _cards.Add(card);
-                ProductsPanel.Children.Add(card.Container);
+                card.Status = string.Empty;
+                card.IsProtected = false;
+            }
+            Feedback.Text = string.Empty;
+        }
+
+        private void RefreshDisplayOrders()
+        {
+            for (int i = 0; i < _cards.Count; i++)
+            {
+                _cards[i].DisplayOrder = i + 1;
             }
         }
 
-        private FinalCard CreateCard(Product product, int index, int total)
-        {
-            var border = new Border
-            {
-                CornerRadius = new CornerRadius(16),
-                BorderThickness = new Thickness(1),
-                BorderBrush = System.Windows.Media.Brushes.DimGray,
-                Margin = new Thickness(12),
-                Padding = new Thickness(12),
-                Width = 240
-            };
-
-            var stack = new StackPanel();
-            var img = new Image { Height = 160, Stretch = System.Windows.Media.Stretch.UniformToFill, Margin = new Thickness(0, 0, 0, 8) };
-            img.Source = TryLoadImage(product);
-            var name = new TextBlock { Text = product.Name, FontWeight = FontWeights.Bold, FontSize = 18, TextWrapping = TextWrapping.Wrap };
-            var orderBox = new ComboBox { Margin = new Thickness(0, 10, 0, 0), FontSize = 16 };
-            for (int i = 1; i <= total; i++) orderBox.Items.Add(i);
-            orderBox.SelectedIndex = -1;
-            var protect = new RadioButton { Content = "Bảo toàn", GroupName = "ProtectGroup", Margin = new Thickness(0, 10, 0, 0) };
-            var status = new TextBlock { Margin = new Thickness(0, 10, 0, 0), TextWrapping = TextWrapping.Wrap };
-
-            stack.Children.Add(img);
-            stack.Children.Add(name);
-            stack.Children.Add(orderBox);
-            stack.Children.Add(protect);
-            stack.Children.Add(status);
-
-            border.Child = stack;
-
-            return new FinalCard(product, orderBox, protect, status, border);
-        }
-
-        private static BitmapImage? TryLoadImage(Product p)
+        private static ImageSource? TryLoadImage(Product p)
         {
             try
             {
@@ -122,7 +101,9 @@ namespace HayChonGiaDung.Wpf
                 {
                     string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Images", p.Image);
                     if (File.Exists(path))
+                    {
                         return new BitmapImage(new Uri(path));
+                    }
                 }
             }
             catch { }
@@ -133,7 +114,13 @@ namespace HayChonGiaDung.Wpf
         {
             if (!GameState.UseHelpCard(HelpCardType.Hint))
             {
-                Feedback.Text = "Bạn không còn thẻ gợi ý.";
+                MessageBox.Show("Bạn không đủ thẻ gợi ý.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (_cards.Count == 0)
+            {
+                Feedback.Text = string.Empty;
                 return;
             }
 
@@ -147,7 +134,7 @@ namespace HayChonGiaDung.Wpf
         {
             if (!GameState.UseHelpCard(HelpCardType.SwapProduct))
             {
-                Feedback.Text = "Bạn không còn thẻ đổi sản phẩm.";
+                MessageBox.Show("Bạn không đủ thẻ đổi sản phẩm.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -158,33 +145,126 @@ namespace HayChonGiaDung.Wpf
 
         private void Double_Click(object sender, RoutedEventArgs e)
         {
+            if (_doubleActive)
+            {
+                MessageBox.Show("Bạn đã kích hoạt nhân đôi thưởng rồi!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             if (!GameState.UseHelpCard(HelpCardType.DoubleReward))
             {
-                Feedback.Text = "Bạn không còn thẻ nhân đôi.";
+                MessageBox.Show("Bạn không đủ thẻ nhân đôi.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             _doubleActive = true;
             Feedback.Text = "✨ Toàn bộ tiền thưởng vòng này sẽ được nhân đôi nếu xếp đúng.";
-            DoubleButton.IsEnabled = GameState.GetHelpCount(HelpCardType.DoubleReward) > 0;
             RefreshHud();
+        }
+
+        private void ProductsList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _dragStartPoint = e.GetPosition(null);
+            _draggedContainer = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+        }
+
+        private void ProductsList_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (_draggedContainer == null || _dragStartPoint == null)
+            {
+                return;
+            }
+
+            if (e.LeftButton != MouseButtonState.Pressed)
+            {
+                _draggedContainer = null;
+                _dragStartPoint = null;
+                return;
+            }
+
+            Point position = e.GetPosition(null);
+            if (Math.Abs(position.X - _dragStartPoint.Value.X) < SystemParameters.MinimumHorizontalDragDistance &&
+                Math.Abs(position.Y - _dragStartPoint.Value.Y) < SystemParameters.MinimumVerticalDragDistance)
+            {
+                return;
+            }
+
+            if (_draggedContainer.DataContext is FinalCard card)
+            {
+                DragDrop.DoDragDrop(_draggedContainer, card, DragDropEffects.Move);
+            }
+            _draggedContainer = null;
+            _dragStartPoint = null;
+        }
+
+        private void ProductsList_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(typeof(FinalCard)) is not FinalCard card)
+            {
+                return;
+            }
+
+            int sourceIndex = _cards.IndexOf(card);
+            if (sourceIndex < 0)
+            {
+                return;
+            }
+
+            var targetContainer = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+            int targetIndex = targetContainer != null
+                ? ProductsList.ItemContainerGenerator.IndexFromContainer(targetContainer)
+                : _cards.Count - 1;
+
+            if (targetIndex < 0)
+            {
+                targetIndex = _cards.Count - 1;
+            }
+
+            if (targetIndex == sourceIndex)
+            {
+                return;
+            }
+
+            _cards.Move(sourceIndex, targetIndex);
+            RefreshDisplayOrders();
+            _draggedContainer = null;
+            _dragStartPoint = null;
+        }
+
+        private static T? FindAncestor<T>(DependencyObject? current) where T : DependencyObject
+        {
+            while (current != null)
+            {
+                if (current is T match)
+                {
+                    return match;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            return null;
+        }
+
+        private void Protect_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton rb && rb.DataContext is FinalCard selected)
+            {
+                foreach (var card in _cards)
+                {
+                    if (!ReferenceEquals(card, selected) && card.IsProtected)
+                    {
+                        card.IsProtected = false;
+                    }
+                }
+                selected.IsProtected = true;
+            }
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            var usedOrders = new HashSet<int>();
-            foreach (var card in _cards)
+            if (_cards.Count == 0)
             {
-                if (card.Order.SelectedItem is not int order)
-                {
-                    Feedback.Text = "Hãy chọn đầy đủ thứ tự cho từng sản phẩm.";
-                    return;
-                }
-                if (!usedOrders.Add(order))
-                {
-                    Feedback.Text = "Mỗi thứ tự chỉ được dùng một lần.";
-                    return;
-                }
+                Feedback.Text = "Không có sản phẩm để xếp hạng.";
+                return;
             }
 
             var sorted = _cards.OrderBy(c => c.Product.Price).ToList();
@@ -192,24 +272,23 @@ namespace HayChonGiaDung.Wpf
 
             foreach (var card in _cards)
             {
-                int chosen = (int)card.Order.SelectedItem!;
-                int actualIndex = sorted.IndexOf(sorted.First(c => c.Product == card.Product)) + 1;
-                if (chosen == actualIndex)
+                int actualIndex = sorted.IndexOf(card) + 1;
+                if (card.DisplayOrder == actualIndex)
                 {
                     int add = BaseReward;
                     if (_doubleActive) add *= 2;
                     reward += add;
-                    card.Status.Text = $"✅ Đúng vị trí! +{add:N0} ₫";
+                    card.Status = $"✅ Đúng vị trí! +{add:N0} ₫";
                 }
-                else if (card.Protect.IsChecked == true)
+                else if (card.IsProtected)
                 {
                     int add = ProtectedConsolation;
                     reward += add;
-                    card.Status.Text = $"🛡️ Bảo toàn: +{add:N0} ₫ (vị trí đúng là {actualIndex})";
+                    card.Status = $"🛡️ Bảo toàn: +{add:N0} ₫ (vị trí đúng là {actualIndex})";
                 }
                 else
                 {
-                    card.Status.Text = $"❌ Sai. Vị trí đúng: {actualIndex}";
+                    card.Status = $"❌ Sai. Vị trí đúng: {actualIndex}";
                 }
             }
 
@@ -230,6 +309,68 @@ namespace HayChonGiaDung.Wpf
             Close();
         }
 
-        private record FinalCard(Product Product, ComboBox Order, RadioButton Protect, TextBlock Status, Border Container);
+        public class FinalCard : INotifyPropertyChanged
+        {
+            public FinalCard(Product product, ImageSource? image)
+            {
+                Product = product;
+                Image = image;
+            }
+
+            public Product Product { get; }
+            public ImageSource? Image { get; }
+
+            private bool _isProtected;
+            public bool IsProtected
+            {
+                get => _isProtected;
+                set
+                {
+                    if (_isProtected != value)
+                    {
+                        _isProtected = value;
+                        OnPropertyChanged();
+                    }
+                }
+            }
+
+            private string _status = string.Empty;
+            public string Status
+            {
+                get => _status;
+                set
+                {
+                    if (_status != value)
+                    {
+                        _status = value;
+                        OnPropertyChanged();
+                    }
+                }
+            }
+
+            private int _displayOrder;
+            public int DisplayOrder
+            {
+                get => _displayOrder;
+                set
+                {
+                    if (_displayOrder != value)
+                    {
+                        _displayOrder = value;
+                        OnPropertyChanged();
+                        OnPropertyChanged(nameof(DisplayOrderText));
+                    }
+                }
+            }
+
+            public string DisplayOrderText => $"Vị trí #{DisplayOrder}";
+
+            public event PropertyChangedEventHandler? PropertyChanged;
+
+            protected void OnPropertyChanged([CallerMemberName] string? name = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+        }
     }
 }
