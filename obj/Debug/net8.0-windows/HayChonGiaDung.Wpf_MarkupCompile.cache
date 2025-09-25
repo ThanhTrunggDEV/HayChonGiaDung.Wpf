@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Downloads\HayChonGiaDung.Wpf_Events\HayChonGiaDung.Wpf\obj\Debug\net8.0-windows\
+C:\Users\Admin\Source\Repos\HayChonGiaDung.Wpf\obj\Debug\net8.0-windows\
 HayChonGiaDung.Wpf
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-D:\Downloads\HayChonGiaDung.Wpf_Events\HayChonGiaDung.Wpf\App.xaml
-111080845056
+C:\Users\Admin\Source\Repos\HayChonGiaDung.Wpf\App.xaml
+12190386953
 
-16-1143551346
+181634611518
 198-537775612
-EndGameWindow.xaml;GuideWindow.xaml;LeaderboardWindow.xaml;MainWindow.xaml;PunchBoardWindow.xaml;Round1Window.xaml;Round2Window.xaml;Round3Window.xaml;Round4Window.xaml;SettingsWindow.xaml;StartWindow.xaml;
+AdminWindow.xaml;EndGameWindow.xaml;GuideWindow.xaml;LeaderboardWindow.xaml;MainWindow.xaml;PunchBoardWindow.xaml;Round1Window.xaml;Round2Window.xaml;Round3Window.xaml;Round4Window.xaml;SettingsWindow.xaml;StartWindow.xaml;
 
 False
 

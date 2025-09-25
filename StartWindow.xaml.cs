@@ -51,6 +51,11 @@ namespace HayChonGiaDung.Wpf
            new GuideWindow { Owner = this }.ShowDialog();
         }
 
+        private void Admin_Click(object sender, RoutedEventArgs e)
+        {
+            new AdminWindow { Owner = this }.ShowDialog();
+        }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

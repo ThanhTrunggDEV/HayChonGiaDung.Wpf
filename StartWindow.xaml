@@ -50,6 +50,7 @@
             <Button Style="{StaticResource MenuButton}" Content="CÀI ĐẶT"    Click="Settings_Click"/>
             <Button Style="{StaticResource MenuButton}" Content="XẾP HẠNG"   Click="Leaderboard_Click"/>
             <Button Style="{StaticResource MenuButton}" Content="HƯỚNG DẪN"  Click="Guide_Click"/>
+            <Button Style="{StaticResource MenuButton}" Content="QUẢN TRỊ"   Click="Admin_Click"/>
             <Button Style="{StaticResource MenuButton}" Content="THOÁT"      Click="Exit_Click"/>
         </StackPanel>
 

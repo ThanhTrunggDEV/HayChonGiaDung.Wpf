@@ -27,8 +27,7 @@ namespace HayChonGiaDung.Wpf
             }
             else
             {
-                // tuỳ anh: tự phát lại nền khi bật lại
-                // StartBackground("WinterFluteVersion-VA_4b4y5.mp3");
+                 StartBackground("WinterFluteVersion-VA_4b4y5.mp3");
             }
         }
 
