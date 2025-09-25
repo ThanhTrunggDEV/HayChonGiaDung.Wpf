@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
@@ -16,6 +15,7 @@ namespace HayChonGiaDung.Wpf
         private Product current = null!;
         private int qty = 1;
         private int correctPrice = 0;
+        private int referencePrice = 0;
         private bool hintUsedThisQuestion;
 
         public Round1Window()
@@ -44,9 +44,8 @@ namespace HayChonGiaDung.Wpf
             hintUsedThisQuestion = false;
             RangeHint.Text = string.Empty;
             Feedback.Text = string.Empty;
-            PriceGuessBox.Text = string.Empty;
-            PriceGuessBox.IsEnabled = true;
-            SubmitButton.IsEnabled = true;
+            LowerButton.IsEnabled = true;
+            HigherButton.IsEnabled = true;
 
             // pick product
             current = GameState.Catalog.Count > 0
@@ -55,10 +54,12 @@ namespace HayChonGiaDung.Wpf
 
             qty = GameState.Rnd.Next(1, 5);
             correctPrice = current.Price * qty;
+            referencePrice = GenerateReferencePrice(correctPrice);
 
             // UI text
             ProductName.Text = $"{current.Name} x{qty}";
-            Question.Text = "Nhập giá bạn tin là đúng (đơn vị ₫). Sai số trong ±10% được tính là chính xác.";
+            Question.Text = "Theo bạn giá bán thật đang cao hơn hay thấp hơn mốc gợi ý?";
+            ReferencePriceText.Text = $"{referencePrice:N0} ₫";
 
             // description (nếu có), fallback câu mặc định
             ProductDesc.Text = GetDescriptionOrDefault(current);
@@ -84,7 +85,6 @@ namespace HayChonGiaDung.Wpf
 
             AnimateProduct();
             RefreshHud();
-            PriceGuessBox.Focus();
         }
 
         // Lấy mô tả nếu Product có property "Description" (nullable) hoặc trả về fallback
@@ -100,30 +100,22 @@ namespace HayChonGiaDung.Wpf
             return "Chưa có mô tả cho sản phẩm này.";
         }
 
-        private async Task EvaluateAsync()
+        private async Task EvaluateAsync(bool guessHigher)
         {
-            SubmitButton.IsEnabled = false;
-            PriceGuessBox.IsEnabled = false;
+            HigherButton.IsEnabled = false;
+            LowerButton.IsEnabled = false;
 
-            if (!TryParsePrice(PriceGuessBox.Text, out var guess))
-            {
-                Feedback.Text = "⚠️ Vui lòng nhập giá hợp lệ (chỉ số).";
-                SubmitButton.IsEnabled = true;
-                PriceGuessBox.IsEnabled = true;
-                return;
-            }
-
-            var tolerance = (int)Math.Round(correctPrice * 0.1);
-            var diff = Math.Abs(guess - correctPrice);
-            if (diff <= tolerance)
+            var actualHigher = correctPrice > referencePrice;
+            if (actualHigher == guessHigher)
             {
                 correct++;
-                Feedback.Text = $"✅ Chuẩn! Giá đúng: {correctPrice:N0} ₫ (lệch {diff:N0} ₫)";
+                var diff = Math.Abs(correctPrice - referencePrice);
+                Feedback.Text = $"✅ Chính xác! Giá thật {correctPrice:N0} ₫ {(actualHigher ? "cao hơn" : "thấp hơn")} mốc {referencePrice:N0} ₫ khoảng {diff:N0} ₫.";
                 SoundManager.Correct();
             }
             else
             {
-                Feedback.Text = $"❌ Sai! Giá đúng: {correctPrice:N0} ₫ (lệch {diff:N0} ₫)";
+                Feedback.Text = $"❌ Chưa đúng. Giá thật là {correctPrice:N0} ₫ {(actualHigher ? "cao hơn" : "thấp hơn")} mốc gợi ý.";
                 SoundManager.Wrong();
             }
             RefreshHud();
@@ -133,7 +125,9 @@ namespace HayChonGiaDung.Wpf
             NextQuestion();
         }
 
-        private async void Submit_Click(object sender, RoutedEventArgs e) => await EvaluateAsync();
+        private async void HigherButton_Click(object sender, RoutedEventArgs e) => await EvaluateAsync(true);
+
+        private async void LowerButton_Click(object sender, RoutedEventArgs e) => await EvaluateAsync(false);
 
         private void HintButton_Click(object sender, RoutedEventArgs e)
         {
@@ -147,9 +141,9 @@ namespace HayChonGiaDung.Wpf
                 return;
 
             hintUsedThisQuestion = true;
-            var lower = Math.Max(1000, (int)(correctPrice * 0.92));
-            var upper = (int)(correctPrice * 1.08);
-            RangeHint.Text = $"👉 Giá nằm trong khoảng {lower:N0} ₫ - {upper:N0} ₫";
+            var difference = Math.Abs(correctPrice - referencePrice);
+            var percent = difference / (double)referencePrice;
+            RangeHint.Text = $"👉 Giá thật chênh khoảng {difference:N0} ₫ (~{percent:P0}) so với mốc gợi ý.";
             Feedback.Text = "Đã kích hoạt thẻ gợi ý!";
             RefreshHud();
         }
@@ -221,16 +215,27 @@ namespace HayChonGiaDung.Wpf
             return true;
         }
 
-        private static bool TryParsePrice(string input, out int price)
+        private static int GenerateReferencePrice(int actualPrice)
         {
-            var digits = new string(input.Where(char.IsDigit).ToArray());
-            if (string.IsNullOrEmpty(digits))
+            if (actualPrice <= 0)
             {
-                price = 0;
-                return false;
+                return 100_000;
             }
 
-            return int.TryParse(digits, out price);
+            var percent = GameState.Rnd.Next(12, 28) / 100.0; // 12% - 27%
+            var pushHigher = GameState.Rnd.Next(2) == 0;
+            var candidate = (int)Math.Round(actualPrice * (1 + (pushHigher ? percent : -percent)));
+            if (candidate <= 0)
+            {
+                candidate = Math.Max(1000, actualPrice - 50_000);
+            }
+
+            if (candidate == actualPrice)
+            {
+                candidate += pushHigher ? (int)Math.Round(actualPrice * 0.05) : -(int)Math.Round(actualPrice * 0.05);
+            }
+
+            return Math.Max(1000, candidate);
         }
 
         private void AnimateProduct()

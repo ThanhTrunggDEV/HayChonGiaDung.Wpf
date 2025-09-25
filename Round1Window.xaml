@@ -75,13 +75,22 @@
 
                 <!-- RIGHT: question & actions -->
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="520">
-                    <TextBlock Text="ĐOÁN GIÁ TRONG PHẠM VI ±10%" FontSize="18" Opacity="0.8" HorizontalAlignment="Center"/>
-                    <TextBlock x:Name="Question" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0,4,0,16"/>
+                    <TextBlock Text="GIÁ THẬT CAO HƠN HAY THẤP HƠN?" FontSize="18" Opacity="0.8" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="Question" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0,4,0,12"/>
 
-                    <TextBox x:Name="PriceGuessBox" Height="60" FontSize="22" Margin="0,0,0,12" HorizontalContentAlignment="Center"/>
-                    <Button x:Name="SubmitButton" Content="Khóa đáp án" Height="60" FontSize="20" Click="Submit_Click"/>
+                    <Border Background="#202B4D" CornerRadius="12" Padding="16" Margin="0,0,0,16">
+                        <StackPanel>
+                            <TextBlock Text="Giá gợi ý" FontSize="16" Opacity="0.75" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="ReferencePriceText" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
 
-                    <TextBlock x:Name="RangeHint" FontSize="18" TextAlignment="Center" Margin="0,12,0,6"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,8">
+                        <Button x:Name="LowerButton" Content="Thấp hơn" Width="180" Height="70" FontSize="20" Margin="0,0,12,0" Click="LowerButton_Click"/>
+                        <Button x:Name="HigherButton" Content="Cao hơn" Width="180" Height="70" FontSize="20" Click="HigherButton_Click"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="RangeHint" FontSize="18" TextAlignment="Center" Margin="0,8,0,6"/>
 
                     <Separator Margin="0,6,0,6"/>
                     <TextBlock Text="Thẻ chiến thuật" FontWeight="Bold" HorizontalAlignment="Center"/>
