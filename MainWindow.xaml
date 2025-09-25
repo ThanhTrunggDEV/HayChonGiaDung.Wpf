@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Hãy Chọn Giá Đúng" Height="720" Width="1100" Background="{StaticResource Surface}">
     
-    <Grid Margin="24">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="Hãy Chọn Giá Đúng" FontSize="30" FontWeight="Bold"/>
+  <Grid Margin="24">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock Text="Hãy Chọn Giá Đúng" FontSize="30" FontWeight="Bold"/>
     <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="16" Padding="20" Margin="0,16,0,16">
       <StackPanel>
         <TextBlock Text="Nhập tên người chơi:" Margin="0,0,0,8"/>
@@ -19,9 +19,26 @@
       </StackPanel>
     </Border>
 
-    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" >
-      <TextBlock Text="Tổng tiền thưởng:"/>
-      <TextBlock x:Name="PrizeText" FontWeight="Bold"/>
-    </StackPanel>
+    <DockPanel Grid.Row="2" LastChildFill="False">
+      <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+        <Border Background="#233457" CornerRadius="12" Padding="12,6">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="💰" FontSize="20"/>
+            <TextBlock Text="Xu:" Margin="6,0,0,0"/>
+            <TextBlock x:Name="CoinText" FontWeight="Bold" Margin="6,0,0,0"/>
+          </StackPanel>
+        </Border>
+        <Border Background="#233457" CornerRadius="12" Padding="12,6" Margin="8,0,0,0">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Thẻ:"/>
+            <TextBlock x:Name="CardText" FontWeight="Bold" Margin="6,0,0,0"/>
+          </StackPanel>
+        </Border>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+        <TextBlock Text="Tổng tiền thưởng:"/>
+        <TextBlock x:Name="PrizeText" FontWeight="Bold" Margin="6,0,0,0"/>
+      </StackPanel>
+    </DockPanel>
   </Grid>
 </Window>

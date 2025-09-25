@@ -1,0 +1,170 @@
+<Window x:Class="HayChonGiaDung.Wpf.Round5Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:HayChonGiaDung.Wpf"
+        Title="Vòng 5 - Tích lũy dồn toa" WindowState="Maximized"
+        Background="{StaticResource Surface}">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                <TextBlock Text="Vòng 5: Tích lũy dồn toa" FontSize="30" FontWeight="Bold"/>
+                <TextBlock Text="Xếp giá sản phẩm tăng dần. Mỗi vị trí đúng thưởng thêm tiền!" Opacity="0.8"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                <Border Background="#1d2d4f" CornerRadius="12" Padding="12,6">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="💰" FontSize="20"/>
+                        <TextBlock Text="Xu:" Margin="6,0,0,0"/>
+                        <TextBlock x:Name="CoinText" FontWeight="Bold" Margin="6,0,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#1d2d4f" CornerRadius="12" Padding="12,6" Margin="12,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Thẻ:"/>
+                        <TextBlock x:Name="CardText" FontWeight="Bold" Margin="6,0,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#1d2d4f" CornerRadius="12" Padding="12,6" Margin="12,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Tổng thưởng:"/>
+                        <TextBlock x:Name="PrizeText" FontWeight="Bold" Margin="6,0,0,0"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </DockPanel>
+
+        <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="18" Padding="20" Margin="0,16">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12">
+                    <Button x:Name="HintButton" Content="Gợi ý" Click="Hint_Click"/>
+                    <Button x:Name="SwapButton" Content="Đổi sản phẩm" Click="Swap_Click" Margin="12,0,0,0"/>
+                    <Button x:Name="DoubleButton" Content="Nhân đôi phần thưởng" Click="Double_Click" Margin="12,0,0,0"/>
+                    <TextBlock Text="Kéo thả để sắp xếp thứ tự tăng dần. Chọn 1 sản phẩm để bảo toàn." TextWrapping="Wrap" Width="420" Margin="12,0,0,0"/>
+                </StackPanel>
+                <ListBox x:Name="ProductsList"
+                         AlternationCount="10"
+                         AllowDrop="True"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         PreviewMouseLeftButtonDown="ProductsList_PreviewMouseLeftButtonDown"
+                         PreviewMouseMove="ProductsList_PreviewMouseMove"
+                         Drop="ProductsList_Drop">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="6"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:Round5FinalCard}">
+                            <Border CornerRadius="16" BorderThickness="1" Margin="6" Padding="12">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding Source={StaticResource Card}, Path=Color}"/>
+                                </Border.Background>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderBrush" Value="DimGray"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding EvaluationState}" Value="Win">
+                                                <Setter Property="BorderBrush" Value="#3CB371"/>
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                            To="#1B4227"
+                                                                            Duration="0:0:0.35"
+                                                                            AutoReverse="True"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding EvaluationState}" Value="Protected">
+                                                <Setter Property="BorderBrush" Value="#FFB300"/>
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                            To="#3A2D11"
+                                                                            Duration="0:0:0.35"
+                                                                            AutoReverse="True"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding EvaluationState}" Value="Lose">
+                                                <Setter Property="BorderBrush" Value="#C62828"/>
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                            To="#3B1717"
+                                                                            Duration="0:0:0.35"
+                                                                            AutoReverse="True"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding DisplayOrderText}" FontSize="14" FontWeight="SemiBold" Foreground="LightGray"/>
+                                    <Image Source="{Binding Image}" Height="140" Stretch="Uniform" Margin="0,4,0,8"/>
+                                    <TextBlock Text="{Binding Product.Name}" FontWeight="Bold" FontSize="18" TextWrapping="Wrap"/>
+                                    <RadioButton Content="Bảo toàn" GroupName="ProtectGroup" Margin="0,10,0,0"
+                                                 IsChecked="{Binding IsProtected, Mode=TwoWay}" Checked="Protect_Checked"/>
+                                    <TextBlock Text="{Binding Status}" Margin="0,10,0,0" TextWrapping="Wrap">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="LightGray"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding EvaluationState}" Value="Win">
+                                                        <Setter Property="Foreground" Value="#9CCC65"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding EvaluationState}" Value="Protected">
+                                                        <Setter Property="Foreground" Value="#FFCA28"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding EvaluationState}" Value="Lose">
+                                                        <Setter Property="Foreground" Value="#EF5350"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <DockPanel Grid.Row="2" Margin="0,12,0,0">
+            <TextBlock x:Name="Feedback" DockPanel.Dock="Left" FontSize="18" TextWrapping="Wrap" Width="600"
+                       Background="Transparent" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button Content="Hoàn tất" Width="160" Height="50" FontSize="18" Click="Submit_Click"/>
+                <Button Content="Hủy" Width="120" Height="50" FontSize="18" Click="Cancel_Click" Margin="12,0,0,0"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
