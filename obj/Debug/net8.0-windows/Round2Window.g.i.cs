@@ -116,7 +116,7 @@ namespace HayChonGiaDung.Wpf {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/HayChonGiaDung.Wpf;V1.0.0.0;component/round2window.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HayChonGiaDung.Wpf;component/round2window.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Round2Window.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
