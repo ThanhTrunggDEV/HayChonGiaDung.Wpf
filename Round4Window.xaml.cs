@@ -19,6 +19,7 @@ namespace HayChonGiaDung.Wpf
         private bool _protectPurchased;
         private bool _hintUsed;
         private bool _locked;
+        private bool _isClosing;
 
         public Round4Window()
         {
@@ -39,11 +40,13 @@ namespace HayChonGiaDung.Wpf
             _protectPurchased = false;
             _hintUsed = false;
             _locked = false;
+            _isClosing = false;
             Feedback.Text = string.Empty;
             LockButton.IsEnabled = true;
             HintButton.IsEnabled = true;
             SwapButton.IsEnabled = true;
             DoubleButton.IsEnabled = true;
+            CancelButton.IsEnabled = true;
 
             int count = Math.Min(5, Math.Max(4, GameState.Catalog.Count >= 5 ? GameState.Rnd.Next(4, 6) : 4));
             var selected = GameState.Catalog.OrderBy(_ => GameState.Rnd.Next()).Take(count).ToList();
@@ -217,7 +220,7 @@ namespace HayChonGiaDung.Wpf
                 return;
             }
 
-            if (!EnsureCardAvailable(PowerCardType.Hint, 5, "Gợi ý"))
+            if (!EnsureCardAvailable(PowerCardType.Hint, 5, "Gợi ý") || _isClosing)
                 return;
 
             _hintUsed = true;
@@ -232,7 +235,7 @@ namespace HayChonGiaDung.Wpf
 
         private void SwapButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!EnsureCardAvailable(PowerCardType.SwapProduct, 8, "Đổi bộ"))
+            if (!EnsureCardAvailable(PowerCardType.SwapProduct, 8, "Đổi bộ") || _isClosing)
                 return;
 
             Feedback.Text = "Đã đổi sang bộ sản phẩm mới.";
@@ -242,7 +245,7 @@ namespace HayChonGiaDung.Wpf
 
         private void DoubleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!EnsureCardAvailable(PowerCardType.DoubleReward, 10, "Nhân đôi"))
+            if (!EnsureCardAvailable(PowerCardType.DoubleReward, 10, "Nhân đôi") || _isClosing)
                 return;
 
             GameState.QueueDoubleReward();
@@ -254,6 +257,7 @@ namespace HayChonGiaDung.Wpf
         {
             if (_locked) return;
             _locked = true;
+            CancelButton.IsEnabled = false;
 
             LockButton.IsEnabled = false;
             HintButton.IsEnabled = false;
@@ -306,10 +310,14 @@ namespace HayChonGiaDung.Wpf
 
             HighlightResults(sorted);
             RefreshHud();
-            LeaderboardService.AddScore(GameState.PlayerName, GameState.TotalPrize);
             await Task.Delay(1200);
-            DialogResult = true;
-            Close();
+
+            if (_isClosing)
+            {
+                return;
+            }
+
+            FinishRound(true);
         }
         private void HighlightResults(IReadOnlyList<int> sorted)
         {
@@ -339,9 +347,7 @@ namespace HayChonGiaDung.Wpf
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            LeaderboardService.AddScore(GameState.PlayerName, GameState.TotalPrize);
-            DialogResult = false;
-            Close();
+            FinishRound(false);
         }
 
         private void RefreshHud()
@@ -352,6 +358,11 @@ namespace HayChonGiaDung.Wpf
 
         private bool EnsureCardAvailable(PowerCardType type, int coinCost, string cardLabel)
         {
+            if (_isClosing)
+            {
+                return false;
+            }
+
             if (GameState.TryUsePowerCard(type))
             {
                 return true;
@@ -379,6 +390,43 @@ namespace HayChonGiaDung.Wpf
             GameState.TryUsePowerCard(type);
             RefreshHud();
             return true;
+        }
+
+        private void FinishRound(bool success)
+        {
+            if (_isClosing)
+            {
+                return;
+            }
+
+            _isClosing = true;
+
+            try
+            {
+                LeaderboardService.AddScore(GameState.PlayerName, GameState.TotalPrize);
+            }
+            catch
+            {
+                // ignore leaderboard persistence errors
+            }
+
+            try
+            {
+                DialogResult = success;
+            }
+            catch (InvalidOperationException)
+            {
+                // window may not be modal anymore
+            }
+
+            try
+            {
+                Close();
+            }
+            catch (InvalidOperationException)
+            {
+                // already closing
+            }
         }
     }
 }

@@ -53,7 +53,7 @@
 
         <!-- Footer -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Thoát vòng" Click="Cancel_Click"/>
+            <Button x:Name="CancelButton" Content="Thoát vòng" Click="Cancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>
