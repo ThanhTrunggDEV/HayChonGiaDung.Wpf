@@ -20,24 +20,24 @@
     </Border>
 
     <DockPanel Grid.Row="2" LastChildFill="False">
-      <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Spacing="8">
+      <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
         <Border Background="#233457" CornerRadius="12" Padding="12,6">
-          <StackPanel Orientation="Horizontal" Spacing="6">
+          <StackPanel Orientation="Horizontal">
             <TextBlock Text="💰" FontSize="20"/>
-            <TextBlock Text="Xu:"/>
-            <TextBlock x:Name="CoinText" FontWeight="Bold"/>
+            <TextBlock Text="Xu:" Margin="6,0,0,0"/>
+            <TextBlock x:Name="CoinText" FontWeight="Bold" Margin="6,0,0,0"/>
           </StackPanel>
         </Border>
-        <Border Background="#233457" CornerRadius="12" Padding="12,6">
-          <StackPanel Orientation="Horizontal" Spacing="6">
+        <Border Background="#233457" CornerRadius="12" Padding="12,6" Margin="8,0,0,0">
+          <StackPanel Orientation="Horizontal">
             <TextBlock Text="Thẻ:"/>
-            <TextBlock x:Name="CardText" FontWeight="Bold"/>
+            <TextBlock x:Name="CardText" FontWeight="Bold" Margin="6,0,0,0"/>
           </StackPanel>
         </Border>
       </StackPanel>
-      <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" Spacing="6">
+      <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
         <TextBlock Text="Tổng tiền thưởng:"/>
-        <TextBlock x:Name="PrizeText" FontWeight="Bold"/>
+        <TextBlock x:Name="PrizeText" FontWeight="Bold" Margin="6,0,0,0"/>
       </StackPanel>
     </DockPanel>
   </Grid>

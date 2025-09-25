@@ -14,15 +14,15 @@
                 <TextBlock Text="Khởi động nhanh" FontSize="32" FontWeight="Bold"/>
                 <TextBlock x:Name="ProgressText" Margin="0,4,0,0" Opacity="0.8"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center" Spacing="12">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
                 <Border Background="#243357" CornerRadius="12" Padding="12,6">
-                    <StackPanel Orientation="Horizontal" Spacing="6">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="💰" FontSize="20"/>
-                        <TextBlock Text="Xu:"/>
-                        <TextBlock x:Name="CoinText" FontWeight="Bold"/>
+                        <TextBlock Text="Xu:" Margin="6,0,0,0"/>
+                        <TextBlock x:Name="CoinText" FontWeight="Bold" Margin="6,0,0,0"/>
                     </StackPanel>
                 </Border>
-                <Border Background="#243357" CornerRadius="12" Padding="12,6">
+                <Border Background="#243357" CornerRadius="12" Padding="12,6" Margin="12,0,0,0">
                     <StackPanel>
                         <TextBlock Text="Thẻ trợ giúp" FontWeight="Bold"/>
                         <TextBlock x:Name="CardText" FontSize="14" TextWrapping="Wrap" MaxWidth="260"/>
@@ -38,9 +38,9 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel x:Name="QuestionPanel" Grid.Row="0" VerticalAlignment="Center" Spacing="16">
+                <StackPanel x:Name="QuestionPanel" Grid.Row="0" VerticalAlignment="Center">
                     <TextBlock x:Name="QuestionText" FontSize="24" FontWeight="SemiBold" TextWrapping="Wrap"/>
-                    <ItemsControl x:Name="AnswerList">
+                    <ItemsControl x:Name="AnswerList" Margin="0,16,0,0">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Margin="0,6" CornerRadius="12" BorderThickness="1" BorderBrush="#394867">
@@ -49,25 +49,25 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <TextBlock x:Name="QuestionHint" Opacity="0.8" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="QuestionHint" Opacity="0.8" TextWrapping="Wrap" Margin="0,16,0,0"/>
                 </StackPanel>
 
-                <StackPanel x:Name="StorePanel" Grid.Row="0" Visibility="Collapsed" Spacing="18">
+                <StackPanel x:Name="StorePanel" Grid.Row="0" Visibility="Collapsed">
                     <TextBlock Text="Đổi xu lấy thẻ trợ giúp trước khi vào vòng chính" FontSize="24" FontWeight="SemiBold" TextWrapping="Wrap"/>
-                    <ItemsControl x:Name="StoreList">
+                    <ItemsControl x:Name="StoreList" Margin="0,18,0,0">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Margin="0,6" CornerRadius="12" Background="#1c2847" Padding="14">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center" Spacing="12">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                         <StackPanel Width="400">
                                             <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
                                             <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
                                         </StackPanel>
-                                        <StackPanel>
+                                        <StackPanel Margin="12,0,0,0">
                                             <TextBlock Text="Giá" FontSize="14" Opacity="0.8"/>
                                             <TextBlock Text="{Binding CostText}" FontWeight="Bold" FontSize="18"/>
                                         </StackPanel>
-                                        <Button Content="Mua" Tag="{Binding Type}" Width="120" Click="BuyCard_Click"/>
+                                        <Button Content="Mua" Tag="{Binding Type}" Width="120" Click="BuyCard_Click" Margin="12,0,0,0"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -75,9 +75,9 @@
                     </ItemsControl>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="12">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button x:Name="ActionButton" Content="Trả lời" Width="160" Height="50" FontSize="18" Click="ActionButton_Click"/>
-                    <Button x:Name="SkipButton" Content="Bỏ qua" Width="120" Height="50" FontSize="18" Click="SkipButton_Click" Visibility="Collapsed"/>
+                    <Button x:Name="SkipButton" Content="Bỏ qua" Width="120" Height="50" FontSize="18" Click="SkipButton_Click" Visibility="Collapsed" Margin="12,0,0,0"/>
                 </StackPanel>
 
                 <TextBlock x:Name="Feedback" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>

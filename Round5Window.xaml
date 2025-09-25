@@ -15,24 +15,24 @@
                 <TextBlock Text="Vòng 5: Tích lũy dồn toa" FontSize="30" FontWeight="Bold"/>
                 <TextBlock Text="Xếp giá sản phẩm tăng dần. Mỗi vị trí đúng thưởng thêm tiền!" Opacity="0.8"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Spacing="12" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
                 <Border Background="#1d2d4f" CornerRadius="12" Padding="12,6">
-                    <StackPanel Orientation="Horizontal" Spacing="6">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="💰" FontSize="20"/>
-                        <TextBlock Text="Xu:"/>
-                        <TextBlock x:Name="CoinText" FontWeight="Bold"/>
+                        <TextBlock Text="Xu:" Margin="6,0,0,0"/>
+                        <TextBlock x:Name="CoinText" FontWeight="Bold" Margin="6,0,0,0"/>
                     </StackPanel>
                 </Border>
-                <Border Background="#1d2d4f" CornerRadius="12" Padding="12,6">
-                    <StackPanel Orientation="Horizontal" Spacing="6">
+                <Border Background="#1d2d4f" CornerRadius="12" Padding="12,6" Margin="12,0,0,0">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Thẻ:"/>
-                        <TextBlock x:Name="CardText" FontWeight="Bold"/>
+                        <TextBlock x:Name="CardText" FontWeight="Bold" Margin="6,0,0,0"/>
                     </StackPanel>
                 </Border>
-                <Border Background="#1d2d4f" CornerRadius="12" Padding="12,6">
-                    <StackPanel Orientation="Horizontal" Spacing="6">
+                <Border Background="#1d2d4f" CornerRadius="12" Padding="12,6" Margin="12,0,0,0">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Tổng thưởng:"/>
-                        <TextBlock x:Name="PrizeText" FontWeight="Bold"/>
+                        <TextBlock x:Name="PrizeText" FontWeight="Bold" Margin="6,0,0,0"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -40,11 +40,11 @@
 
         <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="18" Padding="20" Margin="0,16">
             <DockPanel>
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="12" Margin="0,0,0,12">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12">
                     <Button x:Name="HintButton" Content="Gợi ý" Click="Hint_Click"/>
-                    <Button x:Name="SwapButton" Content="Đổi sản phẩm" Click="Swap_Click"/>
-                    <Button x:Name="DoubleButton" Content="Nhân đôi phần thưởng" Click="Double_Click"/>
-                    <TextBlock Text="Chọn một sản phẩm để bảo toàn (radio), sau đó gán thứ tự bằng combo." TextWrapping="Wrap" Width="420"/>
+                    <Button x:Name="SwapButton" Content="Đổi sản phẩm" Click="Swap_Click" Margin="12,0,0,0"/>
+                    <Button x:Name="DoubleButton" Content="Nhân đôi phần thưởng" Click="Double_Click" Margin="12,0,0,0"/>
+                    <TextBlock Text="Chọn một sản phẩm để bảo toàn (radio), sau đó gán thứ tự bằng combo." TextWrapping="Wrap" Width="420" Margin="12,0,0,0"/>
                 </StackPanel>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <WrapPanel x:Name="ProductsPanel" ItemWidth="260" ItemHeight="Auto" HorizontalAlignment="Center"/>
@@ -54,9 +54,9 @@
 
         <DockPanel Grid.Row="2" Margin="0,12,0,0">
             <TextBlock x:Name="Feedback" DockPanel.Dock="Left" FontSize="18" TextWrapping="Wrap" Width="600"/>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Spacing="12">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
                 <Button Content="Hoàn tất" Width="160" Height="50" FontSize="18" Click="Submit_Click"/>
-                <Button Content="Hủy" Width="120" Height="50" FontSize="18" Click="Cancel_Click"/>
+                <Button Content="Hủy" Width="120" Height="50" FontSize="18" Click="Cancel_Click" Margin="12,0,0,0"/>
             </StackPanel>
         </DockPanel>
     </Grid>
