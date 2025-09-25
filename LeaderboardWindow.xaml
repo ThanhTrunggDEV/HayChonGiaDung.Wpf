@@ -96,18 +96,20 @@
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
                                                     <Setter Property="Visibility" Value="Collapsed" />
-                                                    <DataTrigger Binding="{Binding Rank}" Value="1">
-                                                        <Setter Property="Text" Value="🥇" />
-                                                        <Setter Property="Visibility" Value="Visible" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Rank}" Value="2">
-                                                        <Setter Property="Text" Value="🥈" />
-                                                        <Setter Property="Visibility" Value="Visible" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Rank}" Value="3">
-                                                        <Setter Property="Text" Value="🥉" />
-                                                        <Setter Property="Visibility" Value="Visible" />
-                                                    </DataTrigger>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Rank}" Value="1">
+                                                            <Setter Property="Text" Value="🥇" />
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Rank}" Value="2">
+                                                            <Setter Property="Text" Value="🥈" />
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Rank}" Value="3">
+                                                            <Setter Property="Text" Value="🥉" />
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
                                                 </Style>
                                             </TextBlock.Style>
                                         </TextBlock>
