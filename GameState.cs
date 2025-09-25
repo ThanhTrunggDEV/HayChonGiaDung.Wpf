@@ -38,8 +38,8 @@ namespace HayChonGiaDung.Wpf
 
         public static void AddCoins(int amount)
         {
-            if (amount <= 0) return;
-            QuickCoins += amount;
+            if (amount == 0) return;
+            QuickCoins = Math.Max(0, QuickCoins + amount);
         }
 
         public static bool SpendCoins(int amount)
