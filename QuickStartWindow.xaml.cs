@@ -8,6 +8,7 @@ namespace HayChonGiaDung.Wpf
 {
     public partial class QuickStartWindow : Window
     {
+        private const int DefaultQuestionCount = 6;
         private readonly List<QuickQuestion> _questions;
         private int _currentIndex = -1;
         private int? _selectedIndex = null;
@@ -20,7 +21,7 @@ namespace HayChonGiaDung.Wpf
             WindowState = WindowState.Maximized;
             SoundManager.StartRound();
 
-            _questions = BuildQuestions().OrderBy(_ => GameState.Rnd.Next()).Take(6).ToList();
+            _questions = LoadQuestions();
             _storeItems = BuildStore();
 
             StoreList.ItemsSource = _storeItems;
@@ -66,80 +67,128 @@ namespace HayChonGiaDung.Wpf
             UpdateInventoryPanel();
         }
 
-        private static List<QuickQuestion> BuildQuestions() => new()
+        private static List<QuickQuestion> LoadQuestions()
         {
-            new QuickQuestion("Nồi chiên không dầu hoạt động dựa trên nguyên lý chính nào?",
-                new[]
+            var questions = QuickStartQuestionRepository.LoadQuestions();
+            if (questions.Count == 0)
+            {
+                questions = BuildDefaultQuestions();
+            }
+
+            var count = Math.Min(DefaultQuestionCount, Math.Max(1, questions.Count));
+            return questions
+                .OrderBy(_ => GameState.Rnd.Next())
+                .Take(count)
+                .Select(q => q.Clone())
+                .ToList();
+        }
+
+        private static List<QuickQuestion> BuildDefaultQuestions() => new()
+        {
+            new QuickQuestion
+            {
+                Text = "Nồi chiên không dầu hoạt động dựa trên nguyên lý chính nào?",
+                Options = new List<string>
                 {
                     "Dùng áp suất cao",
                     "Lưu thông khí nóng đối lưu",
                     "Chiên bằng hồng ngoại",
                     "Đun sôi dầu truyền thống"
-                }, 1,
-                "Máy dùng quạt thổi khí nóng tuần hoàn để làm chín thực phẩm."),
-            new QuickQuestion("Chuẩn năng lượng 5 sao trên nhãn năng lượng Việt Nam thể hiện điều gì?",
-                new[]
+                },
+                CorrectIndex = 1,
+                Explanation = "Máy dùng quạt thổi khí nóng tuần hoàn để làm chín thực phẩm."
+            },
+            new QuickQuestion
+            {
+                Text = "Chuẩn năng lượng 5 sao trên nhãn năng lượng Việt Nam thể hiện điều gì?",
+                Options = new List<string>
                 {
                     "Sản phẩm xuất xứ châu Âu",
                     "Sản phẩm tiết kiệm điện nhất trong nhóm",
                     "Sản phẩm bảo hành 5 năm",
                     "Sản phẩm chống nước chuẩn IPX5"
-                }, 1,
-                "Nhãn càng nhiều sao càng tiết kiệm điện."),
-            new QuickQuestion("Bột giặt và nước giặt khác nhau ở điểm nổi bật nào?",
-                new[]
+                },
+                CorrectIndex = 1,
+                Explanation = "Nhãn càng nhiều sao càng tiết kiệm điện."
+            },
+            new QuickQuestion
+            {
+                Text = "Bột giặt và nước giặt khác nhau ở điểm nổi bật nào?",
+                Options = new List<string>
                 {
                     "Bột giặt chỉ dùng cho máy cửa trên",
                     "Nước giặt dễ hòa tan, ít để lại cặn",
                     "Bột giặt thơm hơn nước giặt",
                     "Nước giặt không dùng được cho máy giặt"
-                }, 1,
-                "Nước giặt tan nhanh nên phù hợp giặt lạnh, ít để lại cặn."),
-            new QuickQuestion("Khi sử dụng tủ lạnh mới mua về, nên làm gì trước khi cắm điện?",
-                new[]
+                },
+                CorrectIndex = 1,
+                Explanation = "Nước giặt tan nhanh nên phù hợp giặt lạnh, ít để lại cặn."
+            },
+            new QuickQuestion
+            {
+                Text = "Khi sử dụng tủ lạnh mới mua về, nên làm gì trước khi cắm điện?",
+                Options = new List<string>
                 {
                     "Cắm điện và cho thực phẩm ngay",
                     "Để yên tối thiểu 4-6 tiếng cho gas ổn định",
                     "Vệ sinh bằng nước nóng",
                     "Lật ngược tủ lạnh 1 phút"
-                }, 1,
-                "Để gas hồi vị trí ban đầu sau quá trình vận chuyển."),
-            new QuickQuestion("Tiêu chí quan trọng khi chọn máy lọc không khí cho phòng ngủ là gì?",
-                new[]
+                },
+                CorrectIndex = 1,
+                Explanation = "Để gas hồi vị trí ban đầu sau quá trình vận chuyển."
+            },
+            new QuickQuestion
+            {
+                Text = "Tiêu chí quan trọng khi chọn máy lọc không khí cho phòng ngủ là gì?",
+                Options = new List<string>
                 {
                     "Công suất bơm nước",
                     "Độ ồn thấp, có chế độ ban đêm",
                     "Có nhiều đèn LED nhiều màu",
                     "Trọng lượng càng nặng càng tốt"
-                }, 1,
-                "Phòng ngủ cần yên tĩnh để không ảnh hưởng giấc ngủ."),
-            new QuickQuestion("Chức năng Inverter trên điều hòa giúp ích điều gì?",
-                new[]
+                },
+                CorrectIndex = 1,
+                Explanation = "Phòng ngủ cần yên tĩnh để không ảnh hưởng giấc ngủ."
+            },
+            new QuickQuestion
+            {
+                Text = "Chức năng Inverter trên điều hòa giúp ích điều gì?",
+                Options = new List<string>
                 {
                     "Thổi gió xa hơn",
                     "Tiết kiệm điện, vận hành ổn định",
                     "Tự phát Wifi",
                     "Tăng nhiệt độ tối đa"
-                }, 1,
-                "Biến tần giúp máy hoạt động êm và tiết kiệm điện."),
-            new QuickQuestion("Khi mua nồi cơm điện, thông số nào quyết định nấu được bao nhiêu gạo?",
-                new[]
+                },
+                CorrectIndex = 1,
+                Explanation = "Biến tần giúp máy hoạt động êm và tiết kiệm điện."
+            },
+            new QuickQuestion
+            {
+                Text = "Khi mua nồi cơm điện, thông số nào quyết định nấu được bao nhiêu gạo?",
+                Options = new List<string>
                 {
                     "Điện áp",
                     "Dung tích nồi (lít)",
                     "Công suất",
                     "Số lớp chống dính"
-                }, 1,
-                "Dung tích càng lớn thì nấu được nhiều gạo."),
-            new QuickQuestion("Chuẩn IP của máy rửa xe gia đình thể hiện điều gì?",
-                new[]
+                },
+                CorrectIndex = 1,
+                Explanation = "Dung tích càng lớn thì nấu được nhiều gạo."
+            },
+            new QuickQuestion
+            {
+                Text = "Chuẩn IP của máy rửa xe gia đình thể hiện điều gì?",
+                Options = new List<string>
                 {
                     "Tốc độ vòng quay động cơ",
                     "Khả năng chống bụi nước của thiết bị",
                     "Nguồn gốc xuất xứ",
                     "Mức độ tiết kiệm điện"
-                }, 1,
-                "IP cao bảo vệ tốt khỏi bụi và nước."),
+                },
+                CorrectIndex = 1,
+                Explanation = "IP cao bảo vệ tốt khỏi bụi và nước."
+            },
         };
 
         private static List<HelpStoreItem> BuildStore() => new()
@@ -249,8 +298,6 @@ namespace HayChonGiaDung.Wpf
             _ => type.ToString()
         };
     }
-
-    public record QuickQuestion(string Text, IReadOnlyList<string> Options, int CorrectIndex, string Explanation);
 
     public record HelpStoreItem(HelpCardType Type, string Name, int Cost, string Description)
     {
