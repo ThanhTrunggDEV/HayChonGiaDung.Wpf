@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace HayChonGiaDung.Wpf
         private Product _current = null!;
         private string _targetDigits = string.Empty;
         private bool _roundActive;
+        private bool _isClosing;
 
         public Round3Window()
         {
@@ -94,7 +96,12 @@ namespace HayChonGiaDung.Wpf
 
         private void RestartTimer()
         {
-            _timer?.Stop();
+            if (_timer != null)
+            {
+                _timer.Stop();
+                _timer.Tick -= Timer_Tick;
+            }
+
             _timeLeft = 60;
             TimerText.Text = _timeLeft.ToString();
             _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
@@ -115,8 +122,7 @@ namespace HayChonGiaDung.Wpf
                 _roundActive = false;
                 SoundManager.Wrong();
                 MessageBox.Show("⏰ Hết giờ! Bạn đã thua vòng Đếm Ngược 4 Số", "Hết giờ", MessageBoxButton.OK, MessageBoxImage.Information);
-                DialogResult = false;
-                Close();
+                FinishRound(false);
             }
         }
 
@@ -176,8 +182,12 @@ namespace HayChonGiaDung.Wpf
                 SoundManager.Correct();
                 RefreshHud();
                 await Task.Delay(1000);
-                DialogResult = true;
-                Close();
+                if (_isClosing)
+                {
+                    return;
+                }
+
+                FinishRound(true);
                 return;
             }
 
@@ -253,8 +263,7 @@ namespace HayChonGiaDung.Wpf
         {
             _roundActive = false;
             _timer?.Stop();
-            DialogResult = false;
-            Close();
+            FinishRound(false);
         }
 
         private void RefreshHud()
@@ -294,13 +303,66 @@ namespace HayChonGiaDung.Wpf
             return true;
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            _isClosing = true;
+            _roundActive = false;
+            base.OnClosing(e);
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            _timer?.Stop();
+
             if (_timer != null)
             {
+                _timer.Stop();
                 _timer.Tick -= Timer_Tick;
+                _timer = null;
+            }
+        }
+
+        private void FinishRound(bool success)
+        {
+            if (_isClosing)
+            {
+                return;
+            }
+
+            _isClosing = true;
+            _roundActive = false;
+
+            if (_timer != null)
+            {
+                _timer.Stop();
+                _timer.Tick -= Timer_Tick;
+                _timer = null;
+            }
+
+            if (!IsLoaded)
+            {
+                return;
+            }
+
+            try
+            {
+                DialogResult = success;
+            }
+            catch (InvalidOperationException)
+            {
+                // Window was not shown as dialog or is already closing – ignore.
+            }
+
+            if (IsVisible)
+            {
+                try
+                {
+                    Close();
+                }
+                catch (InvalidOperationException)
+                {
+                    // Ignore if window is already closing.
+                }
             }
         }
     }
