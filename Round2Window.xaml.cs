@@ -183,9 +183,20 @@ namespace HayChonGiaDung.Wpf
                 timer.Start();
             }
 
-            current = GameState.Catalog.Count > 0
-                ? GameState.Catalog[GameState.Rnd.Next(GameState.Catalog.Count)]
-                : new Product { Name = "Sản phẩm demo", Price = 2_890_000, Image = null };
+            static bool IsValidForRound2(Product product)
+                => product.Price >= 1_000_000 && product.Price <= 9_999_000;
+
+            var eligibleProducts = GameState.Catalog.Where(IsValidForRound2).ToList();
+
+            if (eligibleProducts.Count == 0)
+            {
+                // Nếu không có sản phẩm nào phù hợp (hoặc chưa tải dữ liệu), fallback sang sản phẩm demo
+                current = new Product { Name = "Sản phẩm demo", Price = 2_890_000, Image = null };
+            }
+            else
+            {
+                current = eligibleProducts[GameState.Rnd.Next(eligibleProducts.Count)];
+            }
 
             ProductName.Text = $"Đoán 4 chữ số cho giá (x.000 ₫): {current.Name}";
             price4 = Math.Max(1000, current.Price) / 1000;
