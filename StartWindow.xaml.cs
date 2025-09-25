@@ -9,7 +9,7 @@ namespace HayChonGiaDung.Wpf
         public StartWindow()
         {
             InitializeComponent();
-            SoundManager.StartBackground();
+            SettingsService.Load();
 
             // nếu không có file logo thì hiện fallback text
             try

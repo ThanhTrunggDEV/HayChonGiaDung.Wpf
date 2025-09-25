@@ -1,41 +1,76 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HayChonGiaDung.Wpf
 {
-    /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
-    /// </summary>
     public partial class SettingsWindow : Window
     {
-        private bool current;
+        private bool _soundOn;
+        private double _volume;
+        private bool _initializing = true;
 
         public SettingsWindow()
         {
             InitializeComponent();
-            SettingsService.Load();               // đọc file settings
-            current = SoundManager.SoundOn;
-            RbOn.IsChecked = current;
-            RbOff.IsChecked = !current;
+            SettingsService.Load();
+
+            _soundOn = SettingsService.CurrentSoundOn;
+            _volume = SettingsService.CurrentVolume;
+
+            RbOn.IsChecked = _soundOn;
+            RbOff.IsChecked = !_soundOn;
+
+            VolumeSlider.Value = Math.Round(_volume * 100, MidpointRounding.AwayFromZero);
+            UpdateVolumeText();
+            UpdateUiState();
+
+            _initializing = false;
         }
 
-        private void RbOn_Checked(object sender, RoutedEventArgs e) => current = true;
-        private void RbOff_Checked(object sender, RoutedEventArgs e) => current = false;
+        private void RbOn_Checked(object sender, RoutedEventArgs e)
+        {
+            _soundOn = true;
+            UpdateUiState();
+        }
+
+        private void RbOff_Checked(object sender, RoutedEventArgs e)
+        {
+            _soundOn = false;
+            UpdateUiState();
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (_initializing) return;
+
+            _volume = VolumeSlider.Value / 100.0;
+            UpdateVolumeText();
+        }
+
+        private void UpdateVolumeText()
+        {
+            if (VolumeValueText == null) return;
+            VolumeValueText.Text = $"{Math.Round(VolumeSlider.Value)}%";
+        }
+
+        private void UpdateUiState()
+        {
+            if (VolumeSlider == null || PreviewButton == null || VolumeValueText == null) return;
+
+            VolumeSlider.IsEnabled = _soundOn;
+            PreviewButton.IsEnabled = _soundOn;
+            VolumeValueText.Opacity = _soundOn ? 1.0 : 0.5;
+        }
+
+        private void Preview_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_soundOn) return;
+            SoundManager.PlayPreview(_volume);
+        }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            SettingsService.Save(current);        // lưu + áp dụng
+            SettingsService.Save(_soundOn, _volume);
             DialogResult = true;
             Close();
         }
