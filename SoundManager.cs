@@ -86,6 +86,7 @@ namespace HayChonGiaDung.Wpf
         public static void StartRound() => PlayOneShot("Choi.wav");
         public static void Win() => PlayOneShot("Win.wav");
         public static void End() => PlayOneShot("End.wav");
+        public static void Fireworks() => PlayOneShot("Am-thanh-chuc-mung-chien-thang-www_tiengdong_com.wav", 0.9);
         public static void PlayPreview(double volume) =>
             PlayOneShot("Correct.wav", Math.Clamp(volume, 0.0, 1.0), bypassMute: true);
 
