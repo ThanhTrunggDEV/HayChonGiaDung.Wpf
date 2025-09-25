@@ -1,0 +1,664 @@
+{
+  "questions": [
+    {
+      "text": "Nồi chiên không dầu hoạt động dựa trên nguyên lý chính nào?",
+      "options": [
+        "Dùng áp suất cao",
+        "Lưu thông khí nóng đối lưu",
+        "Chiên bằng hồng ngoại",
+        "Đun sôi dầu truyền thống"
+      ],
+      "correctIndex": 1,
+      "explanation": "Máy dùng quạt thổi khí nóng tuần hoàn để làm chín thực phẩm."
+    },
+    {
+      "text": "Chuẩn năng lượng 5 sao trên nhãn năng lượng Việt Nam thể hiện điều gì?",
+      "options": [
+        "Sản phẩm xuất xứ châu Âu",
+        "Sản phẩm tiết kiệm điện nhất trong nhóm",
+        "Sản phẩm bảo hành 5 năm",
+        "Sản phẩm chống nước chuẩn IPX5"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nhãn càng nhiều sao càng tiết kiệm điện."
+    },
+    {
+      "text": "Bột giặt và nước giặt khác nhau ở điểm nổi bật nào?",
+      "options": [
+        "Bột giặt chỉ dùng cho máy cửa trên",
+        "Nước giặt dễ hòa tan, ít để lại cặn",
+        "Bột giặt thơm hơn nước giặt",
+        "Nước giặt không dùng được cho máy giặt"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nước giặt tan nhanh nên phù hợp giặt lạnh, ít để lại cặn."
+    },
+    {
+      "text": "Khi sử dụng tủ lạnh mới mua về, nên làm gì trước khi cắm điện?",
+      "options": [
+        "Cắm điện và cho thực phẩm ngay",
+        "Để yên tối thiểu 4-6 tiếng cho gas ổn định",
+        "Vệ sinh bằng nước nóng",
+        "Lật ngược tủ lạnh 1 phút"
+      ],
+      "correctIndex": 1,
+      "explanation": "Để gas hồi vị trí ban đầu sau quá trình vận chuyển."
+    },
+    {
+      "text": "Tiêu chí quan trọng khi chọn máy lọc không khí cho phòng ngủ là gì?",
+      "options": [
+        "Công suất bơm nước",
+        "Độ ồn thấp, có chế độ ban đêm",
+        "Có nhiều đèn LED nhiều màu",
+        "Trọng lượng càng nặng càng tốt"
+      ],
+      "correctIndex": 1,
+      "explanation": "Phòng ngủ cần yên tĩnh để không ảnh hưởng giấc ngủ."
+    },
+    {
+      "text": "Chức năng Inverter trên điều hòa giúp ích điều gì?",
+      "options": [
+        "Thổi gió xa hơn",
+        "Tiết kiệm điện, vận hành ổn định",
+        "Tự phát Wifi",
+        "Tăng nhiệt độ tối đa"
+      ],
+      "correctIndex": 1,
+      "explanation": "Biến tần giúp máy hoạt động êm và tiết kiệm điện."
+    },
+    {
+      "text": "Khi mua nồi cơm điện, thông số nào quyết định nấu được bao nhiêu gạo?",
+      "options": [
+        "Điện áp",
+        "Dung tích nồi (lít)",
+        "Công suất",
+        "Số lớp chống dính"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dung tích càng lớn thì nấu được nhiều gạo."
+    },
+    {
+      "text": "Chuẩn IP của máy rửa xe gia đình thể hiện điều gì?",
+      "options": [
+        "Tốc độ vòng quay động cơ",
+        "Khả năng chống bụi nước của thiết bị",
+        "Nguồn gốc xuất xứ",
+        "Mức độ tiết kiệm điện"
+      ],
+      "correctIndex": 1,
+      "explanation": "IP cao bảo vệ tốt khỏi bụi và nước."
+    },
+    {
+      "text": "Robot hút bụi lau nhà cần chú ý điều gì để hoạt động hiệu quả?",
+      "options": [
+        "Đổ đầy nước lau sàn mỗi lần",
+        "Dọn bớt vật cản nhỏ trên sàn",
+        "Đặt máy cạnh tường rồi bật",
+        "Chỉ sử dụng khi nhà tối"
+      ],
+      "correctIndex": 1,
+      "explanation": "Vật cản nhỏ dễ mắc vào chổi và cảm biến làm robot dừng."
+    },
+    {
+      "text": "Ưu điểm chính của bếp từ so với bếp gas là gì?",
+      "options": [
+        "Không cần nồi chảo đặc biệt",
+        "Tỏa nhiệt đều quanh bếp",
+        "Đun nấu nhanh và ít thất thoát nhiệt",
+        "Không phát ra từ trường"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bếp từ đun trực tiếp đáy nồi nên hiệu suất cao và nhanh."
+    },
+    {
+      "text": "Chức năng khóa trẻ em trên máy giặt dùng để làm gì?",
+      "options": [
+        "Khóa cửa máy giặt không mở được",
+        "Khóa bảng điều khiển tránh bấm nhầm",
+        "Khóa chương trình hiện tại",
+        "Khóa nắp xà phòng"
+      ],
+      "correctIndex": 1,
+      "explanation": "Khóa trẻ em vô hiệu hóa nút bấm để trẻ không đổi chương trình."
+    },
+    {
+      "text": "Khi sạc lần đầu cho máy hút bụi cầm tay pin lithium, nên làm gì?",
+      "options": [
+        "Xả cạn pin rồi mới sạc",
+        "Sạc đầy theo khuyến nghị của hãng",
+        "Để pin trong tủ lạnh trước khi sạc",
+        "Sạc liên tục 24 giờ"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pin lithium không cần xả cạn, chỉ cần sạc đầy lần đầu theo hướng dẫn."
+    },
+    {
+      "text": "Nên vệ sinh lưới lọc của máy điều hòa bao lâu một lần?",
+      "options": [
+        "6 tháng/lần",
+        "3 tháng/lần",
+        "1 tháng/lần",
+        "1 năm/lần"
+      ],
+      "correctIndex": 2,
+      "explanation": "Vệ sinh lưới lọc mỗi tháng giúp điều hòa mát và tiết kiệm điện."
+    },
+    {
+      "text": "Tại sao nên chọn tivi độ phân giải 4K cho phòng khách lớn?",
+      "options": [
+        "Có nhiều cổng HDMI hơn",
+        "Giảm tiền điện",
+        "Hình ảnh sắc nét khi xem ở khoảng cách xa",
+        "Loa tích hợp lớn hơn"
+      ],
+      "correctIndex": 2,
+      "explanation": "Độ phân giải 4K giữ chi tiết tốt khi màn hình lớn và ngồi xa."
+    },
+    {
+      "text": "Khi mua máy sấy quần áo, thông số nào quan trọng để biết lượng đồ sấy được?",
+      "options": [
+        "Tốc độ quay",
+        "Dung tích lồng sấy (kg)",
+        "Điện áp",
+        "Số cảm biến"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dung tích theo kg cho biết khối lượng quần áo tối đa mỗi mẻ."
+    },
+    {
+      "text": "Chức năng hẹn giờ trên nồi cơm điện giúp gì cho người dùng?",
+      "options": [
+        "Tự vệ sinh nồi",
+        "Giữ ấm lâu hơn",
+        "Nấu cơm chín đúng giờ mong muốn",
+        "Giảm lượng điện tiêu thụ"
+      ],
+      "correctIndex": 2,
+      "explanation": "Hẹn giờ giúp nồi tự nấu để cơm chín vào thời điểm bạn đặt trước."
+    },
+    {
+      "text": "Tủ lạnh side-by-side phù hợp nhất với gia đình nào?",
+      "options": [
+        "Gia đình 1-2 người",
+        "Gia đình đông người cần nhiều không gian bảo quản",
+        "Người ở trọ ít nấu ăn",
+        "Gia đình cần di chuyển tủ thường xuyên"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dung tích lớn và nhiều ngăn phù hợp gia đình đông người."
+    },
+    {
+      "text": "Khi lau dọn máy xay sinh tố, bộ phận nào nên tháo rời để vệ sinh kỹ?",
+      "options": [
+        "Thân máy",
+        "Dao xay và cối",
+        "Dây điện",
+        "Nút điều khiển"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dao và cối tiếp xúc thực phẩm cần tháo rửa sạch sẽ sau mỗi lần dùng."
+    },
+    {
+      "text": "Máy nước nóng dùng điện trở nên bật trước bao lâu để có nước nóng dùng ngay?",
+      "options": [
+        "1-2 phút",
+        "5-15 phút tùy dung tích",
+        "30 phút",
+        "1 giờ"
+      ],
+      "correctIndex": 1,
+      "explanation": "Máy điện trở cần thời gian đun nóng nước tùy dung tích bình chứa."
+    },
+    {
+      "text": "Chế độ Eco trên máy rửa bát có đặc điểm gì?",
+      "options": [
+        "Giảm lượng nước và nhiệt độ để tiết kiệm năng lượng",
+        "Rửa nhanh hơn",
+        "Chỉ dùng cho đồ nhựa",
+        "Tự sấy khô nhanh hơn"
+      ],
+      "correctIndex": 0,
+      "explanation": "Chế độ Eco tối ưu nước và nhiệt nên tiết kiệm điện nhưng lâu hơn."
+    },
+    {
+      "text": "Khi chọn máy lọc nước RO cho gia đình, cần quan tâm đến điều gì?",
+      "options": [
+        "Số lõi lọc và công suất phù hợp nhu cầu",
+        "Màu sắc vỏ máy",
+        "Công tắc cảm ứng",
+        "Có nhiều đèn LED trang trí"
+      ],
+      "correctIndex": 0,
+      "explanation": "Số lõi và công suất quyết định chất lượng lọc và lượng nước cung cấp."
+    },
+    {
+      "text": "Máy hút mùi hoạt động hiệu quả nhất khi đặt ở đâu?",
+      "options": [
+        "Xa bếp càng tốt",
+        "Ngay phía trên mặt bếp nấu",
+        "Bên cạnh cửa sổ",
+        "Trên trần nhà"
+      ],
+      "correctIndex": 1,
+      "explanation": "Đặt sát phía trên bếp giúp hút mùi và hơi nhanh chóng."
+    },
+    {
+      "text": "Chất liệu nào thường dùng cho lòng nồi cơm điện cao tần cao cấp?",
+      "options": [
+        "Nhôm thường",
+        "Gang dày phủ chống dính",
+        "Nhựa",
+        "Thủy tinh"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lòng gang dày giữ nhiệt tốt, giúp cơm chín đều và thơm."
+    },
+    {
+      "text": "Máy ép chậm khác máy ép thường ở điểm nào?",
+      "options": [
+        "Sử dụng lưỡi dao sắc hơn",
+        "Ép bằng trục vít tốc độ thấp để giữ dưỡng chất",
+        "Không cần vệ sinh sau khi dùng",
+        "Chỉ ép được trái cây mềm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Trục vít ép chậm hạn chế nhiệt, giúp giữ vitamin và ít tách nước."
+    },
+    {
+      "text": "Công dụng chính của máy tạo ẩm trong phòng máy lạnh là gì?",
+      "options": [
+        "Tăng nhiệt độ phòng",
+        "Giữ độ ẩm ổn định, tránh khô da",
+        "Khử mùi thức ăn",
+        "Tạo khí oxy"
+      ],
+      "correctIndex": 1,
+      "explanation": "Máy tạo ẩm bổ sung hơi nước để không khí bớt khô khi bật điều hòa."
+    },
+    {
+      "text": "Tại sao nên dùng thớt riêng cho thực phẩm sống và chín?",
+      "options": [
+        "Để dễ tìm trong bếp",
+        "Tránh lây nhiễm chéo vi khuẩn",
+        "Giúp dao sắc hơn",
+        "Tiết kiệm nước rửa"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dùng thớt riêng hạn chế vi khuẩn sống bám sang đồ chín."
+    },
+    {
+      "text": "Thời gian thay lõi lọc thô của máy lọc nước RO thường là bao lâu?",
+      "options": [
+        "1-2 tháng",
+        "3-6 tháng tùy nguồn nước",
+        "12 tháng",
+        "24 tháng"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lõi thô cần thay định kỳ 3-6 tháng để đảm bảo hiệu quả lọc."
+    },
+    {
+      "text": "Khi sử dụng lò vi sóng, vật dụng nào không nên cho vào lò?",
+      "options": [
+        "Hộp thủy tinh chịu nhiệt",
+        "Đĩa sứ",
+        "Đồ kim loại",
+        "Tô gốm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Kim loại phản xạ sóng vi ba, dễ gây tia lửa và hư lò."
+    },
+    {
+      "text": "Cách tiết kiệm điện hiệu quả khi dùng bàn ủi hơi nước là gì?",
+      "options": [
+        "Ủi quần áo khi còn hơi ẩm",
+        "Ủi từng món vào thời điểm khác nhau",
+        "Để bàn ủi ở nhiệt độ cao nhất",
+        "Đổ đầy nước lạnh trước khi rút điện"
+      ],
+      "correctIndex": 0,
+      "explanation": "Quần áo hơi ẩm giúp làm phẳng nhanh, giảm thời gian bàn ủi hoạt động."
+    },
+    {
+      "text": "Chất liệu nào an toàn khi dùng cho bình đun siêu tốc?",
+      "options": [
+        "Nhựa tái chế",
+        "Inox hoặc thủy tinh chịu nhiệt",
+        "Nhôm trần",
+        "Sắt sơn"
+      ],
+      "correctIndex": 1,
+      "explanation": "Inox hoặc thủy tinh chịu nhiệt bền, không ảnh hưởng chất lượng nước."
+    },
+    {
+      "text": "Khi máy giặt báo lỗi mất cân bằng, bạn nên làm gì?",
+      "options": [
+        "Thêm nhiều đồ vào",
+        "Tạm dừng, phân bổ lại đồ trong lồng",
+        "Giảm lượng nước",
+        "Đổi sang chế độ vắt mạnh"
+      ],
+      "correctIndex": 1,
+      "explanation": "Đồ dồn một phía gây rung, cần dàn đều trước khi tiếp tục giặt."
+    },
+    {
+      "text": "Để bảo quản máy ảnh kỹ thuật số trong tủ chống ẩm, độ ẩm lý tưởng là bao nhiêu?",
+      "options": [
+        "10-20%",
+        "30-50%",
+        "60-70%",
+        "80-90%"
+      ],
+      "correctIndex": 1,
+      "explanation": "Độ ẩm 30-50% tránh nấm mốc mà không làm khô gioăng cao su."
+    },
+    {
+      "text": "Máy hủy tài liệu nên cho giấy vào như thế nào để bền hơn?",
+      "options": [
+        "Cho thật dày một lần",
+        "Cho từng xấp nhỏ theo đúng công suất",
+        "Gấp giấy lại rồi cho vào",
+        "Cho giấy ướt để chống bụi"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cho giấy vừa phải giúp máy hủy nhẹ nhàng, tránh kẹt dao cắt."
+    },
+    {
+      "text": "Tính năng Auto Dry trên máy lạnh làm gì?",
+      "options": [
+        "Tự vệ sinh dàn lạnh",
+        "Hút ẩm nhẹ, giữ nhiệt độ ổn định",
+        "Tự tắt khi phòng đủ sáng",
+        "Tự đổi hướng gió"
+      ],
+      "correctIndex": 1,
+      "explanation": "Auto Dry giảm ẩm trong không khí, phù hợp thời tiết nồm ẩm."
+    },
+    {
+      "text": "Khi sử dụng lò nướng, nên đặt khay như thế nào để nướng bánh đều?",
+      "options": [
+        "Đặt sát nhiệt trên",
+        "Đặt ở rãnh giữa lò",
+        "Đặt sát cửa kính",
+        "Đặt nhiều khay chồng lên nhau"
+      ],
+      "correctIndex": 1,
+      "explanation": "Rãnh giữa giúp nhiệt phân bổ đều từ trên xuống và dưới lên."
+    },
+    {
+      "text": "Mục đích của chế độ giặt hơi nước trên máy giặt là gì?",
+      "options": [
+        "Tiết kiệm nước",
+        "Khử khuẩn và giảm nhăn quần áo",
+        "Giặt nhanh hơn",
+        "Tăng lượng bọt xà phòng"
+      ],
+      "correctIndex": 1,
+      "explanation": "Hơi nước nóng diệt khuẩn và giúp sợi vải mềm, ít nhăn."
+    },
+    {
+      "text": "Máy chiếu mini khi sử dụng ngoài trời ban đêm cần lưu ý gì?",
+      "options": [
+        "Không cần màn chiếu",
+        "Tránh sương ẩm và đặt trên bề mặt phẳng",
+        "Để loa sát máy chiếu",
+        "Tăng độ sáng tối đa"
+      ],
+      "correctIndex": 1,
+      "explanation": "Đặt trên mặt phẳng khô ráo tránh sương ẩm ảnh hưởng linh kiện."
+    },
+    {
+      "text": "Bộ lưu điện (UPS) cho máy tính giúp ích gì?",
+      "options": [
+        "Tăng tốc xử lý",
+        "Giữ nguồn điện ổn định và cấp điện khi mất điện tạm thời",
+        "Giảm tiếng ồn của quạt",
+        "Tăng dung lượng ổ cứng"
+      ],
+      "correctIndex": 1,
+      "explanation": "UPS cấp điện ngắn hạn và ổn định điện áp bảo vệ thiết bị."
+    },
+    {
+      "text": "Khi dùng máy xay thịt, tại sao nên cắt nhỏ nguyên liệu trước khi xay?",
+      "options": [
+        "Để máy sạch hơn",
+        "Giảm tải cho mô-tơ và xay đều hơn",
+        "Giữ màu đẹp",
+        "Giảm tiếng ồn"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cắt nhỏ giúp mô-tơ hoạt động nhẹ, xay nhuyễn và tránh kẹt dao."
+    },
+    {
+      "text": "Đèn bàn học LED nên có nhiệt độ màu khoảng bao nhiêu để không mỏi mắt?",
+      "options": [
+        "1500K",
+        "3000-4000K",
+        "6000-7000K",
+        "9000K"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ánh sáng trung tính 3000-4000K gần ánh sáng tự nhiên, dễ chịu."
+    },
+    {
+      "text": "Khi dùng nồi áp suất điện, thao tác xả áp nào an toàn nhất sau khi nấu?",
+      "options": [
+        "Mở nắp ngay",
+        "Xả áp tự nhiên hoặc dùng van xả theo hướng dẫn",
+        "Đặt nồi dưới vòi nước lạnh",
+        "Lắc mạnh nồi"
+      ],
+      "correctIndex": 1,
+      "explanation": "Xả áp theo hướng dẫn tránh hơi nóng phun mạnh gây bỏng."
+    },
+    {
+      "text": "Máy đo huyết áp điện tử nên đo vào thời điểm nào để kết quả chính xác?",
+      "options": [
+        "Vừa vận động xong",
+        "Sau khi nghỉ ngơi 5-10 phút",
+        "Khi đang ăn",
+        "Ngay sau uống cà phê"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cơ thể thư giãn sau nghỉ ngơi giúp kết quả ổn định, chính xác hơn."
+    },
+    {
+      "text": "Khi phơi quần áo bằng máy sấy, nên chọn chế độ nào cho vải cotton dày?",
+      "options": [
+        "Sấy nhẹ",
+        "Sấy tiêu chuẩn ở nhiệt độ cao",
+        "Sấy lạnh",
+        "Chỉ sấy gió"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cotton dày cần nhiệt độ cao vừa đủ để khô hoàn toàn."
+    },
+    {
+      "text": "Nên kiểm tra gì trước khi sử dụng máy cắt cỏ điện?",
+      "options": [
+        "Lưỡi cắt sắc và dây điện không hỏng",
+        "Bình xăng đầy",
+        "Không có túi đựng cỏ",
+        "Máy đã chạy thử qua đêm"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lưỡi sắc và dây điện an toàn giúp cắt hiệu quả và tránh tai nạn."
+    },
+    {
+      "text": "Máy in phun nên in định kỳ để tránh tình trạng gì?",
+      "options": [
+        "Tăng độ ồn",
+        "Tắc đầu phun do mực khô",
+        "Giảm độ sáng màn hình",
+        "Hết mực màu"
+      ],
+      "correctIndex": 1,
+      "explanation": "In định kỳ giúp mực chảy đều, tránh đầu phun bị khô và tắc."
+    },
+    {
+      "text": "Khi sử dụng máy đánh trứng cầm tay, thao tác nào giúp bột không văng?",
+      "options": [
+        "Bật tốc độ cao ngay",
+        "Bắt đầu ở tốc độ thấp và tăng dần",
+        "Đổ thêm nước",
+        "Lắc mạnh máy"
+      ],
+      "correctIndex": 1,
+      "explanation": "Khởi động tốc độ thấp giúp hòa quyện từ từ, hạn chế bột văng ra ngoài."
+    },
+    {
+      "text": "Bình giữ nhiệt nên được tráng bằng gì trước khi giữ nóng đồ uống?",
+      "options": [
+        "Nước lạnh",
+        "Nước ấm hoặc nóng",
+        "Nước đá",
+        "Nước đường"
+      ],
+      "correctIndex": 1,
+      "explanation": "Tráng nước ấm giúp bình giữ nhiệt ổn định nhiệt lâu hơn."
+    },
+    {
+      "text": "Ưu điểm của máy hút bụi không dây là gì?",
+      "options": [
+        "Công suất luôn cao hơn máy dây",
+        "Di chuyển linh hoạt, không bị vướng dây",
+        "Không cần sạc",
+        "Rẻ hơn máy có dây"
+      ],
+      "correctIndex": 1,
+      "explanation": "Không dây giúp dễ di chuyển giữa các phòng mà không cần ổ cắm gần."
+    },
+    {
+      "text": "Tại sao nên chọn quạt điện có nhiều cấp độ gió?",
+      "options": [
+        "Để quạt hoạt động êm hơn",
+        "Có thể điều chỉnh phù hợp từng nhu cầu và thời điểm",
+        "Tăng lượng điện tiêu thụ",
+        "Giúp quạt bền hơn"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nhiều cấp gió cho phép chọn mức gió nhẹ khi ngủ hoặc mạnh lúc nóng."
+    },
+    {
+      "text": "Máy lọc không khí có cảm biến bụi PM2.5 giúp ích gì?",
+      "options": [
+        "Tự cân bằng độ ẩm",
+        "Theo dõi và điều chỉnh tốc độ lọc theo chất lượng không khí",
+        "Phát nhạc thư giãn",
+        "Tạo mùi thơm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cảm biến đo bụi mịn để máy tăng giảm tốc độ lọc phù hợp."
+    },
+    {
+      "text": "Máy pha cà phê viên nén phù hợp với ai?",
+      "options": [
+        "Người muốn pha cà phê nhanh, tiện, ít thao tác",
+        "Barista chuyên nghiệp cần tùy biến cao",
+        "Người chỉ uống cà phê hòa tan",
+        "Người không thích uống cà phê"
+      ],
+      "correctIndex": 0,
+      "explanation": "Máy viên nén pha nhanh, sạch phù hợp người bận rộn thích tiện lợi."
+    },
+    {
+      "text": "Nên đặt máy lọc không khí ở vị trí nào trong phòng để hiệu quả?",
+      "options": [
+        "Sát góc tường kín",
+        "Cách tường 20-30cm và thoáng xung quanh",
+        "Đặt ngoài ban công",
+        "Đặt dưới gầm bàn"
+      ],
+      "correctIndex": 1,
+      "explanation": "Đặt máy thoáng giúp khí lưu thông đều qua bộ lọc."
+    },
+    {
+      "text": "Công dụng của tính năng điều chỉnh độ cao trên bàn làm việc điện là gì?",
+      "options": [
+        "Tăng tải trọng bàn",
+        "Chuyển đổi linh hoạt giữa tư thế ngồi và đứng",
+        "Giảm giá thành bàn",
+        "Tự động dọn dẹp"
+      ],
+      "correctIndex": 1,
+      "explanation": "Điều chỉnh độ cao giúp thay đổi tư thế, giảm mỏi lưng và cổ."
+    },
+    {
+      "text": "Máy xịt rửa cao áp nên được sử dụng với đầu phun như thế nào khi rửa xe máy?",
+      "options": [
+        "Đầu phun tia mạnh sát bề mặt",
+        "Đầu phun quạt với khoảng cách an toàn",
+        "Đầu phun xoáy sát vỏ xe",
+        "Đầu phun thẳng vào dây điện"
+      ],
+      "correctIndex": 1,
+      "explanation": "Đầu phun quạt giảm áp lực tránh làm tróc sơn hay hư linh kiện."
+    },
+    {
+      "text": "Vì sao nên ngắt điện hoàn toàn nồi cơm điện khi không sử dụng lâu ngày?",
+      "options": [
+        "Để giữ ấm cơm",
+        "Tránh hao điện và bảo vệ mâm nhiệt",
+        "Giữ lòng nồi bóng",
+        "Giúp nồi nấu nhanh hơn"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ngắt điện tránh tiêu thụ điện ngầm và bảo vệ linh kiện khỏi ẩm."
+    },
+    {
+      "text": "Chức năng tự động bổ sung nước của máy phun sương giúp gì?",
+      "options": [
+        "Tự tạo hương thơm",
+        "Ngăn máy chạy khi hết nước, tránh hỏng hóc",
+        "Tăng công suất phun",
+        "Giảm tiếng ồn"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cảm biến nước giúp máy tắt khi cạn, bảo vệ bộ tạo sương."
+    },
+    {
+      "text": "Máy đo chất lượng không khí thường hiển thị chỉ số AQI để làm gì?",
+      "options": [
+        "Đo nhiệt độ",
+        "Đánh giá mức độ ô nhiễm không khí",
+        "Đo tiếng ồn",
+        "Đo độ sáng"
+      ],
+      "correctIndex": 1,
+      "explanation": "AQI phản ánh tổng hợp bụi mịn và khí độc, giúp điều chỉnh bảo vệ sức khỏe."
+    },
+    {
+      "text": "Khi dùng máy khử mùi bằng ozone cho tủ giày, cần lưu ý gì?",
+      "options": [
+        "Đứng gần hít trực tiếp",
+        "Đóng tủ và mở cửa thông thoáng sau khi khử",
+        "Xịt thêm nước hoa",
+        "Để máy chạy liên tục cả ngày"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ozone cần thời gian phân tán, nên thoáng khí sau khi khử để an toàn."
+    },
+    {
+      "text": "Nồi lẩu điện đa năng có lợi thế gì so với bếp gas mini?",
+      "options": [
+        "Nhẹ hơn",
+        "Điều chỉnh nhiệt chính xác, an toàn hơn",
+        "Không cần điện",
+        "Rẻ hơn"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nồi điện điều chỉnh nhiệt độ dễ dàng và không lo rò rỉ gas."
+    },
+    {
+      "text": "Khi sử dụng máy xịt phòng tinh dầu, nên làm gì để hương thơm lan tỏa tốt?",
+      "options": [
+        "Đặt sát tường",
+        "Đặt ở vị trí cao, thoáng",
+        "Đặt trong tủ kín",
+        "Phun trực tiếp vào quần áo"
+      ],
+      "correctIndex": 1,
+      "explanation": "Vị trí cao và thoáng giúp hạt tinh dầu lan đều trong không gian."
+    }
+  ]
+}
