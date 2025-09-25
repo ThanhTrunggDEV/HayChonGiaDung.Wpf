@@ -1,0 +1,53 @@
+<Window x:Class="HayChonGiaDung.Wpf.Round2Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Vòng 2 - Đếm Ngược"
+        WindowState="Maximized"
+        Background="{StaticResource Surface}">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <DockPanel Grid.Row="0">
+            <TextBlock Text="Vòng 2: Đếm Ngược" FontSize="28" FontWeight="Bold" DockPanel.Dock="Left"/>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                <TextBlock Text="⏳ Thời gian:" FontSize="18" Margin="0,0,8,0"/>
+                <TextBlock x:Name="TimerText" FontSize="22" FontWeight="Bold"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Main content -->
+        <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="16" Padding="20" Margin="0,12">
+            <StackPanel HorizontalAlignment="Center">
+
+                <!-- Product Name -->
+                <TextBlock x:Name="ProductName" FontSize="22" FontWeight="SemiBold" TextAlignment="Center"/>
+
+                <!-- Product Image -->
+                <Image x:Name="ProductImage" Height="220" Stretch="Uniform" Margin="0,12"/>
+
+                <!-- Input boxes -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16">
+                    <TextBox x:Name="D1" Width="70" Height="70" FontSize="28" MaxLength="1"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                    <TextBox x:Name="D2" Width="70" Height="70" FontSize="28" MaxLength="1"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                    <TextBox x:Name="D3" Width="70" Height="70" FontSize="28" MaxLength="1"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                    <TextBox x:Name="D4" Width="70" Height="70" FontSize="28" MaxLength="1"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                </StackPanel>
+
+                <!-- Check button -->
+                <Button Content="Kiểm tra" Width="140" Height="45" FontSize="18" Click="Check_Click"/>
+
+                <!-- Hint -->
+                <TextBlock x:Name="Hint" FontSize="18" Margin="0,14,0,0" TextAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>

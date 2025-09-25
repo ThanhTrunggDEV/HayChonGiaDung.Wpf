@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "HayChonGiaDung.Wpf/1.0.0": {
+        "runtime": {
+          "HayChonGiaDung.Wpf.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HayChonGiaDung.Wpf/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

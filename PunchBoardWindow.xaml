@@ -1,0 +1,20 @@
+<Window x:Class="HayChonGiaDung.Wpf.PunchBoardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Bốc Ô May Mắn" Height="700" Width="900" Background="{StaticResource Surface}">
+  <Grid Margin="12">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Text="Chọn ô để nhận thưởng" FontSize="24" FontWeight="Bold"/>
+    <UniformGrid Grid.Row="1" Rows="5" Columns="10" Margin="0,10,0,10" x:Name="GridBoard"/>
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+      <TextBlock Text="Lượt chọn còn:"/>
+      <TextBlock x:Name="LeftText" FontWeight="Bold"/>
+      <Button Content="Xong" Click="Done_Click"/>
+    </StackPanel>
+  </Grid>
+</Window>

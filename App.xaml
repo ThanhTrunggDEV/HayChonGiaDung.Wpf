@@ -1,0 +1,17 @@
+<Application x:Class="HayChonGiaDung.Wpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="StartWindow.xaml">
+  <Application.Resources>
+    <SolidColorBrush x:Key="Surface" Color="#0B1020"/>
+    <SolidColorBrush x:Key="Card" Color="#111832"/>
+    <Style TargetType="Button">
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Background" Value="#1E2A55"/>
+      <Setter Property="Padding" Value="12,8"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style TargetType="TextBlock"><Setter Property="Foreground" Value="White"/></Style>
+  </Application.Resources>
+</Application>

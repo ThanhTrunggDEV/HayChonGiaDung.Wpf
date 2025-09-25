@@ -1,0 +1,219 @@
+﻿<Window x:Class="HayChonGiaDung.Wpf.GuideWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HƯỚNG DẪN"
+        WindowStartupLocation="CenterOwner"
+        WindowState="Maximized"
+        Background="{StaticResource Surface}"
+        KeyDown="Window_KeyDown">
+
+    <!-- === High-Contrast Local Theme === -->
+    <Window.Resources>
+        <!-- Nền & card (đậm hơn để tăng contrast) -->
+        <SolidColorBrush x:Key="Surface" Color="#0B1220"/>
+        <SolidColorBrush x:Key="Card"    Color="#0E1A2B"/>
+
+        <!-- Chữ -->
+        <SolidColorBrush x:Key="TextPrimary"   Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#D1D5DB"/>
+
+        <!-- Accent & nút -->
+        <SolidColorBrush x:Key="Accent"           Color="#22C55E"/>
+        <!-- green 600 -->
+        <SolidColorBrush x:Key="AccentHover"      Color="#34D399"/>
+        <!-- green 400 -->
+        <SolidColorBrush x:Key="AccentPressed"    Color="#16A34A"/>
+        <!-- green 700 -->
+        <SolidColorBrush x:Key="OnAccent"         Color="#0B1220"/>
+        <!-- text trên nút -->
+
+        <!-- Callouts (chú ý) -->
+        <SolidColorBrush x:Key="InfoBg"     Color="#E0F2FE"/>
+        <!-- sky-100 -->
+        <SolidColorBrush x:Key="InfoText"   Color="#075985"/>
+        <!-- sky-800 -->
+        <SolidColorBrush x:Key="WarnBg"     Color="#FEE2E2"/>
+        <!-- rose-100 -->
+        <SolidColorBrush x:Key="WarnText"   Color="#991B1B"/>
+        <!-- rose-800 -->
+        <SolidColorBrush x:Key="TipBg"      Color="#F1F5F9"/>
+        <!-- slate-100 -->
+        <SolidColorBrush x:Key="TipText"    Color="#0F172A"/>
+        <!-- slate-900 -->
+
+        <!-- Text mặc định -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+        </Style>
+
+        <!-- Nút primary tương phản cao -->
+        <Style TargetType="Button" x:Key="PrimaryButton">
+            <Setter Property="Foreground" Value="{StaticResource OnAccent}"/>
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="10" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource AccentHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource AccentPressed}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bd" Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Callout style: Info / Warn / Tip -->
+        <Style TargetType="Border" x:Key="CalloutInfo">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Background" Value="{StaticResource InfoBg}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource InfoText}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style TargetType="Border" x:Key="CalloutWarn">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Background" Value="{StaticResource WarnBg}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource WarnText}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style TargetType="Border" x:Key="CalloutTip">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Background" Value="{StaticResource TipBg}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TipText}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                <TextBlock Text="HƯỚNG DẪN" FontSize="34" FontWeight="Bold"/>
+                <TextBlock Text="Luật chơi • Điều khiển • Điểm thưởng • FAQ" Foreground="{StaticResource TextSecondary}"/>
+            </StackPanel>
+           
+        </DockPanel>
+
+        <!-- Main -->
+        <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="18" Padding="16">
+            <TabControl Background="Black" x:Name="Tabs" Margin="4">
+                <!-- Luật chơi -->
+                <TabItem Background="Black" Header="Luật chơi">
+                    <ScrollViewer Padding="8">
+                        <StackPanel>
+                            <TextBlock Text="Tổng quan" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
+                            <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}">
+                Trò chơi gồm 4 vòng, 1 người chơi. Thua vòng nào thì dừng tại đó và tổng kết tiền thưởng đã có.
+                            </TextBlock>
+
+                            <Separator Margin="0,12,0,12"/>
+                            <TextBlock Text="Vòng 1 – Bàn Tay Vàng" FontSize="18" FontWeight="Bold"/>
+                            <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
+                Random 4 câu: hiển thị GIÁ ẨN một sản phẩm × số lượng. Chọn “CAO HƠN” hay “THẤP HƠN” so với giá đúng.
+                Mỗi câu đúng nhận 1 lượt mở ô thưởng (Punch Board) ở cuối vòng.
+                            </TextBlock>
+
+                            <Separator Margin="0,12,0,12"/>
+                            <TextBlock Text="Vòng 2 – Đếm Ngược" FontSize="18" FontWeight="Bold"/>
+                            <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
+                60 giây để đoán 4 chữ số (đơn vị nghìn). Sai sẽ hiện gợi ý từng digit: ‘&lt;’, ‘&gt;’, ‘=’. Đúng trong thời gian: +1.000.000 ₫.
+                            </TextBlock>
+
+                            <Separator Margin="0,12,0,12"/>
+                            <TextBlock Text="Vòng 3 – Không Mà Có" FontSize="18" FontWeight="Bold"/>
+                            <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
+                Hiển thị 6 sản phẩm; 1 sản phẩm bị “lệch giá”. Chọn đúng: +1.500.000 ₫.
+                            </TextBlock>
+
+                            <Separator Margin="0,12,0,12"/>
+                            <TextBlock Text="Vòng 4 – Lựa Chọn Thông Minh" FontSize="18" FontWeight="Bold"/>
+                            <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
+                Bộ 3 sản phẩm cận kề về giá. Chọn sản phẩm có GIÁ TRUNG BÌNH (median). Đúng: +2.000.000 ₫.
+                            </TextBlock>
+
+                           
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- Điều khiển -->
+                <TabItem Background="Black" Header="Điều khiển">
+                    <ScrollViewer Padding="8">
+                        <StackPanel>
+                            <TextBlock Text="Chuột và Bàn phím" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
+                            <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}">
+                • Dùng chuột click các nút hành động trên màn hình.
+                            </TextBlock>
+
+                            <Border Style="{StaticResource CalloutInfo}" Margin="0,10,0,0">
+                                <TextBlock Foreground="{StaticResource InfoText}" TextWrapping="Wrap">
+                  Hotkey vòng 1: <Bold>↑ / A</Bold> = CAO HƠN, <Bold>↓ / D</Bold> = THẤP HƠN.{"\n"}
+                  Vòng 2: gõ 4 chữ số, nhấn <Bold>Enter</Bold> để “Kiểm tra”.
+                                </TextBlock>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- Điểm thưởng -->
+                <TabItem Background="Black" Header="Điểm thưởng">
+                    <ScrollViewer Padding="8">
+                        <StackPanel>
+                            <TextBlock Text="Bảng thưởng" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
+                            <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}">
+                • Vòng 1: tuỳ ô thưởng mở được (Punch Board).\n
+                • Vòng 2: +1.000.000 ₫ nếu đoán đúng trong 60 giây.{"\n"}
+                • Vòng 3: +1.500.000 ₫ nếu chọn đúng sản phẩm lệch giá.{"\n"}
+                • Vòng 4: +2.000.000 ₫ nếu chọn đúng giá trung bình.
+                            </TextBlock>
+
+                           
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+               
+            </TabControl>
+        </Border>
+
+        <!-- Footer -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <TextBlock Text="Nhấn Esc để đóng nhanh" Foreground="{StaticResource TextSecondary}"
+                 VerticalAlignment="Center" Margin="0,0,12,0"/>
+            <Button Content="Đóng" Style="{StaticResource PrimaryButton}" Click="Close_Click" MinWidth="100"/>
+        </StackPanel>
+
+        <!-- Fade-in -->
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.25"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+    </Grid>
+</Window>

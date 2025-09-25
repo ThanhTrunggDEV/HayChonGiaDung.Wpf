@@ -1,0 +1,76 @@
+﻿<Window x:Class="HayChonGiaDung.Wpf.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hãy Chọn Giá Đúng"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource Surface}">
+
+    <!-- STYLE MENU -->
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="MenuButton">
+            <Setter Property="Foreground" Value="#C91C1C"/>
+            <Setter Property="Background" Value="#9AD15B"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="56"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                    CornerRadius="16" BorderBrush="#7CAF49" BorderThickness="2" Padding="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#A7DC68"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#8CC552"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="360"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- SIDEBAR -->
+        <StackPanel Grid.Column="0" VerticalAlignment="Center" Width="320">
+            <TextBlock Text="MENU" FontWeight="Bold" FontSize="20" Margin="8,0,0,8"/>
+            <Button Style="{StaticResource MenuButton}" Content="CHƠI"       Click="Play_Click"/>
+            <Button Style="{StaticResource MenuButton}" Content="CÀI ĐẶT"    Click="Settings_Click"/>
+            <Button Style="{StaticResource MenuButton}" Content="XẾP HẠNG"   Click="Leaderboard_Click"/>
+            <Button Style="{StaticResource MenuButton}" Content="HƯỚNG DẪN"  Click="Guide_Click"/>
+            <Button Style="{StaticResource MenuButton}" Content="THOÁT"      Click="Exit_Click"/>
+        </StackPanel>
+
+        <!-- LOGO / HÌNH BÊN PHẢI -->
+        <Border Grid.Column="1" Background="{StaticResource Card}" CornerRadius="20" Padding="24">
+            <Grid>
+                <!-- Dùng pack site-of-origin vì ảnh copy kèm output -->
+                <!-- NOTE: tên file có space -> encode %20 -->
+                <Image x:Name="LogoImage"
+               Source="Assets/Images/logo 1.png"
+               Stretch="Uniform"
+               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <!-- Fallback chữ (sẽ bật từ code-behind nếu ảnh thiếu) -->
+                <StackPanel x:Name="LogoFallback" Visibility="Collapsed"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="?" FontSize="200" FontWeight="Black" Foreground="#F2B705" HorizontalAlignment="Center"/>
+                    <TextBlock Text="HÃY CHỌN" FontSize="72" FontWeight="Black" HorizontalAlignment="Center"/>
+                    <TextBlock Text="GIÁ ĐÚNG" FontSize="72" FontWeight="Black" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
