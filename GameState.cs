@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
 
 namespace HayChonGiaDung.Wpf
 {
@@ -11,40 +8,16 @@ namespace HayChonGiaDung.Wpf
         public static string PlayerName { get; set; } = "";
         public static int TotalPrize { get; set; } = 0;
         public static Random Rnd { get; } = new Random();
-        public static List<Product> Catalog { get; } = LoadProducts();
+        public static List<Product> Catalog { get; private set; } = ProductRepository.LoadProducts();
 
         public static void Reset()
         {
             TotalPrize = 0;
         }
 
-        private static List<Product> LoadProducts()
+        public static void ReloadCatalog()
         {
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "products.json");
-            var list = new List<Product>();
-            if (File.Exists(path))
-            {
-                try
-                {
-                    using var doc = JsonDocument.Parse(File.ReadAllText(path));
-                    if (doc.RootElement.TryGetProperty("products", out var arr))
-                    {
-                        foreach (var p in arr.EnumerateArray())
-                        {
-                            list.Add(new Product
-                            {
-                                Name = p.GetProperty("name").GetString() ?? "",
-                                Price = p.TryGetProperty("price", out var pr) ? pr.GetInt32() : 0,
-                                ImageUrl = p.TryGetProperty("imageUrl", out var iu) ? iu.GetString() : null,
-                                Image = p.TryGetProperty("image", out var im) ? im.GetString() : null,
-                                 Description = p.TryGetProperty("description", out var ds) ? ds.GetString()
-                  : (p.TryGetProperty("desc", out var ds2) ? ds2.GetString() : null)
-                            });
-                        }
-                    }
-                } catch {}
-            }
-            return list;
+            Catalog = ProductRepository.LoadProducts();
         }
     }
 

@@ -1,0 +1,88 @@
+<Window x:Class="HayChonGiaDung.Wpf.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản trị sản phẩm"
+        Width="1200"
+        Height="720"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource Surface}">
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Background="{StaticResource Card}" CornerRadius="16" Padding="12" Margin="0,0,12,0">
+            <DataGrid ItemsSource="{Binding Products}"
+                      SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="None"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      Margin="0"
+                      RowBackground="#161F3D"
+                      AlternatingRowBackground="#1D2748"
+                      Foreground="White">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#1D2748" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="FontSize" Value="16" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding Name}" Width="2*" />
+                    <DataGridTextColumn Header="Giá (VNĐ)" Binding="{Binding Price}" Width="*" />
+                    <DataGridTextColumn Header="URL ảnh" Binding="{Binding ImageUrl}" Width="2*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Border Grid.Column="1" Background="{StaticResource Card}" CornerRadius="16" Padding="18">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Chi tiết sản phẩm" FontSize="22" FontWeight="Bold" Margin="0,0,0,16" />
+
+                    <TextBlock Text="Tên sản phẩm" FontWeight="Bold" />
+                    <TextBox Text="{Binding Editor.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,12" />
+
+                    <TextBlock Text="Giá (VNĐ)" FontWeight="Bold" />
+                    <TextBox Text="{Binding Editor.PriceText, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,12" />
+
+                    <TextBlock Text="Link ảnh" FontWeight="Bold" />
+                    <TextBox Text="{Binding Editor.ImageUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,12" />
+
+                    <TextBlock Text="API key Imgbb" FontWeight="Bold" />
+                    <PasswordBox x:Name="ApiKeyBox" Margin="0,4,0,12" />
+
+                    <Button x:Name="UploadButton"
+                            Content="Chọn ảnh & tải lên Imgbb"
+                            Click="UploadButton_Click"
+                            Margin="0,0,0,16" />
+
+                    <TextBlock Text="Mô tả" FontWeight="Bold" />
+                    <TextBox Text="{Binding Editor.Description, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0,4,0,12"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             Height="120" />
+
+                    <TextBlock Text="Xem trước ảnh" FontWeight="Bold" />
+                    <Border BorderThickness="1" BorderBrush="#2C3A63" Height="180" Margin="0,4,0,16">
+                        <Image Source="{Binding Editor.ImageUrl}" Stretch="Uniform" />
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Thêm mới" Width="120" Click="AddButton_Click" Margin="0,0,8,0" />
+                        <Button Content="Cập nhật" Width="120" Click="UpdateButton_Click" Margin="0,0,8,0" />
+                        <Button Content="Xóa" Width="120" Click="DeleteButton_Click" Margin="0,0,8,0" />
+                        <Button Content="Làm mới" Width="120" Click="ResetButton_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>
