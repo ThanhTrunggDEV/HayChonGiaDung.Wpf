@@ -1,21 +1,41 @@
-﻿<Window x:Class="HayChonGiaDung.Wpf.SettingsWindow"
+<Window x:Class="HayChonGiaDung.Wpf.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SETTING" Height="320" Width="450"
+        Title="SETTING" Height="380" Width="500"
         WindowStartupLocation="CenterOwner"
         Background="{StaticResource Surface}">
-    <Border Background="SkyBlue" CornerRadius="12" Margin="16" Padding="20">
+    <Border Background="SkyBlue" CornerRadius="12" Margin="16" Padding="24">
         <StackPanel>
             <TextBlock Text="Âm Thanh" FontSize="28" FontWeight="Bold"
-                 Foreground="#C91C1C" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+                       Foreground="#C91C1C" HorizontalAlignment="Center" Margin="0,0,0,16"/>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                <RadioButton Foreground="Black" x:Name="RbOff" Content="Tắt" FontSize="20" Checked="RbOff_Checked"/>
-                <RadioButton  Foreground="Black" x:Name="RbOn"  Content="Bật" FontSize="20" Checked="RbOn_Checked"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,16">
+                <RadioButton Foreground="Black" x:Name="RbOff" Content="Tắt" FontSize="20"
+                             Checked="RbOff_Checked" Margin="0,0,20,0"/>
+                <RadioButton Foreground="Black" x:Name="RbOn" Content="Bật" FontSize="20"
+                             Checked="RbOn_Checked"/>
             </StackPanel>
 
-            <Button Content="Lưu" Width="120" Height="40" Margin="0,20,0,0"
-              HorizontalAlignment="Center" Click="Save_Click"/>
+            <StackPanel Margin="0,0,0,12">
+                <TextBlock Text="Âm lượng" FontSize="20" FontWeight="SemiBold" Foreground="#112D4E" Margin="0,0,0,6"/>
+                <Grid>
+                    <Slider x:Name="VolumeSlider" Minimum="0" Maximum="100" TickFrequency="10"
+                            IsSnapToTickEnabled="True" ValueChanged="VolumeSlider_ValueChanged"
+                            VerticalAlignment="Center" Height="36"/>
+                    <Border Background="#EEFFFFFF" CornerRadius="6" Padding="8,4" HorizontalAlignment="Right"
+                            Margin="0,0,6,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="VolumeValueText" FontSize="16" FontWeight="Bold" Foreground="#112D4E"/>
+                    </Border>
+                </Grid>
+                <TextBlock Text="Kéo thanh trượt để điều chỉnh âm lượng nhạc nền và hiệu ứng." FontSize="14"
+                           Foreground="#102A43" TextWrapping="Wrap" Margin="0,6,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
+                <Button x:Name="PreviewButton" Content="Nghe thử" Width="130" Height="40" Margin="0,0,16,0"
+                        Click="Preview_Click"/>
+                <Button Content="Lưu" Width="130" Height="40" Click="Save_Click"/>
+            </StackPanel>
         </StackPanel>
     </Border>
 </Window>
