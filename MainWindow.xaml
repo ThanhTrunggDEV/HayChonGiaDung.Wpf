@@ -19,9 +19,15 @@
       </StackPanel>
     </Border>
 
-    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" >
-      <TextBlock Text="Tổng tiền thưởng:"/>
-      <TextBlock x:Name="PrizeText" FontWeight="Bold"/>
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+      <StackPanel Orientation="Horizontal" Margin="0,0,12,0">
+        <TextBlock Text="💰 Xu:"/>
+        <TextBlock x:Name="CoinText" FontWeight="Bold" Margin="4,0,0,0"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Tổng tiền thưởng:"/>
+        <TextBlock x:Name="PrizeText" FontWeight="Bold" Margin="4,0,0,0"/>
+      </StackPanel>
     </StackPanel>
   </Grid>
 </Window>

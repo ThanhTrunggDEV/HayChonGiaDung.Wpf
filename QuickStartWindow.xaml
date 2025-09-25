@@ -1,0 +1,67 @@
+<Window x:Class="HayChonGiaDung.Wpf.QuickStartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Khởi động nhanh"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="{StaticResource Surface}">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                <TextBlock Text="Vòng mở màn: Khởi động nhanh" FontSize="32" FontWeight="Bold"/>
+                <TextBlock x:Name="ProgressText" Opacity="0.85" Margin="0,6,0,0" FontSize="18"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="12,0,0,0">
+                <TextBlock Text="💰 Xu hiện có:" FontSize="18"/>
+                <TextBlock x:Name="CoinText" FontSize="22" FontWeight="Bold" Margin="6,0,0,0"/>
+            </StackPanel>
+        </DockPanel>
+
+        <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="20" Padding="28" Margin="0,18,0,18">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="QuestionText" FontSize="26" FontWeight="SemiBold" TextWrapping="Wrap"/>
+
+                <StackPanel Grid.Row="1" x:Name="OptionsPanel" Margin="0,18,0,18"/>
+
+                <StackPanel Grid.Row="2">
+                    <TextBlock x:Name="FeedbackText" FontSize="18" Margin="0,0,0,12"/>
+                    <Button x:Name="NextButton" Content="Câu tiếp theo" Width="200" Height="48" HorizontalAlignment="Right" Click="Next_Click" Visibility="Collapsed"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Thoát" Width="120" Click="Cancel_Click"/>
+        </StackPanel>
+
+        <Border x:Name="ShopPanel" Grid.RowSpan="3" Background="#BF000000" Visibility="Collapsed">
+            <Border Background="{StaticResource Card}" CornerRadius="20" Padding="28" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
+                <StackPanel>
+                    <TextBlock Text="Tích lũy chiến thuật" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Dùng xu để mua thẻ hỗ trợ cho các vòng sau." Margin="0,8,0,18" TextAlignment="Center"/>
+
+                    <StackPanel Margin="0,12,0,0">
+                        <Button x:Name="BuyHintButton" Content="Mua thẻ Gợi ý (-5 xu)" Height="48" Click="BuyHint_Click" Margin="0,4,0,4"/>
+                        <Button x:Name="BuySwapButton" Content="Mua thẻ Đổi sản phẩm (-8 xu)" Height="48" Click="BuySwap_Click" Margin="0,4,0,4"/>
+                        <Button x:Name="BuyDoubleButton" Content="Mua thẻ Nhân đôi phần thưởng (-10 xu)" Height="48" Click="BuyDouble_Click" Margin="0,4,0,4"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="ShopStatus" Margin="0,12,0,0" FontSize="16" TextAlignment="Center"/>
+                    <Button Content="Sẵn sàng vào vòng chính" Margin="0,18,0,0" Height="50" Click="FinishShop_Click"/>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

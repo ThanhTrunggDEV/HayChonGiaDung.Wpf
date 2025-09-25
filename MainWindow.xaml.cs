@@ -9,6 +9,7 @@ namespace HayChonGiaDung.Wpf
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
             PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
+            CoinText.Text = GameState.Coins.ToString();
             //SoundManager.Background();
         }
 
@@ -21,24 +22,36 @@ namespace HayChonGiaDung.Wpf
             }
             GameState.PlayerName = PlayerNameBox.Text.Trim();
             GameState.Reset();
-            PrizeText.Text = "0 ₫";
+            UpdateEconomyTexts();
 
-            var r1 = new Round1Window();
-            r1.Owner = this;
+            var warmup = new QuickStartWindow { Owner = this };
+            if (warmup.ShowDialog() != true)
+            {
+                StatusText.Text = "Bạn đã dừng ở vòng khởi động.";
+                return;
+            }
+
+            StatusText.Text = string.Empty;
+            UpdateEconomyTexts();
+
+            var r1 = new Round1Window { Owner = this };
             r1.ShowDialog();
-            PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
+            UpdateEconomyTexts();
             if (HandleGameOver()) { return; }
 
-            var r2 = new Round2Window(); r2.Owner = this; r2.ShowDialog();
-            PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
+            var r2 = new Round2Window { Owner = this };
+            r2.ShowDialog();
+            UpdateEconomyTexts();
             if (HandleGameOver()) { return; }
 
-            var r3 = new Round3Window(); r3.Owner = this; r3.ShowDialog();
-            PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
+            var r3 = new Round3Window { Owner = this };
+            r3.ShowDialog();
+            UpdateEconomyTexts();
             if (HandleGameOver()) { return; }
 
-            var r4 = new Round4Window(); r4.Owner = this; r4.ShowDialog();
-            PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
+            var r4 = new Round4Window { Owner = this };
+            r4.ShowDialog();
+            UpdateEconomyTexts();
             if (HandleGameOver()) { return; }
 
             SoundManager.Win();
@@ -65,6 +78,12 @@ namespace HayChonGiaDung.Wpf
             startWindow.Show();
             Application.Current.MainWindow = startWindow;
             Close();
+        }
+
+        private void UpdateEconomyTexts()
+        {
+            PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
+            CoinText.Text = GameState.Coins.ToString();
         }
     }
 }

@@ -4,6 +4,20 @@
         Title="Vòng 1 - Bàn Tay Vàng"
         WindowState="Maximized"
         Background="{StaticResource Surface}">
+    <Window.Resources>
+        <Storyboard x:Key="RevealStoryboard">
+            <DoubleAnimation To="1" Duration="0:0:0.45"
+                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                             From="0.8"/>
+            <DoubleAnimation To="1" Duration="0:0:0.45"
+                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                             From="0.8"/>
+            <DoubleAnimation To="1" Duration="0:0:0.45"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0"/>
+        </Storyboard>
+    </Window.Resources>
+
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,8 +33,18 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
-                <TextBlock Text="Đúng:"/>
-                <TextBlock x:Name="CorrectCount" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,12,0">
+                    <TextBlock Text="💰 Xu:"/>
+                    <TextBlock x:Name="CoinText" FontWeight="Bold" Margin="4,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,12,0">
+                    <TextBlock Text="Thẻ:"/>
+                    <TextBlock x:Name="CardText" FontWeight="Bold" Margin="4,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Đúng:"/>
+                    <TextBlock x:Name="CorrectCount" FontWeight="Bold" Margin="4,0,0,0"/>
+                </StackPanel>
             </StackPanel>
         </DockPanel>
 
@@ -41,21 +65,33 @@
                     </ScrollViewer>
 
                     <Border CornerRadius="12" Background="#121C3C" Padding="10" Margin="0,12,0,0">
-                        <Image x:Name="ProductImage" Height="280" Stretch="Uniform"/>
+                        <Image x:Name="ProductImage" Height="280" Stretch="Uniform" RenderTransformOrigin="0.5,0.5">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Image.RenderTransform>
+                        </Image>
                     </Border>
                 </StackPanel>
 
                 <!-- RIGHT: question & actions -->
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="520">
-                    <TextBlock Text="GIÁ ẨN" FontSize="18" Opacity="0.8" HorizontalAlignment="Center"/>
+                    <TextBlock Text="ĐOÁN GIÁ TRONG PHẠM VI ±10%" FontSize="18" Opacity="0.8" HorizontalAlignment="Center"/>
                     <TextBlock x:Name="Question" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0,4,0,16"/>
 
-                    <UniformGrid Columns="2" Rows="1" Margin="0,6,0,6">
-                        <Button x:Name="HigherButton" Content="CAO HƠN" Height="70" FontSize="22" Click="Higher_Click" Margin="6"/>
-                        <Button x:Name="LowerButton" Content="THẤP HƠN" Height="70" FontSize="22" Click="Lower_Click"  Margin="6"/>
+                    <TextBox x:Name="PriceGuessBox" Height="60" FontSize="22" Margin="0,0,0,12" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="SubmitButton" Content="Khóa đáp án" Height="60" FontSize="20" Click="Submit_Click"/>
+
+                    <TextBlock x:Name="RangeHint" FontSize="18" TextAlignment="Center" Margin="0,12,0,6"/>
+
+                    <Separator Margin="0,6,0,6"/>
+                    <TextBlock Text="Thẻ chiến thuật" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <UniformGrid Columns="3" Margin="0,8,0,0">
+                        <Button x:Name="HintButton" Content="Gợi ý (-5 xu)" Margin="4" Click="HintButton_Click"/>
+                        <Button x:Name="SwapButton" Content="Đổi sản phẩm (-8 xu)" Margin="4" Click="SwapButton_Click"/>
+                        <Button x:Name="DoubleButton" Content="Nhân đôi thưởng (-10 xu)" Margin="4" Click="DoubleButton_Click"/>
                     </UniformGrid>
 
-                    <TextBlock x:Name="Feedback" FontSize="18" TextAlignment="Center" Margin="0,10,0,0"/>
+                    <TextBlock x:Name="Feedback" FontSize="18" TextAlignment="Center" Margin="0,16,0,0"/>
                 </StackPanel>
             </Grid>
         </Border>

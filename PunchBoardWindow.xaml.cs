@@ -38,7 +38,7 @@ namespace HayChonGiaDung.Wpf
             btn.Foreground = System.Windows.Media.Brushes.Black;
             btn.Background = prize>0 ? System.Windows.Media.Brushes.LightGreen : System.Windows.Media.Brushes.LightCoral;
             btn.Content = $"{prize:N0} ₫";
-            GameState.TotalPrize += prize;
+            GameState.AddPrize(prize);
             picksLeft--;
             LeftText.Text = picksLeft.ToString();
             if (prize>0) SoundManager.Correct(); else SoundManager.Wrong();
