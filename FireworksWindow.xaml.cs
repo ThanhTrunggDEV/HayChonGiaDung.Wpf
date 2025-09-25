@@ -30,6 +30,8 @@ namespace HayChonGiaDung.Wpf
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            SoundManager.Fireworks();
+
             if (Owner != null)
             {
                 Left = Owner.Left;
