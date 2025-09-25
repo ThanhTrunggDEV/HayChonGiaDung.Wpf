@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -134,7 +135,7 @@ namespace HayChonGiaDung.Wpf
             }
         }
 
-        private void Pick(object sender, RoutedEventArgs e)
+        private async void Pick(object sender, RoutedEventArgs e)
         {
             if (picked) return; // chặn double click
             picked = true;
@@ -147,14 +148,16 @@ namespace HayChonGiaDung.Wpf
                 GameState.TotalPrize += 1_500_000;
                 PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
                 SoundManager.Correct();
-                MessageBox.Show("Chuẩn bài! +1.500.000 ₫", "Không Mà Có");
+                Feedback.Text = "✅ Chuẩn bài! +1.500.000 ₫";
+                await Task.Delay(1000);
                 this.DialogResult = true;
                 Close();
             }
             else
             {
                 SoundManager.Wrong();
-                MessageBox.Show("Sai mất rồi! Vòng này 0 ₫.", "Không Mà Có");
+                Feedback.Text = "❌ Sai mất rồi! Vòng này 0 ₫.";
+                await Task.Delay(1000);
                 this.DialogResult = false;
                 Close();
             }

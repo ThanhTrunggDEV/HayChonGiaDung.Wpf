@@ -28,7 +28,10 @@
 
         <!-- Product grid -->
         <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="18" Padding="18" Margin="0,14,0,14">
-            <UniformGrid x:Name="GridProducts" Rows="2" Columns="3" />
+            <StackPanel>
+                <UniformGrid x:Name="GridProducts" Rows="2" Columns="3" />
+                <TextBlock x:Name="Feedback" Margin="0,16,0,0" FontSize="18" TextAlignment="Center"/>
+            </StackPanel>
         </Border>
 
         <!-- Footer -->
