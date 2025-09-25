@@ -47,15 +47,29 @@
 
                 <!-- RIGHT: question & actions -->
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="520">
-                    <TextBlock Text="GIÁ ẨN" FontSize="18" Opacity="0.8" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                        <TextBlock Text="GIÁ ẨN" FontSize="18" Opacity="0.8"/>
+                        <TextBlock x:Name="ModeText" FontSize="16" Opacity="0.8"/>
+                    </StackPanel>
                     <TextBlock x:Name="Question" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0,4,0,16"/>
 
-                    <UniformGrid Columns="2" Rows="1" Margin="0,6,0,6">
+                    <UniformGrid x:Name="HigherLowerPanel" Columns="2" Rows="1" Margin="0,6,0,6">
                         <Button x:Name="HigherButton" Content="CAO HƠN" Height="70" FontSize="22" Click="Higher_Click" Margin="6"/>
                         <Button x:Name="LowerButton" Content="THẤP HƠN" Height="70" FontSize="22" Click="Lower_Click"  Margin="6"/>
                     </UniformGrid>
 
-                    <TextBlock x:Name="Feedback" FontSize="18" TextAlignment="Center" Margin="0,10,0,0"/>
+                    <StackPanel x:Name="RangePanel" Visibility="Collapsed" Margin="0,6,0,6" Spacing="10">
+                        <TextBlock Text="Nhập giá bạn đoán (₫)" FontSize="16" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="RangeInput" FontSize="22" Padding="10" HorizontalContentAlignment="Center"/>
+                        <Button Content="Xác nhận" Height="60" FontSize="20" Click="RangeSubmit_Click"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0" Spacing="12">
+                        <Button x:Name="HintButton" Content="Xem gợi ý" Click="Hint_Click"/>
+                        <Button x:Name="SwapButton" Content="Đổi sản phẩm" Click="Swap_Click"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="Feedback" FontSize="18" TextAlignment="Center" Margin="0,12,0,0" TextWrapping="Wrap"/>
                 </StackPanel>
             </Grid>
         </Border>

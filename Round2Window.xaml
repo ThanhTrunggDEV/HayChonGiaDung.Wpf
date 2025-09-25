@@ -21,32 +21,62 @@
 
         <!-- Main content -->
         <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="16" Padding="20" Margin="0,12">
-            <StackPanel HorizontalAlignment="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <!-- Product Name -->
-                <TextBlock x:Name="ProductName" FontSize="22" FontWeight="SemiBold" TextAlignment="Center"/>
-
-                <!-- Product Image -->
-                <Image x:Name="ProductImage" Height="220" Stretch="Uniform" Margin="0,12"/>
-
-                <!-- Input boxes -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16">
-                    <TextBox x:Name="D1" Width="70" Height="70" FontSize="28" MaxLength="1"
-                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
-                    <TextBox x:Name="D2" Width="70" Height="70" FontSize="28" MaxLength="1"
-                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
-                    <TextBox x:Name="D3" Width="70" Height="70" FontSize="28" MaxLength="1"
-                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
-                    <TextBox x:Name="D4" Width="70" Height="70" FontSize="28" MaxLength="1"
-                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                <StackPanel Grid.Row="0" x:Name="SelectionPanel" Spacing="12">
+                    <TextBlock x:Name="SelectionInstruction" FontSize="22" FontWeight="SemiBold" TextAlignment="Center" TextWrapping="Wrap"/>
+                    <ItemsControl x:Name="SelectionList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="2"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="12" BorderThickness="1" BorderBrush="#3a4a6d" Margin="8" Padding="12">
+                                    <StackPanel>
+                                        <Image Source="{Binding Image}" Height="160" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="0,8,0,0" TextWrapping="Wrap"/>
+                                        <Button Content="Chọn" Margin="0,8,0,0" Tag="{Binding Index}" Click="SelectionPick_Click"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
 
-                <!-- Check button -->
-                <Button Content="Kiểm tra" Width="140" Height="45" FontSize="18" Click="Check_Click"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12" Spacing="10">
+                    <Button x:Name="SelectionHintButton" Content="Gợi ý" Click="SelectionHint_Click"/>
+                    <TextBlock x:Name="SelectionFeedback" FontSize="16" TextWrapping="Wrap"/>
+                </StackPanel>
 
-                <!-- Hint -->
-                <TextBlock x:Name="Hint" FontSize="18" Margin="0,14,0,0" TextAlignment="Center"/>
-            </StackPanel>
+                <StackPanel Grid.Row="2" x:Name="DigitsPanel" HorizontalAlignment="Center" Visibility="Collapsed">
+                    <TextBlock x:Name="ProductName" FontSize="22" FontWeight="SemiBold" TextAlignment="Center"/>
+                    <Image x:Name="ProductImage" Height="220" Stretch="Uniform" Margin="0,12"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16">
+                        <TextBox x:Name="D1" Width="70" Height="70" FontSize="28" MaxLength="1"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                        <TextBox x:Name="D2" Width="70" Height="70" FontSize="28" MaxLength="1"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                        <TextBox x:Name="D3" Width="70" Height="70" FontSize="28" MaxLength="1"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                        <TextBox x:Name="D4" Width="70" Height="70" FontSize="28" MaxLength="1"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="4"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                        <Button Content="Kiểm tra" Width="140" Height="45" FontSize="18" Click="Check_Click"/>
+                        <Button x:Name="DigitHintButton" Content="Gợi ý" Click="DigitHint_Click"/>
+                        <Button x:Name="DigitSwapButton" Content="Đổi sản phẩm" Click="DigitSwap_Click"/>
+                        <Button x:Name="DigitDoubleButton" Content="Nhân đôi thưởng" Click="DigitDouble_Click"/>
+                    </StackPanel>
+                    <TextBlock x:Name="Hint" FontSize="18" Margin="0,14,0,0" TextAlignment="Center"/>
+                </StackPanel>
+            </Grid>
         </Border>
 
     </Grid>
