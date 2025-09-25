@@ -34,10 +34,13 @@
 
                 <!-- LEFT: product info -->
                 <StackPanel Grid.Column="0" Margin="0,0,18,0">
-                    <TextBlock x:Name="ProductName" FontSize="26" FontWeight="SemiBold" TextWrapping="Wrap" />
-                    <TextBlock Text="Mô tả" FontWeight="Bold" Margin="0,8,0,4"/>
-                    <ScrollViewer Height="120" VerticalScrollBarVisibility="Auto">
-                        <TextBlock x:Name="ProductDesc" TextWrapping="Wrap" Opacity="0.9"/>
+                    <TextBlock x:Name="ProductName" FontSize="28" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    <Border Background="#1D2748" CornerRadius="10" Padding="8" Margin="0,8,0,12">
+                        <TextBlock x:Name="QuantityText" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                    </Border>
+                    <TextBlock Text="Mô tả" FontSize="22" FontWeight="Bold" Margin="0,4,0,6"/>
+                    <ScrollViewer Height="140" VerticalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="ProductDesc" TextWrapping="Wrap" Opacity="0.9" FontSize="18"/>
                     </ScrollViewer>
 
                     <Border CornerRadius="12" Background="#121C3C" Padding="10" Margin="0,12,0,0">

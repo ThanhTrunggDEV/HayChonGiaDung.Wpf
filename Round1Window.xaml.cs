@@ -41,7 +41,8 @@ namespace HayChonGiaDung.Wpf
             hiddenPrice = Math.Max(1000, correctPrice + GameState.Rnd.Next(-delta, delta + 1));
 
             // UI text
-            ProductName.Text = $"{current.Name} x{qty}";
+            ProductName.Text = current.Name;
+            QuantityText.Text = $"Số lượng: {qty} chiếc";
             Question.Text = $"{hiddenPrice:N0} ₫ — Giá đúng CAO HƠN hay THẤP HƠN?";
 
             // description (nếu có), fallback câu mặc định

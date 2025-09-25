@@ -32,7 +32,6 @@ namespace HayChonGiaDung.Wpf
             TimerText.Text = timeLeft.ToString();
             timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             timer.Tick += Timer_Tick;
-            timer.Start();
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
@@ -178,6 +177,11 @@ namespace HayChonGiaDung.Wpf
         {
             DigitsPanel.Visibility = Visibility.Visible;
             SelectionFeedback.Text = string.Empty;
+
+            if (!timer.IsEnabled)
+            {
+                timer.Start();
+            }
 
             current = GameState.Catalog.Count > 0
                 ? GameState.Catalog[GameState.Rnd.Next(GameState.Catalog.Count)]
