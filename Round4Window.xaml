@@ -37,16 +37,18 @@
 
         <!-- Product trio -->
         <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="18" Padding="18" Margin="0,14,0,14">
-            <StackPanel>
-                <StackPanel x:Name="OrderPanel" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
-                    <Button x:Name="HintButton" Content="Gợi ý (-5 xu)" Margin="4" Click="HintButton_Click"/>
-                    <Button x:Name="SwapButton" Content="Đổi bộ (-8 xu)" Margin="4" Click="SwapButton_Click"/>
-                    <Button x:Name="DoubleButton" Content="Nhân đôi (-10 xu)" Margin="4" Click="DoubleButton_Click"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <StackPanel x:Name="OrderPanel" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
+                        <Button x:Name="HintButton" Content="Gợi ý (-5 xu)" Margin="4" Click="HintButton_Click"/>
+                        <Button x:Name="SwapButton" Content="Đổi bộ (-8 xu)" Margin="4" Click="SwapButton_Click"/>
+                        <Button x:Name="DoubleButton" Content="Nhân đôi (-10 xu)" Margin="4" Click="DoubleButton_Click"/>
+                    </StackPanel>
+                    <Button x:Name="LockButton" Content="Khóa thứ tự" Margin="0,16,0,0" Height="48" Click="LockButton_Click"/>
+                    <TextBlock x:Name="Feedback" Margin="0,16,0,0" FontSize="18" TextAlignment="Center"/>
                 </StackPanel>
-                <Button x:Name="LockButton" Content="Khóa thứ tự" Margin="0,16,0,0" Height="48" Click="LockButton_Click"/>
-                <TextBlock x:Name="Feedback" Margin="0,16,0,0" FontSize="18" TextAlignment="Center"/>
-            </StackPanel>
+            </ScrollViewer>
         </Border>
 
         <!-- Footer -->
