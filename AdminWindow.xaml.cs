@@ -14,6 +14,8 @@ namespace HayChonGiaDung.Wpf
     public partial class AdminWindow : Window, INotifyPropertyChanged
     {
         private readonly HttpClient _httpClient = new();
+        private const string ImgbbApiKey = "PASTE_IMGBB_API_KEY_HERE";
+
         private ObservableCollection<Product> _products = new();
         private Product? _selectedProduct;
         private readonly ProductDraft _editor = new();
@@ -76,10 +78,9 @@ namespace HayChonGiaDung.Wpf
 
         private async void UploadButton_Click(object sender, RoutedEventArgs e)
         {
-            var apiKey = ApiKeyBox.Password?.Trim();
-            if (string.IsNullOrWhiteSpace(apiKey))
+            if (string.IsNullOrWhiteSpace(ImgbbApiKey))
             {
-                MessageBox.Show(this, "Vui lòng nhập API key Imgbb trước khi tải ảnh.", "Thiếu API key", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(this, "Vui lòng cấu hình API key Imgbb trước khi tải ảnh.", "Thiếu API key", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -96,8 +97,7 @@ namespace HayChonGiaDung.Wpf
             try
             {
                 UploadButton.IsEnabled = false;
-                ApiKeyBox.IsEnabled = false;
-                var url = await UploadImageAsync(dialog.FileName, apiKey);
+                var url = await UploadImageAsync(dialog.FileName);
                 if (!string.IsNullOrEmpty(url))
                 {
                     Editor.ImageUrl = url;
@@ -115,11 +115,10 @@ namespace HayChonGiaDung.Wpf
             finally
             {
                 UploadButton.IsEnabled = true;
-                ApiKeyBox.IsEnabled = true;
             }
         }
 
-        private async Task<string?> UploadImageAsync(string filePath, string apiKey)
+        private async Task<string?> UploadImageAsync(string filePath)
         {
             var bytes = await File.ReadAllBytesAsync(filePath);
             var base64 = Convert.ToBase64String(bytes);
@@ -128,7 +127,7 @@ namespace HayChonGiaDung.Wpf
             content.Add(new StringContent(base64), "image");
             content.Add(new StringContent(Path.GetFileName(filePath)), "name");
 
-            var response = await _httpClient.PostAsync($"https://api.imgbb.com/1/upload?key={Uri.EscapeDataString(apiKey)}", content);
+            var response = await _httpClient.PostAsync($"https://api.imgbb.com/1/upload?key={Uri.EscapeDataString(ImgbbApiKey)}", content);
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
