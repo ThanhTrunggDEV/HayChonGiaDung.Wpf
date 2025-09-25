@@ -118,9 +118,44 @@
 
         <!-- Main -->
         <Border Grid.Row="1" Background="{StaticResource Card}" CornerRadius="18" Padding="16">
-            <TabControl Background="Black" x:Name="Tabs" Margin="4">
+            <TabControl x:Name="Tabs" Margin="4" Background="Transparent" BorderThickness="0">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Padding" Value="20,10"/>
+                        <Setter Property="Margin" Value="0,0,8,0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Border x:Name="tabBorder"
+                                            CornerRadius="10"
+                                            Background="{StaticResource Card}"
+                                            Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter x:Name="contentPresenter"
+                                                          ContentSource="Header"
+                                                          RecognizesAccessKey="True"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          TextElement.Foreground="{TemplateBinding Foreground}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="tabBorder" Property="Background" Value="{StaticResource Accent}"/>
+                                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource OnAccent}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="tabBorder" Property="Background" Value="{StaticResource AccentHover}"/>
+                                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource OnAccent}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
                 <!-- Luật chơi -->
-                <TabItem Background="Black" Header="Luật chơi">
+                <TabItem Background="Transparent" Header="Luật chơi">
                     <ScrollViewer Padding="8">
                         <StackPanel>
                             <TextBlock Text="Tổng quan" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
@@ -169,7 +204,7 @@
                 </TabItem>
 
                 <!-- Điều khiển -->
-                <TabItem Background="Black" Header="Điều khiển">
+                <TabItem Background="Transparent" Header="Điều khiển">
                     <ScrollViewer Padding="8">
                         <StackPanel>
                             <TextBlock Text="Chuột và Bàn phím" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
@@ -191,20 +226,20 @@
                 </TabItem>
 
                 <!-- Điểm thưởng -->
-                <TabItem Background="Black" Header="Điểm thưởng">
+                <TabItem Background="Transparent" Header="Điểm thưởng">
                     <ScrollViewer Padding="8">
                         <StackPanel>
                             <TextBlock Text="Bảng thưởng" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
-                            <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}">
-                • Vòng Khởi Động: mỗi câu đúng +2 xu, dùng để mua thẻ trợ giúp.{"\n"}
-                • Vòng 1: mỗi lượt đục bảng có thể nhận 0 ₫ đến 5.000.000 ₫ tuỳ ô thưởng mở ra.{"\n"}
-                • Vòng 2: +1.000.000 ₫ khi đoán đúng giá (nhân đôi nếu kích hoạt thẻ Nhân đôi). Thử thách chọn sản phẩm chỉ thưởng thêm thời gian.{"\n"}
-                • Vòng 3: +1.500.000 ₫ nếu tìm đúng sản phẩm sai giá.{"\n"}
-                • Vòng 4: +2.000.000 ₫ nếu chọn đúng sản phẩm có giá trung bình.{"\n"}
-                • Vòng 5: +700.000 ₫ cho mỗi sản phẩm đứng đúng vị trí (nhân đôi khi đã kích hoạt thẻ). Sản phẩm được “bảo vệ” nhưng xếp sai vẫn nhận +300.000 ₫.
-                            </TextBlock>
+                            <StackPanel Margin="0,4,0,0">
+                                <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng Khởi Động: mỗi câu đúng +2 xu, dùng để mua thẻ trợ giúp."/>
+                                <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng 1: mỗi lượt đục bảng có thể nhận 0 ₫ đến 5.000.000 ₫ tuỳ ô thưởng mở ra."/>
+                                <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng 2: +1.000.000 ₫ khi đoán đúng giá (nhân đôi nếu kích hoạt thẻ Nhân đôi). Thử thách chọn sản phẩm chỉ thưởng thêm thời gian."/>
+                                <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng 3: +1.500.000 ₫ nếu tìm đúng sản phẩm sai giá."/>
+                                <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng 4: +2.000.000 ₫ nếu chọn đúng sản phẩm có giá trung bình."/>
+                                <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Text="• Vòng 5: +700.000 ₫ cho mỗi sản phẩm đứng đúng vị trí (nhân đôi khi đã kích hoạt thẻ). Sản phẩm được “bảo vệ” nhưng xếp sai vẫn nhận +300.000 ₫."/>
+                            </StackPanel>
 
-                           
+
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
