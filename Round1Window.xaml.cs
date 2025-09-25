@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -85,8 +86,11 @@ namespace HayChonGiaDung.Wpf
             return "Chưa có mô tả cho sản phẩm này.";
         }
 
-        private void Evaluate(bool guessHigher)
+        private async Task EvaluateAsync(bool guessHigher)
         {
+            HigherButton.IsEnabled = false;
+            LowerButton.IsEnabled = false;
+
             bool isHigher = correctPrice > hiddenPrice;
             if (guessHigher == isHigher)
             {
@@ -100,11 +104,18 @@ namespace HayChonGiaDung.Wpf
                 SoundManager.Wrong();
             }
             CorrectCount.Text = $"{correct}/4";
+
+            await Task.Delay(1000);
+
+            Feedback.Text = string.Empty;
+            HigherButton.IsEnabled = true;
+            LowerButton.IsEnabled = true;
+
             NextQuestion();
         }
 
-        private void Higher_Click(object sender, RoutedEventArgs e) => Evaluate(true);
-        private void Lower_Click(object sender, RoutedEventArgs e) => Evaluate(false);
+        private async void Higher_Click(object sender, RoutedEventArgs e) => await EvaluateAsync(true);
+        private async void Lower_Click(object sender, RoutedEventArgs e) => await EvaluateAsync(false);
 
         private void Finish_Click(object sender, RoutedEventArgs e) => OpenPunchBoard();
 

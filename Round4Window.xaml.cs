@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -11,6 +12,7 @@ namespace HayChonGiaDung.Wpf
     {
         private int correctDisplayIndex;
         private Product[] trio = new Product[3];
+        private bool picked = false;
 
         public Round4Window()
         {
@@ -115,15 +117,19 @@ namespace HayChonGiaDung.Wpf
             return card;
         }
 
-        private void Pick(object sender, RoutedEventArgs e)
+        private async void Pick(object sender, RoutedEventArgs e)
         {
+            if (picked) return;
+            picked = true;
+
             int idx = (int)((Button)sender).Tag;
             if (idx == correctDisplayIndex)
             {
                 GameState.TotalPrize += 2_000_000;
                 PrizeText.Text = $"{GameState.TotalPrize:N0} ₫";
                 SoundManager.Correct();
-                MessageBox.Show("Quá thông minh! +2.000.000 ₫", "Lựa Chọn Thông Minh");
+                Feedback.Text = "✅ Quá thông minh! +2.000.000 ₫";
+                await Task.Delay(1000);
                 LeaderboardService.AddScore(GameState.PlayerName, GameState.TotalPrize);
                 this.DialogResult = true;
                 Close();
@@ -131,7 +137,8 @@ namespace HayChonGiaDung.Wpf
             else
             {
                 SoundManager.Wrong();
-                MessageBox.Show("Sai nước đi! Vòng này 0 ₫.", "Lựa Chọn Thông Minh");
+                Feedback.Text = "❌ Sai nước đi! Vòng này 0 ₫.";
+                await Task.Delay(1000);
                 LeaderboardService.AddScore(GameState.PlayerName, GameState.TotalPrize);
                 this.DialogResult = false;
                 Close();
