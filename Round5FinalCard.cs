@@ -4,6 +4,14 @@ using System.Windows.Media;
 
 namespace HayChonGiaDung.Wpf
 {
+    public enum Round5EvaluationState
+    {
+        Pending,
+        Win,
+        Protected,
+        Lose
+    }
+
     public class Round5FinalCard : INotifyPropertyChanged
     {
         public Round5FinalCard(Product product, ImageSource? image)
@@ -14,6 +22,20 @@ namespace HayChonGiaDung.Wpf
 
         public Product Product { get; }
         public ImageSource? Image { get; }
+
+        private Round5EvaluationState _evaluationState = Round5EvaluationState.Pending;
+        public Round5EvaluationState EvaluationState
+        {
+            get => _evaluationState;
+            set
+            {
+                if (_evaluationState != value)
+                {
+                    _evaluationState = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private bool _isProtected;
         public bool IsProtected

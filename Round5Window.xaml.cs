@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace HayChonGiaDung.Wpf
@@ -75,6 +76,7 @@ namespace HayChonGiaDung.Wpf
             {
                 card.Status = string.Empty;
                 card.IsProtected = false;
+                card.EvaluationState = Round5EvaluationState.Pending;
             }
             Feedback.Text = string.Empty;
         }
@@ -277,16 +279,19 @@ namespace HayChonGiaDung.Wpf
                     if (_doubleActive) add *= 2;
                     reward += add;
                     card.Status = $"✅ Đúng vị trí! +{add:N0} ₫";
+                    card.EvaluationState = Round5EvaluationState.Win;
                 }
                 else if (card.IsProtected)
                 {
                     int add = ProtectedConsolation;
                     reward += add;
                     card.Status = $"🛡️ Bảo toàn: +{add:N0} ₫ (vị trí đúng là {actualIndex})";
+                    card.EvaluationState = Round5EvaluationState.Protected;
                 }
                 else
                 {
                     card.Status = $"❌ Sai. Vị trí đúng: {actualIndex}";
+                    card.EvaluationState = Round5EvaluationState.Lose;
                 }
             }
 
@@ -295,7 +300,15 @@ namespace HayChonGiaDung.Wpf
             Feedback.Text = reward > 0
                 ? $"Bạn nhận thêm {reward:N0} ₫ ở vòng cuối!"
                 : "Bạn chưa nhận thêm tiền thưởng ở vòng này.";
-            SoundManager.Correct();
+            PlayFeedbackAnimation(reward > 0);
+            if (reward > 0)
+            {
+                SoundManager.Correct();
+            }
+            else
+            {
+                SoundManager.Wrong();
+            }
             LeaderboardService.AddScore(GameState.PlayerName, GameState.TotalPrize);
             this.DialogResult = reward > 0;
             Close();
@@ -305,6 +318,42 @@ namespace HayChonGiaDung.Wpf
         {
             this.DialogResult = false;
             Close();
+        }
+
+        private void PlayFeedbackAnimation(bool isWin)
+        {
+            if (Feedback.RenderTransform is not ScaleTransform scale)
+            {
+                scale = new ScaleTransform(1, 1);
+                Feedback.RenderTransform = scale;
+            }
+
+            double target = isWin ? 1.15 : 0.9;
+            var scaleAnimation = new DoubleAnimation
+            {
+                From = 1,
+                To = target,
+                Duration = TimeSpan.FromMilliseconds(300),
+                AutoReverse = true,
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
+            };
+            scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
+            scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
+
+            SolidColorBrush? brush = Feedback.Background as SolidColorBrush;
+            if (brush == null || brush.IsFrozen)
+            {
+                brush = new SolidColorBrush(Colors.Transparent);
+                Feedback.Background = brush;
+            }
+
+            var colorAnimation = new ColorAnimation
+            {
+                To = isWin ? Color.FromRgb(76, 175, 80) : Color.FromRgb(239, 83, 80),
+                Duration = TimeSpan.FromMilliseconds(300),
+                AutoReverse = true
+            };
+            brush.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
         }
 
     }
