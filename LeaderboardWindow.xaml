@@ -1,34 +1,184 @@
-﻿<Window x:Class="HayChonGiaDung.Wpf.LeaderboardWindow"
+<Window x:Class="HayChonGiaDung.Wpf.LeaderboardWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="XẾP HẠNG" Height="560" Width="820"
-        WindowStartupLocation="CenterOwner"
-        Background="{StaticResource Surface}">
-    <Grid Margin="12">
+        WindowStartupLocation="CenterOwner">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FFF7F9FC" Offset="0" />
+            <GradientStop Color="#FFE4ECF7" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Grid Margin="24">
+        <Grid.Resources>
+            <DropShadowEffect x:Key="CardShadow" Color="#33000000" BlurRadius="20" ShadowDepth="6" Direction="270" />
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="#344054" />
+                <Setter Property="Padding" Value="12,10" />
+            </Style>
+
+            <Style TargetType="DataGridRow">
+                <Setter Property="Background" Value="#FFFFFFFF" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Height" Value="48" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="Margin" Value="0,0,0,8" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#1A000000" BlurRadius="8" ShadowDepth="2" Direction="270" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ClipToBounds" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Rank}" Value="1">
+                        <Setter Property="Background" Value="#FFFDF3E7" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Rank}" Value="2">
+                        <Setter Property="Background" Value="#FFF5F7FF" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Rank}" Value="3">
+                        <Setter Property="Background" Value="#FFF8F1F4" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="RankBadgeStyle" TargetType="Border">
+                <Setter Property="Background" Value="#E4E7EC" />
+                <Setter Property="CornerRadius" Value="16" />
+                <Setter Property="Padding" Value="8,4" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="XẾP HẠNG" FontSize="32" FontWeight="Bold"
-               Foreground="#C91C1C" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        <Border Grid.Row="0" Background="#FFFFFFFF" CornerRadius="20" Padding="20" Effect="{StaticResource CardShadow}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="8">
-            <DataGrid Foreground="Black" x:Name="Grid" AutoGenerateColumns="False" CanUserAddRows="False"
-                HeadersVisibility="All" GridLinesVisibility="None"
-                RowHeaderWidth="0" FontSize="16" AlternatingRowBackground="Black">
+                <Border Width="64" Height="64" Background="#FFF2B56B" CornerRadius="20" HorizontalAlignment="Left">
+                    <TextBlock Text="🏆" FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Border>
+
+                <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="Bảng xếp hạng" FontSize="28" FontWeight="Bold" Foreground="#C91C1C" />
+                    <TextBlock Text="Tổng hợp những đội chơi xuất sắc nhất của chương trình." FontSize="16" Foreground="#475467" Margin="0,4,0,0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Margin="0,20,0,16" Background="#FFFFFFFF" CornerRadius="24" Padding="24"
+                Effect="{StaticResource CardShadow}">
+            <DataGrid x:Name="Grid" AutoGenerateColumns="False" CanUserAddRows="False"
+                      HeadersVisibility="Column" GridLinesVisibility="None" RowHeaderWidth="0"
+                      BorderThickness="0" Background="Transparent" SelectionMode="Single"
+                      AlternationCount="2" VerticalGridLinesBrush="Transparent" HorizontalGridLinesBrush="Transparent">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Hạng" Foreground="Black" Binding="{Binding Rank}" Width="80" />
-                    <DataGridTextColumn Header="Tên" Foreground="Black"  Binding="{Binding Name}" Width="*" />
-                    <DataGridTextColumn Foreground="Black" Header="Tiền Thưởng"
-                              Binding="{Binding Prize, StringFormat={}{0:N0} ₫}" Width="180" />
+                    <DataGridTemplateColumn Header="Hạng" Width="140">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource RankBadgeStyle}">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock Margin="0,0,6,0" FontSize="18">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                    <DataTrigger Binding="{Binding Rank}" Value="1">
+                                                        <Setter Property="Text" Value="🥇" />
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Rank}" Value="2">
+                                                        <Setter Property="Text" Value="🥈" />
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Rank}" Value="3">
+                                                        <Setter Property="Text" Value="🥉" />
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Rank}" FontWeight="SemiBold" Foreground="#101828" FontSize="18" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Tên đội chơi" Binding="{Binding Name}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="Foreground" Value="#1D2939" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Tiền thưởng" Binding="{Binding Prize, StringFormat={}{0:N0} ₫}" Width="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="Foreground" Value="#0B7A4B" />
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="Đóng" Width="100" Height="36" Click="Close_Click"/>
-        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Xin chúc mừng các đội chơi!" FontSize="16" Foreground="#475467"
+                       VerticalAlignment="Center" />
+
+            <Button Grid.Column="1" Content="Đóng" Width="120" Height="40" Margin="16,0,0,0" Padding="16,6"
+                    Click="Close_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#C91C1C" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#A91414" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#891010" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
     </Grid>
 </Window>
