@@ -125,35 +125,45 @@
                         <StackPanel>
                             <TextBlock Text="Tổng quan" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
                             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}">
-                Trò chơi gồm 4 vòng, 1 người chơi. Thua vòng nào thì dừng tại đó và tổng kết tiền thưởng đã có.
+                Hành trình gồm vòng Khởi động và 5 vòng chính cho 1 người chơi. Thua ở vòng nào sẽ dừng tại đó và giữ nguyên số tiền đã tích lũy.
+                            </TextBlock>
+
+                            <Separator Margin="0,12,0,12"/>
+                            <TextBlock Text="Vòng Khởi Động" FontSize="18" FontWeight="Bold"/>
+                            <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
+                Trả lời tối đa 6 câu trắc nghiệm, mỗi câu đúng nhận +2 xu. Hoàn thành phần hỏi để vào cửa hàng đổi xu lấy thẻ trợ giúp (Gợi ý, Đổi sản phẩm, Nhân đôi) dùng ở các vòng sau.
                             </TextBlock>
 
                             <Separator Margin="0,12,0,12"/>
                             <TextBlock Text="Vòng 1 – Bàn Tay Vàng" FontSize="18" FontWeight="Bold"/>
                             <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
-                Random 4 câu: hiển thị GIÁ ẨN một sản phẩm × số lượng. Chọn “CAO HƠN” hay “THẤP HƠN” so với giá đúng.
-                Mỗi câu đúng nhận 1 lượt mở ô thưởng (Punch Board) ở cuối vòng.
+                Gồm 10 lượt. Mỗi lượt hiển thị giá ẩn (dao động ±20%) của 1 sản phẩm nhân số lượng. Chọn “CAO HƠN” hay “THẤP HƠN” so với giá thật. Mỗi câu đúng đổi được 1 lượt đục bảng thưởng Punch Board ở cuối vòng.
                             </TextBlock>
 
                             <Separator Margin="0,12,0,12"/>
                             <TextBlock Text="Vòng 2 – Đếm Ngược" FontSize="18" FontWeight="Bold"/>
                             <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
-                60 giây để đoán 4 chữ số (đơn vị nghìn). Sai sẽ hiện gợi ý từng digit: ‘&lt;’, ‘&gt;’, ‘=’. Đúng trong thời gian: +1.000.000 ₫.
+                Mở đầu bằng thử thách chọn sản phẩm rẻ nhất/đắt nhất để nhận thêm +10 giây. Sau đó có 60 giây (cộng thêm nếu vừa thắng thử thách) để đoán 4 chữ số giá (đơn vị nghìn). Sai sẽ được gợi ý từng chữ số bằng ‘&lt;’, ‘&gt;’, ‘=’. Trả lời đúng trong thời gian sẽ vượt vòng.
                             </TextBlock>
 
                             <Separator Margin="0,12,0,12"/>
                             <TextBlock Text="Vòng 3 – Không Mà Có" FontSize="18" FontWeight="Bold"/>
                             <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
-                Hiển thị 6 sản phẩm; 1 sản phẩm bị “lệch giá”. Chọn đúng: +1.500.000 ₫.
+                Hiển thị 6 sản phẩm, trong đó 1 món có giá sai lệch mạnh (±30–60%). Chọn đúng sản phẩm sai giá để tiếp tục.
                             </TextBlock>
 
                             <Separator Margin="0,12,0,12"/>
                             <TextBlock Text="Vòng 4 – Lựa Chọn Thông Minh" FontSize="18" FontWeight="Bold"/>
                             <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
-                Bộ 3 sản phẩm cận kề về giá. Chọn sản phẩm có GIÁ TRUNG BÌNH (median). Đúng: +2.000.000 ₫.
+                3 sản phẩm có giá cận kề. Nhiệm vụ là chọn sản phẩm có giá TRUNG BÌNH (median). Hoàn thành vòng sẽ ghi nhận thành tích lên bảng xếp hạng.
                             </TextBlock>
 
-                           
+                            <Separator Margin="0,12,0,12"/>
+                            <TextBlock Text="Vòng 5 – Xếp Hạng Cuối" FontSize="18" FontWeight="Bold"/>
+                            <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
+                Kéo thả 3–5 sản phẩm theo giá tăng dần, đánh dấu 1 sản phẩm để “bảo vệ” nếu đoán sai. Khi chốt kết quả sẽ lật đáp án, cộng tiền thưởng và cập nhật bảng xếp hạng.
+                            </TextBlock>
+
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
@@ -165,12 +175,15 @@
                             <TextBlock Text="Chuột và Bàn phím" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
                             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}">
                 • Dùng chuột click các nút hành động trên màn hình.
+                • Vòng Khởi Động: chọn đáp án (A-D) rồi nhấn “Trả lời” hoặc phím Enter.
+                • Vòng 5: kéo thả để sắp xếp thứ tự sản phẩm, tích “Bảo vệ” cho 1 sản phẩm trước khi chốt.
                             </TextBlock>
 
                             <Border Style="{StaticResource CalloutInfo}" Margin="0,10,0,0">
                                 <TextBlock Foreground="{StaticResource InfoText}" TextWrapping="Wrap">
                   Hotkey vòng 1: <Bold>↑ / A</Bold> = CAO HƠN, <Bold>↓ / D</Bold> = THẤP HƠN.{"\n"}
-                  Vòng 2: gõ 4 chữ số, nhấn <Bold>Enter</Bold> để “Kiểm tra”.
+                  Vòng 2: gõ 4 chữ số, nhấn <Bold>Enter</Bold> hoặc nút “Kiểm tra”.{"\n"}
+                  Vòng 5: giữ chuột trái để kéo, thả vào vị trí mới rồi nhấn “Chốt kết quả”.
                                 </TextBlock>
                             </Border>
                         </StackPanel>
@@ -183,10 +196,12 @@
                         <StackPanel>
                             <TextBlock Text="Bảng thưởng" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
                             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}">
-                • Vòng 1: tuỳ ô thưởng mở được (Punch Board).\n
-                • Vòng 2: +1.000.000 ₫ nếu đoán đúng trong 60 giây.{"\n"}
-                • Vòng 3: +1.500.000 ₫ nếu chọn đúng sản phẩm lệch giá.{"\n"}
-                • Vòng 4: +2.000.000 ₫ nếu chọn đúng giá trung bình.
+                • Vòng Khởi Động: mỗi câu đúng +2 xu, dùng để mua thẻ trợ giúp.{"\n"}
+                • Vòng 1: mỗi lượt đục bảng có thể nhận 0 ₫ đến 5.000.000 ₫ tuỳ ô thưởng mở ra.{"\n"}
+                • Vòng 2: +1.000.000 ₫ khi đoán đúng giá (nhân đôi nếu kích hoạt thẻ Nhân đôi). Thử thách chọn sản phẩm chỉ thưởng thêm thời gian.{"\n"}
+                • Vòng 3: +1.500.000 ₫ nếu tìm đúng sản phẩm sai giá.{"\n"}
+                • Vòng 4: +2.000.000 ₫ nếu chọn đúng sản phẩm có giá trung bình.{"\n"}
+                • Vòng 5: +700.000 ₫ cho mỗi sản phẩm đứng đúng vị trí (nhân đôi khi đã kích hoạt thẻ). Sản phẩm được “bảo vệ” nhưng xếp sai vẫn nhận +300.000 ₫.
                             </TextBlock>
 
                            
