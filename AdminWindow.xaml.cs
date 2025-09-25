@@ -14,7 +14,7 @@ namespace HayChonGiaDung.Wpf
     public partial class AdminWindow : Window, INotifyPropertyChanged
     {
         private readonly HttpClient _httpClient = new();
-        private const string ImgbbApiKey = "PASTE_IMGBB_API_KEY_HERE";
+        private const string ImgbbApiKey = "839ae32242c295b951daf8c49c2b7717";
 
         private ObservableCollection<Product> _products = new();
         private Product? _selectedProduct;

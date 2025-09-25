@@ -1,165 +1,165 @@
 {
-    "products": [
-        {
-            "name": "Máy lọc không khí Samsung AX32BG3100GBSV 41W",
-            "price": 4695000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/ax32bg3100gbs/800/600",
-            "description": "Máy lọc không khí công suất 41W, phù hợp phòng 25–41m². Bộ lọc Hepa giúp loại bỏ bụi mịn, phấn hoa và mùi khó chịu trong gia đình. Vận hành êm, có chế độ ban đêm giảm độ ồn khi ngủ. Lọc thông minh theo chất lượng không khí thực tế."
-        },
-        {
-            "name": "Máy giặt Panasonic 8.2 kg NA-F82Y01DRV",
-            "price": 5990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/pana82kg/800/600",
-            "description": "Máy giặt cửa trên dung tích 8.2 kg, lồng giặt Sazanami hạn chế xơ sợi. Chế độ giặt nhanh, tự động cân chỉnh lượng nước theo khối lượng quần áo. Tiết kiệm điện nước, thích hợp gia đình 3–5 người."
-        },
-        {
-            "name": "AirPods Pro",
-            "price": 6199000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/airpodspro/800/600",
-            "description": "Tai nghe không dây chống ồn chủ động (ANC) thế hệ Pro. Âm thanh cân bằng, bass gọn, hỗ trợ Transparency Mode nghe môi trường xung quanh. Kèm hộp sạc MagSafe, kháng mồ hôi, chuyển thiết bị Apple mượt mà."
-        },
-        {
-            "name": "Tivi Samsung 43 inch",
-            "price": 7990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/tv43/800/600",
-            "description": "Smart TV 43 inch độ phân giải 4K, hỗ trợ HDR10+. Giao diện mượt, kho ứng dụng phong phú, phản hồi nhanh. Thiết kế viền mỏng tối giản phù hợp nhiều không gian phòng khách."
-        },
-        {
-            "name": "Điện thoại iPhone 14 Pro Max",
-            "price": 34990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/iphone14promax/800/600",
-            "description": "Màn hình 6.7'' ProMotion 120Hz với Dynamic Island. Chip A16 Bionic mạnh mẽ, chụp ảnh đêm ấn tượng, quay video ổn định. Pin bền bỉ, hệ sinh thái iOS mượt, bảo mật Face ID an toàn."
-        },
-        {
-            "name": "Laptop Dell XPS 13",
-            "price": 29990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/dellxps13/800/600",
-            "description": "Ultrabook mỏng nhẹ, vỏ nhôm chắc chắn. Màn hình viền mỏng sắc nét, bàn phím gõ êm. Phù hợp công việc văn phòng, học tập và xử lý đa nhiệm hằng ngày."
-        },
-        {
-            "name": "Máy giặt Samsung 8kg",
-            "price": 8490000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/samwash8/800/600",
-            "description": "Máy giặt cửa trên 8kg với lồng giặt kim cương giảm sờn rách. Nhiều chương trình giặt cho từng loại vải, tính năng tự vệ sinh lồng giặt giữ quần áo thơm lâu."
-        },
-        {
-            "name": "Tủ lạnh Panasonic 2 cánh",
-            "price": 8990000,
-            "image": null,
-            "imageUrl": "https://i.ibb.co/S46Fb12j/tu-lanh-cu-lg-inverter-217-lit-gvb212wb-moi-99.jpg",
-            "description": "Tủ lạnh ngăn đá trên dung tích phù hợp gia đình nhỏ. Công nghệ làm lạnh đa chiều, khử mùi kháng khuẩn. Ngăn rau củ rộng, giữ ẩm tốt, tiết kiệm điện."
-        },
-        {
-            "name": "Máy lọc nước Kangaroo",
-            "price": 2490000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/kgwater/800/600",
-            "description": "Máy lọc nước RO nhiều lõi lọc cho nước uống trực tiếp. Thiết kế gọn gàng, dễ thay lõi, lưu lượng ổn định. Giải pháp an toàn cho gia đình có trẻ nhỏ."
-        },
-        {
-            "name": "Máy sấy tóc Philips",
-            "price": 1290000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/philipsdryer/800/600",
-            "description": "Máy sấy công suất cao với nhiều mức nhiệt/ốc độ gió. Chế độ mát bảo vệ tóc, đầu thổi tập trung tạo kiểu nhanh. Tay cầm chắc, dây dài tiện thao tác."
-        },
-        {
-            "name": "Bàn ủi hơi nước Tefal",
-            "price": 1990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/tefaliron/800/600",
-            "description": "Bàn ủi hơi nước công suất lớn, mặt đế chống dính lướt mượt. Hơi nước mạnh thấm sâu, ủi phẳng nếp gấp nhanh. Chống nhỏ giọt, tự làm sạch, bền bỉ."
-        },
-        {
-            "name": "Nồi cơm điện Sharp",
-            "price": 1590000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/sharprice/800/600",
-            "description": "Nồi cơm điện dung tích vừa phải, lòng nồi chống dính. Cơm chín đều, giữ ấm tốt, thao tác đơn giản. Thiết kế gọn gàng dễ vệ sinh."
-        },
-        {
-            "name": "Máy xay sinh tố BlueStone",
-            "price": 690000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/bluestoneblend/800/600",
-            "description": "Máy xay đa năng cối thủy tinh, lưỡi dao sắc xay mịn trái cây, đá nhỏ. Dễ tháo lắp vệ sinh, hoạt động êm, phù hợp nhu cầu gia đình."
-        },
-        {
-            "name": "Bộ chén dĩa Bát Tràng",
-            "price": 1290000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/battrangset/800/600",
-            "description": "Bộ gốm Bát Tràng thủ công, men mịn, hoạ tiết thanh lịch. An toàn cho sức khoẻ, dùng được với lò vi sóng, thích hợp dùng hằng ngày hoặc đãi khách."
-        },
-        {
-            "name": "Bộ nồi inox Sunhouse",
-            "price": 2490000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/sunhousenoi/800/600",
-            "description": "Bộ nồi inox đáy 5 lớp truyền nhiệt nhanh, giữ nhiệt đều. Quai cách nhiệt chắc chắn, nắp kính chịu lực. Nấu được bếp từ, dễ chùi rửa."
-        },
-        {
-            "name": "Chảo chống dính Tefal",
-            "price": 1490000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/tefalpan/800/600",
-            "description": "Chảo chống dính bền, đáy dày nhiệt tỏa đều, ít dầu mỡ. Tay cầm chống nóng, phù hợp xào rán nhanh. Dễ vệ sinh, tuổi thọ cao."
-        },
-        {
-            "name": "Bình thủy tinh Lock&Lock",
-            "price": 590000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/locklockbottle/800/600",
-            "description": "Bình thủy tinh chịu nhiệt, nắp kín hạn chế rò rỉ. Dùng được đồ nóng, lạnh; mùi không bám. Kiểu dáng tối giản, dễ mang theo."
-        },
-        {
-            "name": "Bình giữ nhiệt Thermos",
-            "price": 490000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/thermosflask/800/600",
-            "description": "Bình giữ nhiệt hai lớp cách nhiệt tốt, giữ nóng/lạnh nhiều giờ. Nắp vặn chắc, chống tràn, phù hợp đi học, đi làm, du lịch."
-        },
-        {
-            "name": "Bộ dao thớt Zwilling",
-            "price": 2990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/zwillingset/800/600",
-            "description": "Bộ dao thép không gỉ sắc bén, cán cầm chắc tay, cân bằng tốt. Kèm thớt đi kèm tiện dụng, phù hợp cắt thái hằng ngày lẫn sơ chế món cầu kỳ."
-        },
-        {
-            "name": "Máy ảnh Canon EOS M50",
-            "price": 15990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/canoneosm50/800/600",
-            "description": "Máy ảnh mirrorless cảm biến APS-C 24.1MP, quay 4K. Hệ thống lấy nét Dual Pixel nhanh"
-        },
-        {
-            "name": "Máy chơi game Sony PlayStation 5",
-            "price": 13990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/ps5/800/600",
-            "description": "Máy chơi game thế hệ mới với hiệu năng mạnh mẽ, ổ SSD siêu nhanh. Hỗ trợ đồ họa 4K, ray tracing, trải nghiệm chơi game mượt mà. Tay cầm không dây DualSense cảm ứng tốt."
-        },
-        {   "name": "Bàn phím cơ Logitech G Pro X",
-            "price": 2990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/logitechgprox/800/600",
-            "description": "Bàn phím cơ dành cho game thủ với switch có thể thay thế. Thiết kế nhỏ gọn, đèn RGB tùy chỉnh, kết nối USB. Phù hợp chơi game và gõ văn bản."
-        },
-        {
-            "name": "Chuột không dây Razer Basilisk X",
-            "price": 990000,
-            "image": null,
-            "imageUrl": "https://picsum.photos/seed/razerbasiliskx/800/600",
-            "description": "Chuột chơi game không dây với cảm biến quang học chính xác. Kết nối Bluetooth hoặc qua đầu thu USB. Thời lượng pin dài, thiết kế công thái học thoải mái."
-
-        }
-    ]
+  "products": [
+    {
+      "name": "Máy lọc không khí Samsung AX32BG3100GBSV 41W",
+      "price": 4695000,
+      "image": null,
+      "imageUrl": "https://i.ibb.co/21MMjwWz/IMG-7225-JPG.jpg",
+      "description": "Máy lọc không khí công suất 41W, phù hợp phòng 25–41m². Bộ lọc Hepa giúp loại bỏ bụi mịn, phấn hoa và mùi khó chịu trong gia đình. Vận hành êm, có chế độ ban đêm giảm độ ồn khi ngủ. Lọc thông minh theo chất lượng không khí thực tế."
+    },
+    {
+      "name": "Máy giặt Panasonic 8.2 kg NA-F82Y01DRV",
+      "price": 5990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/pana82kg/800/600",
+      "description": "Máy giặt cửa trên dung tích 8.2 kg, lồng giặt Sazanami hạn chế xơ sợi. Chế độ giặt nhanh, tự động cân chỉnh lượng nước theo khối lượng quần áo. Tiết kiệm điện nước, thích hợp gia đình 3–5 người."
+    },
+    {
+      "name": "AirPods Pro",
+      "price": 6199000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/airpodspro/800/600",
+      "description": "Tai nghe không dây chống ồn chủ động (ANC) thế hệ Pro. Âm thanh cân bằng, bass gọn, hỗ trợ Transparency Mode nghe môi trường xung quanh. Kèm hộp sạc MagSafe, kháng mồ hôi, chuyển thiết bị Apple mượt mà."
+    },
+    {
+      "name": "Tivi Samsung 43 inch",
+      "price": 7990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/tv43/800/600",
+      "description": "Smart TV 43 inch độ phân giải 4K, hỗ trợ HDR10+. Giao diện mượt, kho ứng dụng phong phú, phản hồi nhanh. Thiết kế viền mỏng tối giản phù hợp nhiều không gian phòng khách."
+    },
+    {
+      "name": "Điện thoại iPhone 14 Pro Max",
+      "price": 34990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/iphone14promax/800/600",
+      "description": "Màn hình 6.7'' ProMotion 120Hz với Dynamic Island. Chip A16 Bionic mạnh mẽ, chụp ảnh đêm ấn tượng, quay video ổn định. Pin bền bỉ, hệ sinh thái iOS mượt, bảo mật Face ID an toàn."
+    },
+    {
+      "name": "Laptop Dell XPS 13",
+      "price": 29990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/dellxps13/800/600",
+      "description": "Ultrabook mỏng nhẹ, vỏ nhôm chắc chắn. Màn hình viền mỏng sắc nét, bàn phím gõ êm. Phù hợp công việc văn phòng, học tập và xử lý đa nhiệm hằng ngày."
+    },
+    {
+      "name": "Máy giặt Samsung 8kg",
+      "price": 8490000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/samwash8/800/600",
+      "description": "Máy giặt cửa trên 8kg với lồng giặt kim cương giảm sờn rách. Nhiều chương trình giặt cho từng loại vải, tính năng tự vệ sinh lồng giặt giữ quần áo thơm lâu."
+    },
+    {
+      "name": "Tủ lạnh Panasonic 2 cánh",
+      "price": 8990000,
+      "image": null,
+      "imageUrl": "https://i.ibb.co/S46Fb12j/tu-lanh-cu-lg-inverter-217-lit-gvb212wb-moi-99.jpg",
+      "description": "Tủ lạnh ngăn đá trên dung tích phù hợp gia đình nhỏ. Công nghệ làm lạnh đa chiều, khử mùi kháng khuẩn. Ngăn rau củ rộng, giữ ẩm tốt, tiết kiệm điện."
+    },
+    {
+      "name": "Máy lọc nước Kangaroo",
+      "price": 2490000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/kgwater/800/600",
+      "description": "Máy lọc nước RO nhiều lõi lọc cho nước uống trực tiếp. Thiết kế gọn gàng, dễ thay lõi, lưu lượng ổn định. Giải pháp an toàn cho gia đình có trẻ nhỏ."
+    },
+    {
+      "name": "Máy sấy tóc Philips",
+      "price": 1290000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/philipsdryer/800/600",
+      "description": "Máy sấy công suất cao với nhiều mức nhiệt/ốc độ gió. Chế độ mát bảo vệ tóc, đầu thổi tập trung tạo kiểu nhanh. Tay cầm chắc, dây dài tiện thao tác."
+    },
+    {
+      "name": "Bàn ủi hơi nước Tefal",
+      "price": 1990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/tefaliron/800/600",
+      "description": "Bàn ủi hơi nước công suất lớn, mặt đế chống dính lướt mượt. Hơi nước mạnh thấm sâu, ủi phẳng nếp gấp nhanh. Chống nhỏ giọt, tự làm sạch, bền bỉ."
+    },
+    {
+      "name": "Nồi cơm điện Sharp",
+      "price": 1590000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/sharprice/800/600",
+      "description": "Nồi cơm điện dung tích vừa phải, lòng nồi chống dính. Cơm chín đều, giữ ấm tốt, thao tác đơn giản. Thiết kế gọn gàng dễ vệ sinh."
+    },
+    {
+      "name": "Máy xay sinh tố BlueStone",
+      "price": 690000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/bluestoneblend/800/600",
+      "description": "Máy xay đa năng cối thủy tinh, lưỡi dao sắc xay mịn trái cây, đá nhỏ. Dễ tháo lắp vệ sinh, hoạt động êm, phù hợp nhu cầu gia đình."
+    },
+    {
+      "name": "Bộ chén dĩa Bát Tràng",
+      "price": 1290000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/battrangset/800/600",
+      "description": "Bộ gốm Bát Tràng thủ công, men mịn, hoạ tiết thanh lịch. An toàn cho sức khoẻ, dùng được với lò vi sóng, thích hợp dùng hằng ngày hoặc đãi khách."
+    },
+    {
+      "name": "Bộ nồi inox Sunhouse",
+      "price": 2490000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/sunhousenoi/800/600",
+      "description": "Bộ nồi inox đáy 5 lớp truyền nhiệt nhanh, giữ nhiệt đều. Quai cách nhiệt chắc chắn, nắp kính chịu lực. Nấu được bếp từ, dễ chùi rửa."
+    },
+    {
+      "name": "Chảo chống dính Tefal",
+      "price": 1490000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/tefalpan/800/600",
+      "description": "Chảo chống dính bền, đáy dày nhiệt tỏa đều, ít dầu mỡ. Tay cầm chống nóng, phù hợp xào rán nhanh. Dễ vệ sinh, tuổi thọ cao."
+    },
+    {
+      "name": "Bình thủy tinh Lock&Lock",
+      "price": 590000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/locklockbottle/800/600",
+      "description": "Bình thủy tinh chịu nhiệt, nắp kín hạn chế rò rỉ. Dùng được đồ nóng, lạnh; mùi không bám. Kiểu dáng tối giản, dễ mang theo."
+    },
+    {
+      "name": "Bình giữ nhiệt Thermos",
+      "price": 490000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/thermosflask/800/600",
+      "description": "Bình giữ nhiệt hai lớp cách nhiệt tốt, giữ nóng/lạnh nhiều giờ. Nắp vặn chắc, chống tràn, phù hợp đi học, đi làm, du lịch."
+    },
+    {
+      "name": "Bộ dao thớt Zwilling",
+      "price": 2990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/zwillingset/800/600",
+      "description": "Bộ dao thép không gỉ sắc bén, cán cầm chắc tay, cân bằng tốt. Kèm thớt đi kèm tiện dụng, phù hợp cắt thái hằng ngày lẫn sơ chế món cầu kỳ."
+    },
+    {
+      "name": "Máy ảnh Canon EOS M50",
+      "price": 15990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/canoneosm50/800/600",
+      "description": "Máy ảnh mirrorless cảm biến APS-C 24.1MP, quay 4K. Hệ thống lấy nét Dual Pixel nhanh"
+    },
+    {
+      "name": "Máy chơi game Sony PlayStation 5",
+      "price": 13990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/ps5/800/600",
+      "description": "Máy chơi game thế hệ mới với hiệu năng mạnh mẽ, ổ SSD siêu nhanh. Hỗ trợ đồ họa 4K, ray tracing, trải nghiệm chơi game mượt mà. Tay cầm không dây DualSense cảm ứng tốt."
+    },
+    {
+      "name": "Bàn phím cơ Logitech G Pro X",
+      "price": 2990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/logitechgprox/800/600",
+      "description": "Bàn phím cơ dành cho game thủ với switch có thể thay thế. Thiết kế nhỏ gọn, đèn RGB tùy chỉnh, kết nối USB. Phù hợp chơi game và gõ văn bản."
+    },
+    {
+      "name": "Chuột không dây Razer Basilisk X",
+      "price": 990000,
+      "image": null,
+      "imageUrl": "https://picsum.photos/seed/razerbasiliskx/800/600",
+      "description": "Chuột chơi game không dây với cảm biến quang học chính xác. Kết nối Bluetooth hoặc qua đầu thu USB. Thời lượng pin dài, thiết kế công thái học thoải mái."
+    }
+  ]
 }

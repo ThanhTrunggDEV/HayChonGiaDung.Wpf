@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HayChonGiaDung.Wpf")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ebdfc862a8dc2fa1d4629288511742449ecd92d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8bd58c6ece0346d25369edfdb243f7c444d6cecf")]
 [assembly: System.Reflection.AssemblyProductAttribute("HayChonGiaDung.Wpf")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HayChonGiaDung.Wpf")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
