@@ -65,7 +65,7 @@
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
-                            <DataTemplate DataType="{x:Type local:Round5Window.FinalCard}">
+                            <DataTemplate DataType="{x:Type local:Round5FinalCard}">
                                 <Border CornerRadius="16" BorderThickness="1" BorderBrush="DimGray" Margin="12" Padding="12">
                                     <StackPanel>
                                         <TextBlock Text="{Binding DisplayOrderText}" FontSize="14" FontWeight="SemiBold" Foreground="LightGray"/>

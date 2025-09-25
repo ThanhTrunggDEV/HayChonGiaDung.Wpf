@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,7 +13,7 @@ namespace HayChonGiaDung.Wpf
 {
     public partial class Round5Window : Window
     {
-        private ObservableCollection<FinalCard> _cards = new();
+        private ObservableCollection<Round5FinalCard> _cards = new();
         private bool _doubleActive = false;
         private Point? _dragStartPoint;
         private ListBoxItem? _draggedContainer;
@@ -69,8 +67,8 @@ namespace HayChonGiaDung.Wpf
             int count = Math.Min(5, Math.Max(3, picks.Count));
             picks = picks.Take(count).ToList();
 
-            _cards = new ObservableCollection<FinalCard>(
-                picks.Select(p => new FinalCard(p, TryLoadImage(p))));
+            _cards = new ObservableCollection<Round5FinalCard>(
+                picks.Select(p => new Round5FinalCard(p, TryLoadImage(p))));
             ProductsList.ItemsSource = _cards;
             RefreshDisplayOrders();
             foreach (var card in _cards)
@@ -189,7 +187,7 @@ namespace HayChonGiaDung.Wpf
                 return;
             }
 
-            if (_draggedContainer.DataContext is FinalCard card)
+            if (_draggedContainer.DataContext is Round5FinalCard card)
             {
                 DragDrop.DoDragDrop(_draggedContainer, card, DragDropEffects.Move);
             }
@@ -199,7 +197,7 @@ namespace HayChonGiaDung.Wpf
 
         private void ProductsList_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetData(typeof(FinalCard)) is not FinalCard card)
+            if (e.Data.GetData(typeof(Round5FinalCard)) is not Round5FinalCard card)
             {
                 return;
             }
@@ -246,7 +244,7 @@ namespace HayChonGiaDung.Wpf
 
         private void Protect_Checked(object sender, RoutedEventArgs e)
         {
-            if (sender is RadioButton rb && rb.DataContext is FinalCard selected)
+            if (sender is RadioButton rb && rb.DataContext is Round5FinalCard selected)
             {
                 foreach (var card in _cards)
                 {
@@ -309,68 +307,5 @@ namespace HayChonGiaDung.Wpf
             Close();
         }
 
-        public class FinalCard : INotifyPropertyChanged
-        {
-            public FinalCard(Product product, ImageSource? image)
-            {
-                Product = product;
-                Image = image;
-            }
-
-            public Product Product { get; }
-            public ImageSource? Image { get; }
-
-            private bool _isProtected;
-            public bool IsProtected
-            {
-                get => _isProtected;
-                set
-                {
-                    if (_isProtected != value)
-                    {
-                        _isProtected = value;
-                        OnPropertyChanged();
-                    }
-                }
-            }
-
-            private string _status = string.Empty;
-            public string Status
-            {
-                get => _status;
-                set
-                {
-                    if (_status != value)
-                    {
-                        _status = value;
-                        OnPropertyChanged();
-                    }
-                }
-            }
-
-            private int _displayOrder;
-            public int DisplayOrder
-            {
-                get => _displayOrder;
-                set
-                {
-                    if (_displayOrder != value)
-                    {
-                        _displayOrder = value;
-                        OnPropertyChanged();
-                        OnPropertyChanged(nameof(DisplayOrderText));
-                    }
-                }
-            }
-
-            public string DisplayOrderText => $"Vị trí #{DisplayOrder}";
-
-            public event PropertyChangedEventHandler? PropertyChanged;
-
-            protected void OnPropertyChanged([CallerMemberName] string? name = null)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-            }
-        }
     }
 }
