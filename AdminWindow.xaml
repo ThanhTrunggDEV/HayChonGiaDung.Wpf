@@ -55,9 +55,6 @@
                     <TextBlock Text="Link ảnh" FontWeight="Bold" />
                     <TextBox Text="{Binding Editor.ImageUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,12" />
 
-                    <TextBlock Text="API key Imgbb" FontWeight="Bold" />
-                    <PasswordBox x:Name="ApiKeyBox" Margin="0,4,0,12" />
-
                     <Button x:Name="UploadButton"
                             Content="Tải ảnh lên"
                             Click="UploadButton_Click"
