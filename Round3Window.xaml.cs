@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -51,6 +50,8 @@ namespace HayChonGiaDung.Wpf
                 box.IsEnabled = true;
                 box.Text = string.Empty;
             }
+
+            CheckButton.IsEnabled = true;
 
             PickProduct();
             RestartTimer();
@@ -155,7 +156,7 @@ namespace HayChonGiaDung.Wpf
             _boxes[index - 1].SelectAll();
         }
 
-        private async void Check_Click(object sender, RoutedEventArgs e)
+        private void Check_Click(object sender, RoutedEventArgs e)
         {
             if (!_roundActive) return;
 
@@ -177,16 +178,17 @@ namespace HayChonGiaDung.Wpf
             {
                 _roundActive = false;
                 _timer?.Stop();
+                CheckButton.IsEnabled = false;
                 GameState.AddPrize(1_000_000);
                 Feedback.Text = $"✅ Chính xác! Giá: {target:N0}.000 ₫";
                 SoundManager.Correct();
                 RefreshHud();
-                await Task.Delay(1000);
-                if (_isClosing)
-                {
-                    return;
-                }
-
+                MessageBox.Show(this,
+                    $"Bạn đã đoán chính xác giá {target:N0}.000 ₫ và nhận được 1.000.000 ₫!",
+                    "Thắng vòng",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (_isClosing) return;
                 FinishRound(true);
                 return;
             }
