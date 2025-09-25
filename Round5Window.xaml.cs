@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -259,7 +260,7 @@ namespace HayChonGiaDung.Wpf
             }
         }
 
-        private void Submit_Click(object sender, RoutedEventArgs e)
+        private async void Submit_Click(object sender, RoutedEventArgs e)
         {
             if (_cards.Count == 0)
             {
@@ -310,6 +311,16 @@ namespace HayChonGiaDung.Wpf
                 SoundManager.Wrong();
             }
             LeaderboardService.AddScore(GameState.PlayerName, GameState.TotalPrize);
+            if (reward > 0)
+            {
+                await RoundCelebrationHelper.ShowWinAsync(this,
+                    $"Bạn đã hoàn thành vòng 5 và nhận thêm {reward:N0} ₫!");
+            }
+            else
+            {
+                RoundCelebrationHelper.ShowLose(this,
+                    "Bạn chưa nhận thêm tiền thưởng ở vòng này.");
+            }
             this.DialogResult = reward > 0;
             Close();
         }

@@ -14,8 +14,6 @@ namespace HayChonGiaDung.Wpf
         private int qty = 1;
         private int hiddenPrice = 0;
         private int correctPrice = 0;
-        private bool hintUsedThisQuestion = false;
-
         public Round1Window()
         {
             InitializeComponent();
@@ -41,8 +39,6 @@ namespace HayChonGiaDung.Wpf
             // hidden price around correct ±20%
             var delta = (int)(correctPrice * 0.2);
             hiddenPrice = Math.Max(1000, correctPrice + GameState.Rnd.Next(-delta, delta + 1));
-
-            hintUsedThisQuestion = false;
 
             // UI text
             ProductName.Text = $"{current.Name} x{qty}";
@@ -118,26 +114,6 @@ namespace HayChonGiaDung.Wpf
         private async void Higher_Click(object sender, RoutedEventArgs e) => await EvaluateAsync(true);
         private async void Lower_Click(object sender, RoutedEventArgs e) => await EvaluateAsync(false);
 
-        private void Hint_Click(object sender, RoutedEventArgs e)
-        {
-            if (hintUsedThisQuestion)
-            {
-                Feedback.Text = "Bạn đã dùng gợi ý cho câu này.";
-                return;
-            }
-
-            if (!GameState.UseHelpCard(HelpCardType.Hint))
-            {
-                MessageBox.Show("Bạn không đủ thẻ gợi ý.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            hintUsedThisQuestion = true;
-
-            string relation = correctPrice > hiddenPrice ? "cao hơn" : "thấp hơn";
-            Feedback.Text = $"🔍 Gợi ý: Giá thật {relation} số hiển thị từ {Math.Abs(correctPrice - hiddenPrice):N0} ₫";
-        }
-
         private void Swap_Click(object sender, RoutedEventArgs e)
         {
             if (!GameState.UseHelpCard(HelpCardType.SwapProduct))
@@ -153,8 +129,20 @@ namespace HayChonGiaDung.Wpf
 
         private void Finish_Click(object sender, RoutedEventArgs e) => OpenPunchBoard();
 
-        private void OpenPunchBoard()
+        private async void OpenPunchBoard()
         {
+            bool win = correct > 0;
+            if (win)
+            {
+                await RoundCelebrationHelper.ShowWinAsync(this,
+                    $"Bạn đã hoàn thành vòng 1 với {correct}/10 câu đúng!\nBạn nhận được {correct} lượt đục bảng.");
+            }
+            else
+            {
+                RoundCelebrationHelper.ShowLose(this,
+                    "Bạn chưa trả lời đúng câu nào ở vòng 1. Hãy thử vận may lần sau!");
+            }
+
             var pb = new PunchBoardWindow(correct) { Owner = this };
             pb.ShowDialog();
             DialogResult = true;

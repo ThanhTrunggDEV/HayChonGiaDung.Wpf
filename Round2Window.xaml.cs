@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -43,13 +44,13 @@ namespace HayChonGiaDung.Wpf
             {
                 timer.Stop();
                 SoundManager.Wrong();
-                MessageBox.Show("⏰ Hết giờ! Bạn đã thua vòng Đếm Ngược");
+                RoundCelebrationHelper.ShowLose(this, "⏰ Hết giờ! Bạn đã thua vòng Đếm Ngược.");
                 this.DialogResult = false;
                 Close();
             }
         }
 
-        private void Check_Click(object sender, RoutedEventArgs e)
+        private async void Check_Click(object sender, RoutedEventArgs e)
         {
             string g = $"{D1.Text}{D2.Text}{D3.Text}{D4.Text}";
             if (g.Length != 4 || !int.TryParse(g, out var guess))
@@ -66,6 +67,8 @@ namespace HayChonGiaDung.Wpf
                 Hint.Text = $"✅ Chính xác! Giá: {target:N0}.000 ₫ (+{reward:N0} ₫)";
                 GameState.TotalPrize += reward;
                 SoundManager.Correct();
+                await RoundCelebrationHelper.ShowWinAsync(this,
+                    $"Bạn đã thắng vòng Đếm Ngược và nhận {reward:N0} ₫!\nGiá chính xác: {target:N0}.000 ₫.");
                 this.DialogResult = true;
                 Close();
                 return;
