@@ -232,7 +232,9 @@ namespace HayChonGiaDung.Wpf
             }
             else
             {
-                Feedback.Text = $"❌ Sai rồi! Đáp án đúng là {(char)('A' + question.CorrectIndex)}.";
+                GameState.AddCoins(-2);
+                var correctOption = (char)('A' + question.CorrectIndex);
+                Feedback.Text = $"❌ Sai rồi! Đáp án đúng là {correctOption}. -2 xu";
                 QuestionHint.Text = question.Explanation;
                 SoundManager.Wrong();
             }

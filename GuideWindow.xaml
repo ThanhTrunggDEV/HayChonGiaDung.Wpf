@@ -166,7 +166,7 @@
                             <Separator Margin="0,12,0,12"/>
                             <TextBlock Text="Vòng Khởi Động" FontSize="18" FontWeight="Bold"/>
                             <TextBlock TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource TextSecondary}">
-                Trả lời tối đa 6 câu trắc nghiệm, mỗi câu đúng nhận +2 xu. Hoàn thành phần hỏi để vào cửa hàng đổi xu lấy thẻ trợ giúp (Gợi ý, Đổi sản phẩm, Nhân đôi) dùng ở các vòng sau.
+                Trả lời tối đa 6 câu trắc nghiệm, mỗi câu đúng nhận +2 xu và trả lời sai bị trừ 2 xu (không âm). Hoàn thành phần hỏi để vào cửa hàng đổi xu lấy thẻ trợ giúp (Gợi ý, Đổi sản phẩm, Nhân đôi) dùng ở các vòng sau.
                             </TextBlock>
 
                             <Separator Margin="0,12,0,12"/>
@@ -231,7 +231,7 @@
                         <StackPanel>
                             <TextBlock Text="Bảng thưởng" FontSize="20" FontWeight="Bold" Margin="0,0,0,6"/>
                             <StackPanel Margin="0,4,0,0">
-                                <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng Khởi Động: mỗi câu đúng +2 xu, dùng để mua thẻ trợ giúp."/>
+                                <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng Khởi Động: mỗi câu đúng +2 xu, trả lời sai -2 xu (tối thiểu 0 xu), dùng để mua thẻ trợ giúp."/>
                                 <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng 1: mỗi lượt đục bảng có thể nhận 0 ₫ đến 5.000.000 ₫ tuỳ ô thưởng mở ra."/>
                                 <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng 2: +1.000.000 ₫ khi đoán đúng giá (nhân đôi nếu kích hoạt thẻ Nhân đôi). Thử thách chọn sản phẩm chỉ thưởng thêm thời gian."/>
                                 <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,6" Text="• Vòng 3: +1.500.000 ₫ nếu tìm đúng sản phẩm sai giá."/>
