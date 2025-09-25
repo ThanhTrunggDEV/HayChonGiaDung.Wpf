@@ -36,7 +36,6 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding Name}" Width="2*" />
                     <DataGridTextColumn Header="Giá (VNĐ)" Binding="{Binding Price}" Width="*" />
-                    <DataGridTextColumn Header="URL ảnh" Binding="{Binding ImageUrl}" Width="2*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
@@ -51,9 +50,6 @@
 
                     <TextBlock Text="Giá (VNĐ)" FontWeight="Bold" />
                     <TextBox Text="{Binding Editor.PriceText, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,12" />
-
-                    <TextBlock Text="Link ảnh" FontWeight="Bold" />
-                    <TextBox Text="{Binding Editor.ImageUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,12" />
 
                     <Button x:Name="UploadButton"
                             Content="Tải ảnh lên"
