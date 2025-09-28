@@ -5,17 +5,16 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace HayChonGiaDung.Wpf
 {
     public partial class AdminWindow : Window, INotifyPropertyChanged
     {
-        private readonly HttpClient _httpClient = new();
-        private const string ImgbbApiKey = "839ae32242c295b951daf8c49c2b7717";
+        private static readonly string ImagesDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Images");
 
         private ObservableCollection<Product> _products = new();
         private Product? _selectedProduct;
@@ -80,12 +79,6 @@ namespace HayChonGiaDung.Wpf
             LoadQuickQuestions();
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            _httpClient.Dispose();
-        }
-
         private void LoadProducts()
         {
             Products = new ObservableCollection<Product>(GameState.Catalog.Select(Clone));
@@ -118,12 +111,6 @@ namespace HayChonGiaDung.Wpf
 
         private async void UploadButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(ImgbbApiKey))
-            {
-                MessageBox.Show(this, "Vui lòng cấu hình API key Imgbb trước khi tải ảnh.", "Thiếu API key", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
             var dialog = new OpenFileDialog
             {
                 Filter = "Ảnh (*.png;*.jpg;*.jpeg;*.gif;*.bmp)|*.png;*.jpg;*.jpeg;*.gif;*.bmp|Tất cả|*.*"
@@ -137,20 +124,13 @@ namespace HayChonGiaDung.Wpf
             try
             {
                 UploadButton.IsEnabled = false;
-                var url = await UploadImageAsync(dialog.FileName);
-                if (!string.IsNullOrEmpty(url))
-                {
-                    Editor.ImageUrl = url;
-                    MessageBox.Show(this, "Đã tải ảnh lên Imgbb thành công!", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show(this, "Không thể lấy được URL ảnh từ Imgbb.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                var fileName = await SaveImageLocallyAsync(dialog.FileName);
+                Editor.SetLocalImage(fileName);
+                MessageBox.Show(this, "Đã lưu ảnh thành công.", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, $"Lỗi khi tải ảnh lên Imgbb: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, $"Lỗi khi lưu ảnh: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -158,30 +138,29 @@ namespace HayChonGiaDung.Wpf
             }
         }
 
-        private async Task<string?> UploadImageAsync(string filePath)
+        private static async Task<string> SaveImageLocallyAsync(string sourcePath)
         {
-            var bytes = await File.ReadAllBytesAsync(filePath);
-            var base64 = Convert.ToBase64String(bytes);
-
-            using var content = new MultipartFormDataContent();
-            content.Add(new StringContent(base64), "image");
-            content.Add(new StringContent(Path.GetFileName(filePath)), "name");
-
-            var response = await _httpClient.PostAsync($"https://api.imgbb.com/1/upload?key={Uri.EscapeDataString(ImgbbApiKey)}", content);
-            if (!response.IsSuccessStatusCode)
+            if (!File.Exists(sourcePath))
             {
-                var error = await response.Content.ReadAsStringAsync();
-                throw new InvalidOperationException($"Imgbb trả về lỗi {(int)response.StatusCode}: {error}");
+                throw new FileNotFoundException("Không tìm thấy file nguồn.", sourcePath);
             }
 
-            await using var stream = await response.Content.ReadAsStreamAsync();
-            using var doc = await JsonDocument.ParseAsync(stream);
-            if (doc.RootElement.TryGetProperty("data", out var data) && data.TryGetProperty("url", out var url))
+            Directory.CreateDirectory(ImagesDirectory);
+
+            var extension = Path.GetExtension(sourcePath);
+            if (string.IsNullOrWhiteSpace(extension))
             {
-                return url.GetString();
+                extension = ".png";
             }
 
-            return null;
+            var fileName = $"{Guid.NewGuid():N}{extension.ToLowerInvariant()}";
+            var destination = Path.Combine(ImagesDirectory, fileName);
+
+            await using var sourceStream = File.OpenRead(sourcePath);
+            await using var destinationStream = File.Create(destination);
+            await sourceStream.CopyToAsync(destinationStream);
+
+            return fileName;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -372,6 +351,8 @@ namespace HayChonGiaDung.Wpf
         private string _name = string.Empty;
         private string _priceText = string.Empty;
         private string? _imageUrl;
+        private string? _imageFileName;
+        private ImageSource? _imagePreview;
         private string? _description;
 
         public string Name
@@ -403,12 +384,40 @@ namespace HayChonGiaDung.Wpf
         public string? ImageUrl
         {
             get => _imageUrl;
-            set
+            private set
             {
                 if (_imageUrl != value)
                 {
                     _imageUrl = value;
                     OnPropertyChanged(nameof(ImageUrl));
+                    UpdatePreview();
+                }
+            }
+        }
+
+        public string? ImageFileName
+        {
+            get => _imageFileName;
+            private set
+            {
+                if (_imageFileName != value)
+                {
+                    _imageFileName = value;
+                    OnPropertyChanged(nameof(ImageFileName));
+                    UpdatePreview();
+                }
+            }
+        }
+
+        public ImageSource? ImagePreview
+        {
+            get => _imagePreview;
+            private set
+            {
+                if (!Equals(_imagePreview, value))
+                {
+                    _imagePreview = value;
+                    OnPropertyChanged(nameof(ImagePreview));
                 }
             }
         }
@@ -435,14 +444,17 @@ namespace HayChonGiaDung.Wpf
                 Name = string.Empty;
                 PriceText = string.Empty;
                 ImageUrl = null;
+                ImageFileName = null;
                 Description = null;
                 return;
             }
 
             Name = product.Name;
             PriceText = product.Price.ToString();
-            ImageUrl = product.ImageUrl ?? product.Image;
+            ImageFileName = string.IsNullOrWhiteSpace(product.Image) ? null : product.Image;
+            ImageUrl = string.IsNullOrWhiteSpace(product.Image) ? product.ImageUrl : null;
             Description = product.Description;
+            UpdatePreview();
         }
 
         public bool TryBuildProduct(out Product product, out string error)
@@ -464,10 +476,85 @@ namespace HayChonGiaDung.Wpf
 
             product.Name = Name.Trim();
             product.Price = price;
-            product.ImageUrl = string.IsNullOrWhiteSpace(ImageUrl) ? null : ImageUrl.Trim();
-            product.Image = null;
+
+            if (!string.IsNullOrWhiteSpace(ImageFileName))
+            {
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Images", ImageFileName);
+                if (!File.Exists(path))
+                {
+                    error = "Không tìm thấy ảnh trong thư mục Assets/Images. Vui lòng chọn lại.";
+                    return false;
+                }
+
+                product.Image = ImageFileName;
+                product.ImageUrl = null;
+            }
+            else
+            {
+                product.Image = null;
+                product.ImageUrl = string.IsNullOrWhiteSpace(ImageUrl) ? null : ImageUrl.Trim();
+            }
+
             product.Description = string.IsNullOrWhiteSpace(Description) ? null : Description.Trim();
             return true;
+        }
+
+        public void SetLocalImage(string? fileName)
+        {
+            ImageFileName = fileName;
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                ImageUrl = null;
+            }
+        }
+
+        private void UpdatePreview()
+        {
+            ImagePreview = CreateImageSource(ImageFileName, ImageUrl);
+        }
+
+        private static ImageSource? CreateImageSource(string? fileName, string? imageUrl)
+        {
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Images", fileName);
+                if (File.Exists(path))
+                {
+                    return LoadBitmap(new Uri(path));
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(imageUrl) && Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
+            {
+                try
+                {
+                    return LoadBitmap(new Uri(imageUrl));
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
+        private static ImageSource? LoadBitmap(Uri uri)
+        {
+            try
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.UriSource = uri;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                return bitmap;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private void OnPropertyChanged(string propertyName)
