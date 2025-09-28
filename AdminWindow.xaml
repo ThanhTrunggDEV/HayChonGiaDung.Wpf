@@ -103,7 +103,7 @@
 
                             <TextBlock Text="Xem trước ảnh" FontWeight="Bold" />
                             <Border BorderThickness="1" BorderBrush="#2C3A63" Height="180" Margin="0,4,0,16">
-                                <Image Source="{Binding Editor.ImageUrl}" Stretch="Uniform" />
+                                <Image Source="{Binding Editor.ImagePreview}" Stretch="Uniform" />
                             </Border>
 
                             <StackPanel Orientation="Horizontal">
